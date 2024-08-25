@@ -38,6 +38,8 @@
         "stylelint.packageManager": "yarn",
         "stylelint.validate": ["css"],
         "cSpell.words": [
+            "drummeo",
+            "firestore"
         ]
     },
 
