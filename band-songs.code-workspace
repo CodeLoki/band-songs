@@ -1,0 +1,51 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+
+    "settings": {
+        "search.exclude": {
+            "**/dist": true,
+            "**/node_modules": true
+        },
+
+        "[handlebars]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.formatOnSave": true
+        },
+        "[json]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.formatOnSave": true
+        },
+        "[typescript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.formatOnSave": true
+        },
+        "[javascript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.formatOnSave": true
+        },
+        "[css]": {
+            "editor.codeActionsOnSave": {
+                "source.fixAll.stylelint": "explicit"
+            }
+        },
+
+        "css.validate": false,
+        "scss.validate": false,
+        "stylelint.packageManager": "yarn",
+        "stylelint.validate": ["css"],
+        "cSpell.words": [
+        ]
+    },
+
+    "extensions": {
+        "recommendations": [
+            "dbaeumer.vscode-eslint",
+            "stylelint.vscode-stylelint",
+            "esbenp.prettier-vscode"
+        ]
+    }
+}
