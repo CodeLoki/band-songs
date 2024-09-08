@@ -24,6 +24,22 @@
             >
                 Songs
             </EuiHeaderLink>
+
+            {{!-- {{#if this.firestore.user}}
+                <EuiHeaderLink
+                    @iconType="exit"
+                    {{on "click" this.firestore.logout}}
+                >
+                    Logout
+                </EuiHeaderLink>
+            {{else}}
+                <EuiHeaderLink
+                    @iconType="push"
+                    {{on "click" this.firestore.login}}
+                >
+                    Login
+                </EuiHeaderLink>
+            {{/if}} --}}
         </EuiHeaderLinks>
     </EuiHeaderSectionItem>
 </EuiHeader>

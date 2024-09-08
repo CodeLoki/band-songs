@@ -115,12 +115,14 @@
     {{/if}}
 {{else}}
     {{#in-element (get-header-links)}}
-        <EuiHeaderLink
-            @iconType="documentEdit"
-            {{on "click" (fn (mut this.isEditMode) true)}}
-        >
-            Edit
-        </EuiHeaderLink>
+        {{#if (is-authenticated)}}
+            <EuiHeaderLink
+                @iconType="documentEdit"
+                {{on "click" (fn (mut this.isEditMode) true)}}
+            >
+                Edit
+            </EuiHeaderLink>
+        {{/if}}
     {{/in-element}}
 
     <EuiFlexGrid @columns={{2}} @responsive={{true}}>

@@ -1,17 +1,22 @@
 {{page-title "Edit Song"}}
 
 {{#in-element (get-header-links)}}
-    <EuiHeaderLink @iconType="save" {{on "click" this.save}}>
-        Save
-    </EuiHeaderLink>
-    {{#if @model}}
-        <EuiHeaderLink @iconType="eraser" {{on "click" this.toggleDeleteModal}}>
-            Delete
+    {{#if (is-authenticated)}}
+        <EuiHeaderLink @iconType="save" {{on "click" this.save}}>
+            Save
+        </EuiHeaderLink>
+        {{#if @model}}
+            <EuiHeaderLink
+                @iconType="eraser"
+                {{on "click" this.toggleDeleteModal}}
+            >
+                Delete
+            </EuiHeaderLink>
+        {{/if}}
+        <EuiHeaderLink @iconType="cross" @href="/songs">
+            Cancel
         </EuiHeaderLink>
     {{/if}}
-    <EuiHeaderLink @iconType="cross" @href="/songs">
-        Cancel
-    </EuiHeaderLink>
 {{/in-element}}
 
 <EuiForm>

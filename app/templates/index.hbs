@@ -13,7 +13,9 @@
 </EuiFlexGrid>
 
 {{#in-element (get-header-links)}}
-    <EuiHeaderLink @href="/gigs/new" @iconType="createAdvancedJob">
-        Add
-    </EuiHeaderLink>
+    {{#if (is-authenticated)}}
+        <EuiHeaderLink @href="/gigs/new" @iconType="createAdvancedJob">
+            Add
+        </EuiHeaderLink>
+    {{/if}}
 {{/in-element}}

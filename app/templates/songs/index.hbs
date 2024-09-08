@@ -5,15 +5,17 @@
 </EuiText>
 
 {{#in-element (get-header-links)}}
-    <EuiSwitch
-        @label="Edit Mode"
-        @checked={{this.isEditMode}}
-        @onChange={{this.toggleEditMode}}
-    />
+    {{#if (is-authenticated)}}
+        <EuiSwitch
+            @label="Edit Mode"
+            @checked={{this.isEditMode}}
+            @onChange={{this.toggleEditMode}}
+        />
 
-    <EuiHeaderLink @href="/songs/new" @iconType="createAdvancedJob">
-        Add
-    </EuiHeaderLink>
+        <EuiHeaderLink @href="/songs/new" @iconType="createAdvancedJob">
+            Add
+        </EuiHeaderLink>
+    {{/if}}
 {{/in-element}}
 
 <EuiSpacer @size="l" />
