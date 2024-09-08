@@ -1,0 +1,19 @@
+<EuiText @grow={{false}}>
+    <h2>Gigs</h2>
+</EuiText>
+
+<EuiSpacer @size="l" />
+
+<EuiFlexGrid @columns={{3}} @responsive={{true}}>
+    {{#each @model as |gig|}}
+        <EuiFlexItem>
+            <Gig @gig={{gig}} />
+        </EuiFlexItem>
+    {{/each}}
+</EuiFlexGrid>
+
+{{#in-element (get-header-links)}}
+    <EuiHeaderLink @href="/gigs/new" @iconType="createAdvancedJob">
+        Add
+    </EuiHeaderLink>
+{{/in-element}}

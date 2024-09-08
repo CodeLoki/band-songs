@@ -1,0 +1,27 @@
+{{page-title "All Songs"}}
+
+<EuiText @grow={{false}}>
+    <h2>All Songs</h2>
+</EuiText>
+
+{{#in-element (get-header-links)}}
+    <EuiSwitch
+        @label="Edit Mode"
+        @checked={{this.isEditMode}}
+        @onChange={{this.toggleEditMode}}
+    />
+
+    <EuiHeaderLink @href="/songs/new" @iconType="createAdvancedJob">
+        Add
+    </EuiHeaderLink>
+{{/in-element}}
+
+<EuiSpacer @size="l" />
+
+<EuiFlexGrid @columns={{3}} @responsive={{true}}>
+    {{#each this.songs as |song|}}
+        <EuiFlexItem>
+            <Song @song={{song}} @isEditMode={{this.isEditMode}} />
+        </EuiFlexItem>
+    {{/each}}
+</EuiFlexGrid>

@@ -1,0 +1,151 @@
+{{page-title this.title}}
+
+<EuiTitle @size="l">
+    <h2>{{this.title}}</h2>
+</EuiTitle>
+
+<EuiSpacer @size="l" />
+
+{{#if this.showEdit}}
+    {{#in-element (get-header-links)}}
+        <EuiHeaderLink
+            @iconType="save"
+            @isDisabled={{this.disableSave}}
+            {{on "click" this.saveGig}}
+        >
+            Save
+        </EuiHeaderLink>
+        {{#if @model.gig}}
+            <EuiHeaderLink
+                @iconType="eraser"
+                {{on "click" this.toggleDeleteModal}}
+            >
+                Delete
+            </EuiHeaderLink>
+        {{/if}}
+
+        <EuiHeaderLink @iconType="cross" {{on "click" this.cancel}}>
+            Cancel
+        </EuiHeaderLink>
+    {{/in-element}}
+
+    <EuiForm>
+        <EuiFlexGroup @direction="column" @gutterSize="l">
+            <EuiFlexItem>
+                <EuiFormControlLayout class="form-control">
+                    <:prepend as |classes|>
+                        <EuiFormLabel for="txtDate" class={{classes}}>
+                            Date
+                        </EuiFormLabel>
+                    </:prepend>
+                    <:field>
+                        <input
+                            type="date"
+                            class="euiFieldText euiFieldText--inGroup"
+                            id="txtDate"
+                            value={{this.formattedDate}}
+                            {{on "change" this.updateDate}}
+                        />
+                    </:field>
+                </EuiFormControlLayout>
+            </EuiFlexItem>
+
+            <EuiFlexItem>
+                <EuiFormControlLayout class="form-control">
+                    <:prepend as |classes|>
+                        <EuiFormLabel for="selVenue" class={{classes}}>
+                            Venue
+                        </EuiFormLabel>
+                    </:prepend>
+                    <:field>
+                        <EuiSelect
+                            @value={{this.venue}}
+                            @options={{this.venues}}
+                            @hasNoInitialSelection={{not @model.gig}}
+                            {{on "change" this.updateVenue}}
+                        />
+                    </:field>
+                </EuiFormControlLayout>
+            </EuiFlexItem>
+
+            <EuiFlexItem>
+                <SongBasket
+                    @set="one"
+                    @selectedSongs={{this.one}}
+                    @allSongs={{this.availableSongs}}
+                    @addSong={{this.addSong}}
+                    @moveSong={{this.moveSong}}
+                    @removeSong={{this.removeSong}}
+                    @clearAll={{this.clearAll}}
+                />
+            </EuiFlexItem>
+
+            <EuiFlexItem>
+                <SongBasket
+                    @set="two"
+                    @selectedSongs={{this.two}}
+                    @allSongs={{this.availableSongs}}
+                    @addSong={{this.addSong}}
+                    @moveSong={{this.moveSong}}
+                    @removeSong={{this.removeSong}}
+                    @clearAll={{this.clearAll}}
+                />
+            </EuiFlexItem>
+
+            <EuiFlexItem>
+                <SongBasket
+                    @set="pocket"
+                    @selectedSongs={{this.pocket}}
+                    @allSongs={{this.availableSongs}}
+                    @addSong={{this.addSong}}
+                    @moveSong={{this.moveSong}}
+                    @removeSong={{this.removeSong}}
+                    @clearAll={{this.clearAll}}
+                />
+            </EuiFlexItem>
+        </EuiFlexGroup>
+    </EuiForm>
+
+    {{#if this.showDeleteModal}}
+        <DeleteModal
+            @title={{this.title}}
+            @toggleDeleteModal={{this.toggleDeleteModal}}
+            @delete={{this.delete}}
+        />
+    {{/if}}
+{{else}}
+    {{#in-element (get-header-links)}}
+        <EuiHeaderLink
+            @iconType="documentEdit"
+            {{on "click" (fn (mut this.isEditMode) true)}}
+        >
+            Edit
+        </EuiHeaderLink>
+    {{/in-element}}
+
+    <EuiFlexGrid @columns={{2}} @responsive={{true}}>
+        <EuiFlexItem>
+            <SetList
+                @gig={{@model.gig}}
+                @songs={{@model.one}}
+                @title="Set One"
+            />
+        </EuiFlexItem>
+        <EuiFlexItem>
+            <SetList
+                @gig={{@model.gig}}
+                @songs={{@model.two}}
+                @title="Set Two"
+            />
+        </EuiFlexItem>
+        {{#if @model.pocket}}
+            <EuiFlexItem>
+                <SetList
+                    @gig={{@model.gig}}
+                    @songs={{@model.pocket}}
+                    @title="Pocket"
+                />
+            </EuiFlexItem>
+        {{/if}}
+    </EuiFlexGrid>
+{{/if}}

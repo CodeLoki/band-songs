@@ -1,0 +1,11 @@
+<EuiTitle @size="s">
+    <h5>{{@title}} ({{this.setLength}})</h5>
+</EuiTitle>
+
+<EuiFlexGrid @columns={{1}}>
+    {{#each @songs as |song|}}
+        <EuiFlexItem>
+            <Song @song={{song}} />
+        </EuiFlexItem>
+    {{/each}}
+</EuiFlexGrid>

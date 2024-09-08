@@ -14,22 +14,6 @@ enum StartsWith {
     Trumpet
 }
 
-const startsWithMap = new Map<StartsWith, string>([
-    [StartsWith.All, 'Drums count in'],
-    [StartsWith.RhythmGuitar, 'Rhythm guitar'],
-    [StartsWith.Drums, 'Drums'],
-    [StartsWith.DrumsAndKeys, 'Drums and keys'],
-    [StartsWith.LeadGuitar, 'Lead guitar'],
-    [StartsWith.LeadAndVocals, 'Lead guitar and vocals'],
-    [StartsWith.DrumsAndBass, 'Drums and bass'],
-    [StartsWith.DrumsAndGuitar, 'Drums and guitar'],
-    [StartsWith.Bass, 'Bass'],
-    [StartsWith.Guitars, 'Guitars'],
-    [StartsWith.Vocals, 'Vocals'],
-    [StartsWith.Keys, 'Keys'],
-    [StartsWith.Trumpet, 'Trumpet']
-]);
-
 export enum DrumPad {
     None = -1,
     Cowbell,
@@ -38,15 +22,6 @@ export enum DrumPad {
     BellTree,
     China
 }
-
-const DrumPadMap = new Map<DrumPad, string>([
-    [DrumPad.None, 'None'],
-    [DrumPad.Cowbell, 'Cowbell (#641)'],
-    [DrumPad.Claps, 'Claps (#800)'],
-    [DrumPad.Tambourine, 'Tambourine (#727)'],
-    [DrumPad.BellTree, 'Tree chime (#631)'],
-    [DrumPad.China, 'China Crash']
-]);
 
 export type Song = {
     artist: string;
@@ -58,106 +33,105 @@ export type Song = {
     pad?: DrumPad;
 };
 
-enum Foo {}
-
 export enum SongNames {
-    AboutAGirl,
-    Good,
-    LearnToFly,
-    Flagpole,
-    Plush,
-    Alive,
-    BallAndChain,
-    Banditos,
-    Creep,
-    Dancing,
-    December,
-    Sandman,
-    Everlong,
-    Godzilla,
-    HardToHandle,
-    HeyHey,
-    HeyYa,
-    HonkyTonk,
-    IWillFollow,
-    InsideOut,
-    IntoYourArms,
-    JealousAgain,
-    Jenny,
-    JustLikeHeaven,
-    LonelyBoy,
-    Malibu,
-    MaryJane,
-    WorstEnemy,
-    Peaches,
-    Possum,
-    PrettyInPink,
-    RadioFree,
-    Sanctuary,
-    Shine,
-    ShouldIStay,
-    Song2,
-    StacysMom,
-    Middle,
-    Train,
-    Vertigo,
-    Wanted,
-    Werewolves,
-    WhatILike,
-    ShookMe,
-    AmericanGirl,
-    BackDown,
-    RunningDown,
-    YouDontKnow,
-    YouWreckMe,
-    HashPipe,
-    IslandInSun,
-    SayItAintSo,
-    Galway,
-    SnowDay,
-    SaveIt,
-    ThreeAM,
-    BadLuck,
-    Birthday,
-    Boulevard,
-    ClosingTime,
-    Rockville,
-    FloatOn,
-    GetOffThis,
-    Holiday,
-    IGotYou,
-    IWillSurvive,
-    JessiesGirl,
-    JustWhatINeeded,
-    KeepYourHands,
-    Laid,
-    LearningToFly,
-    LongWayToTheTop,
-    NeverLetYouGo,
-    PumpItUp,
-    RaspberryBeret,
-    RockInFreeWorld,
-    ShortSkirt,
-    SteadyAsSheGoes,
-    StuckInMiddle,
-    TalkDirty,
-    TeenAngst,
-    OldApartment,
-    ThereSheGoes,
-    Whiskey,
-    WhatchaWant,
-    WhatsUp,
-    Lips,
-    Jealousy,
-    MustangSally,
-    BloodySunday,
-    Linger,
-    RingOfFire,
-    DontChange,
-    Jumper,
-    SoLonely,
-    SweetHome,
-    Cryin
+    ThreeAm = 'j8yerF895U1c3emLxTC3',
+    AboutAGirl = 'xNxsZBFG01nApypAeUMS',
+    Alive = 'WXYO7ulD5e05FRgEyMQ1',
+    AmericanGirl = 'cgAnNVyMZ4L3Os7NiEgR',
+    BadLuck = 'RTTo3CbX25NArkYLJdUh',
+    BallChain = 'g0DxICThf2LY8LaDhbm0',
+    Banditos = '15lM4hURODPzNHSdBkAm',
+    Birthday = 'MZ6lzWxvuOrkSp9HNUwZ',
+    BoulevardOfBrokenDreams = 'RltKvbVrdyMeC2I3hvaP',
+    ClosingTime = 'JOCtJYruYNoPcSEFwHNP',
+    Creep = '5NIgEKD3I3OHIb5731nj',
+    Cryin = 'oVCud0v6S7yYGTa81lKq',
+    DancingWithMyself = 'HiBdjUoT5MWpPNSZ4ayk',
+    December = 'FRnvC1RqPXQsqW2lOzRQ',
+    DontChange = 'b6bZvVDBVzHmxvo9VSlu',
+    DontGoBackToRockville = 'Q9lzgEnwesJKS7m8Ghip',
+    EnterSandman = 'vk2uTTQadNJbHupGB3gC',
+    Everlong = 'ygRI8N1bF1ediMQrF5qC',
+    FlagpoleSitter = 'aNe9IQMtjtGC9xjemBEq',
+    FloatOn = '0DA2VOOoBTKNmBVbkULX',
+    GalwayGirl = '17yJ99awE2yRakS77hcS',
+    GetOffThis = '2fmKSAJSQVSGZ27oHEjz',
+    Godzilla = 'f53Ryw2whDkLxzL96u0Z',
+    Good = 'FOmqBZcMP3xCE4JjAAHs',
+    HardToHandle = 'qoKh6i7Rx44rRQmaFC0D',
+    HashPipe = 'qY9zx3OOf1YVYVW8MeOl',
+    HeyHeyWhatCanIDo = 'ZqoKUOTmwgUmWNCpFIjs',
+    HeyJealousy = 'hc4ZyG2Tp7BND19uDdEo',
+    HeyYa = 'mwo2imUh2XqUQ2Vyc50i',
+    Holiday = 'EdenmM9y4rDCBgsTMT29',
+    HonkyTonkWoman = 'bea1nwQcNtWlAVp5Hn4g',
+    IGotYou = 'UtWW4hW2Ns9YRrOHDhdC',
+    IWillFollow = 'OwQQiLvJAvSe3XIReweY',
+    IWillSurvive = 'MXGaPBkBvJXsDCfuRndh',
+    IWontBackDown = 'vI1UTVdRWlYukJsmDPwM',
+    InsideOut = 'PRuymiIxV28fOrlqbTCZ',
+    IntoYourArms = 'mrdfhUBgdwUdylLjvhTd',
+    IslandInTheSun = 'GOnQBOBo6GB3thbsdGi0',
+    JealousAgain = '6GxBCyPOIZB7avSwBhpX',
+    Jenny8675309 = 'IrvkfRJ0BLQHeZXJ5Ae9',
+    JessiesGirl = 'F4lyHfzQUyDOZIrHBmjk',
+    Jumper = '9EsjwyUSQrZqscCSyzup',
+    JustLikeHeaven = 'ZubsNIEQQJ5IOv3bwgUz',
+    JustWhatINeeded = '9Aho5pofSoHMISkRVUYZ',
+    KeepOnRockinInTheFreeWorld = 'vhRT2uHJBoIdfpE4ix6A',
+    KeepYourHandsToYourself = 'KxLvuz4VZicnoNtvTh8A',
+    Laid = 'gEAX4xguSYXii6G6GrU4',
+    LearnToFly = '6fv0rWUJNxYq3EwZpk4S',
+    LearningToFly = 'LUZH6kKd698y3zVYeCT7',
+    Linger = '5Qpz6MXWrp4hg947vhRa',
+    LipsLikeSugar = 'yB03VfgeJWFKXJj4Q5my',
+    LonelyBoy = 'KXZYtgN5oPik5JHTEPiX',
+    LongWayToTheTop = 'Yeny3VEXgiU5qnK4uVUj',
+    Malibu = 'heHQc4susSXKQGFRZUtr',
+    MaryJanesLastDance = 'ZknudyfwwsY4RZI1Ll9j',
+    MustangSally = 'MX1KprJxdAQYZ8as4faJ',
+    MyOwnWorstEnemy = '1KZFDYoyGO3G8m5YXzuf',
+    NeverLetYouGo = 'A40uVJMPyN2zXOEdxB4q',
+    Peaches = 'Q15lwAXVRNlab4i3phPZ',
+    Plush = 'ktZ9gJEoyrZlzlq68GGc',
+    PossumKingdom = 'kNPllOVztroEeYrbgKj9',
+    PrettyInPink = 'z002g7lExwoNvIhEmfTE',
+    PumpItUp = '5DldO4t2Ld7MXUi4CDtz',
+    RadioFreeEurope = 'nxnNnZY0hbKmKuIM4ZjD',
+    RaspberryBeret = 'TyQEUxthq4acGMQmUbtt',
+    RingOfFire = 'JeXmL2njh1itf0nrfd3x',
+    RunningDownADream = 'SdVDLFa09fgZGW2WKmLI',
+    SaveItForLater = 'uwfltyf1KppXDQ8nddDy',
+    SayItAintSo = '9NDnGJh939m45hrOqnLg',
+    SheSellsSanctuary = 'f4C69Eo60lj2k5jSaPzX',
+    Shine = 'v61sbtJ9R2nX9ccSTSaM',
+    ShortSkirtLongJacket = 'Ar1mEx8HDggkX5uBMEkG',
+    ShouldIStayOrShouldIGo = 'r9EtSZnbEVxGzYsI7DM6',
+    SnowDay = 'jZ4g4VqdQ8a5srIXF2Of',
+    SoLonely = 'swZknOTEqJ51K7lUweB6',
+    SoWhatchaWant = 'XHdUseiHgIhkGNh8TKl8',
+    Song2 = 'uaS3N3Mjg6VyGr1H1uMt',
+    StacysMom = 'k3DiH9Lw1v48vcW8l4t5',
+    SteadyAsSheGoes = '6wACShUAxMzZ1aFettWl',
+    StuckInTheMiddleWithYou = 'rLqHBSvI3QIGQRsixFEU',
+    SundayBloodySunday = '62wpujVdoiNKE39U7Hi8',
+    SweetHomeAlabama = 'obyt4ljansYL54FVc7hg',
+    TalkDirtyToMe = '5b4dIrS1WvqwmyOL83Ep',
+    TeenAngst = '5osi0AKsYEXulbyrRoPb',
+    TheMiddle = 'mELVfGdWNzhgVOtaZrer',
+    TheOldApartment = 'ufwCzYwv7u7sM59NZ2xT',
+    ThereSheGoes = 'wU7bH7yq9l4WdsBREANF',
+    TrainInVain = 'XOJUalSC9tqMkLrzMi59',
+    Vertigo = 'dFOOIDE4R1ddLMAzSbgs',
+    WantedDeadOrAlive = 'djO1RzR8AoLMS9kWHffi',
+    WerewolvesOfLondon = 'rdgEZSMkP3N0nAYd1gwU',
+    WhatILikeAboutYou = 'nf1Q1UJG2LQQyLApohg4',
+    WhatsUp = 'cumhLWPECMSUorsiOv9e',
+    WhiskeyInTheJar = 'IzRMdEyUC3MSRHsl7rLk',
+    YouDontKnowHowItFeels = 'AFLHHrpnS636VQi4K8wh',
+    YouShookMeAllNightLong = 'm1oSJqy92hUTZjCwdUdp',
+    YouWreckMe = 'RQtzddnBXP0blmrd2RoJ',
+    ThreeStrangeDays = 'Y1Ruisr4wD7tjyxItJLy'
 }
 
 const AllSongs = new Map<SongNames, Song>();
@@ -190,7 +164,7 @@ fn(SongNames.LearnToFly, {
     pad: DrumPad.Tambourine
 });
 
-fn(SongNames.Flagpole, {
+fn(SongNames.FlagpoleSitter, {
     artist: 'Harvey Danger',
     title: 'Flagpole Sitter',
     startsWith: StartsWith.All,
@@ -216,7 +190,7 @@ fn(SongNames.Alive, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Alive&Author=Pearl%20Jam&Tempo=76&Measures=8&H=|c-o-o-o-o-o-o-o-|o-o-o-o-o-o-o-o-|c-x-x-o-x-x-x-x-|x-x-x-o-x-x-x-x-|crrrrrrrrrrrrrrr|rrrrrrrrrrrrrrrr|o-o-o-o-o-o-o-o-|o-o-o-o-o-o-o-o-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|O--O--O--O----O-|O--O--O--O----O-|&K=|o--o--o---oo---o|o--o--o---oo---o|o--o--o---oo---o|o--o--o---oo---o|o-o----oo-o----o|o-o----oo-o----o|-oo----oo---o--o|-oo----oo---o--o|'
 });
 
-fn(SongNames.BallAndChain, {
+fn(SongNames.BallChain, {
     artist: 'Social Distortion',
     title: 'Ball & Chain',
     startsWith: StartsWith.RhythmGuitar,
@@ -240,7 +214,7 @@ fn(SongNames.Creep, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Creep&Author=Radiohead&Tempo=92&Measures=10&H=|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-o-|c-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-c-|----------------|r-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|--O-O-----O-O---|O---O---OOOO----|----------------|----------------|----x-------x---|----x-------x---|&K=|o------oo-o---o-|o------oo-o-----|o------oo-o---o-|o------oo-o---o-|o-----o-o-------|----------------|o-------------o-|o-------------o-|o------oo-o---o-|o------oo-o---o-|&T1=|----------------|----------------|----------------|----------------|----------------|-o----o-----oooo|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.Dancing, {
+fn(SongNames.DancingWithMyself, {
     artist: 'Generation X',
     title: 'Dancing With Myself',
     startsWith: StartsWith.Drums,
@@ -256,7 +230,7 @@ fn(SongNames.December, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=December&Author=Collective%20Soul&Tempo=122&Measures=8&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|----------------|----------------|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O-------O---|----O-------O---|----------------|----------------|----------------|------------O---|----O-------O---|----O-------O---|&K=|o-------o-------|o-------o-----o-|----------------|----------------|o-------------o-|o---------------|o-------------o-|o-------------o-|&T1=|----------------|----------------|----o-----o-o---|----o-----o-o---|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|------o-o-------|------o-o-----o-|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.Sandman, {
+fn(SongNames.EnterSandman, {
     artist: 'Metallica',
     title: 'Enter Sandman',
     startsWith: StartsWith.DrumsAndGuitar,
@@ -281,7 +255,7 @@ fn(SongNames.Godzilla, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Godzilla&Author=Blue%20Oyster%20Cult&Tempo=92&Measures=8&H=|----------------|----------------|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|c-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----------------|----------OOOOOO|----O-------O---|----O--g-g--O---|----O-------O---|----O-------O---|----O----g--O---|----O----g--O---|&K=|o---o---o---o---|o---o---o---o---|o-------o-o-----|o-o-----o-o-----|o-o-----o-o-----|o-o-----o-o-----|o---------o-----|o-o-------o-----|'
 });
 
-fn(SongNames.HeyHey, {
+fn(SongNames.HeyHeyWhatCanIDo, {
     artist: 'Led Zepplin',
     title: 'Hey, Hey, What Can I Do?',
     startsWith: StartsWith.LeadGuitar,
@@ -297,7 +271,7 @@ fn(SongNames.HeyYa, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Hey%20Ya!&Author=OutKast&Tempo=160&Measures=4&H=|x---x---x---x---|x---x---x---x---|----------------|----------------|&S=|----O-------O---|----O-------O---|----f-------f---|----f-------f---|&K=|o-----o---o-----|o-----o---o-----|o-----o---o-----|o-----o---o-----|'
 });
 
-fn(SongNames.HonkyTonk, {
+fn(SongNames.HonkyTonkWoman, {
     artist: 'The Rolling Stones',
     title: 'Honky Tonk Woman',
     startsWith: StartsWith.Drums,
@@ -338,7 +312,7 @@ fn(SongNames.JealousAgain, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Jealous%20Again&Author=Black%20Crowes&Tempo=114&Measures=10&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|c-x-x-x-x-x-x-x-|x-x-x-c-x-x-x-c-|x-x-x-c-x-x-x-c-|x-x-x-x-x-x-x-x-|x---x---x---x---|x---x---x---x---|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------f---|----------------|----O-----------|----O-------O---|----O-------O---|&K=|o-----o-o-------|o-----o-o-------|o-------o-o-----|o-o---o---o---o-|--o---o---o---o-|--o-----o-o---o-|o-------------o-|o-------------o-|o-------o-------|o-------o-------|'
 });
 
-fn(SongNames.Jenny, {
+fn(SongNames.Jenny8675309, {
     artist: 'Tommy Tutone',
     title: 'Jenny (867-5309)',
     startsWith: StartsWith.LeadGuitar,
@@ -370,7 +344,7 @@ fn(SongNames.Malibu, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Malibu&Author=Hole&Tempo=122&Measures=10&H=|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|----c-r-r-r-r-c-|r-r-r-r-r-r-r-r-|c-r-r-r-r-r-r-c-|r-r-r-r-r-r-r-r-|x-x-x-x-x-x---x-|x-x-x-x-x-x---x-|&S=|----O-------O---|----O-------O---|----O-------O---|----O--OO---O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-----------|----O-----------|&K=|o-------o-o---o-|--o-----o-o---o-|o-------o-o---o-|--o-------------|o-o-----o-o---o-|--o-----o-o---o-|o-------o-o---o-|--o-----o-o---o-|o-------o-o---o-|o-------o-o---o-|&T1=|----------------|----------------|----------------|----------o-----|----------------|----------------|----------------|----------------|------------o---|------------o---|&T4=|----------------|----------------|----------------|--------------o-|----------------|----------------|----------------|----------------|------------o---|------------o---|'
 });
 
-fn(SongNames.MaryJane, {
+fn(SongNames.MaryJanesLastDance, {
     artist: 'Tom Petty',
     title: 'Mary Janes Last Dance',
     startsWith: StartsWith.LeadGuitar,
@@ -378,7 +352,7 @@ fn(SongNames.MaryJane, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Mary%20Jane%27s%20Last%20Dance&Author=Tom%20Petty&Tempo=85&Measures=2&H=|o-x-x-x-x-o-x-x-|o-x-x-x-x-o-x-x-|&S=|----O-------O---|----O-------O---|&K=|o-------o-o-----|o-------o-o-----|'
 });
 
-fn(SongNames.WorstEnemy, {
+fn(SongNames.MyOwnWorstEnemy, {
     artist: 'Lit',
     title: 'My Own Worst Enemy',
     startsWith: StartsWith.LeadGuitar,
@@ -394,7 +368,7 @@ fn(SongNames.Peaches, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Peaches&Author=Presidents%20of%20the%20United%20States&Tempo=94&Measures=6&H=|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O--O----O--O|----O--O----O--O|----O-------O---|----O-------O---|----O-------O-b-|----O-------O-b-|&K=|o-oo----o-oo----|o-oo----o-oo----|o-o----o--o-----|o-o----o--o-----|o-o---o-o-o-----|o-o---o-o-o-----|'
 });
 
-fn(SongNames.Possum, {
+fn(SongNames.PossumKingdom, {
     artist: 'The Toadies',
     title: 'Possum Kingdom',
     startsWith: StartsWith.RhythmGuitar,
@@ -410,7 +384,7 @@ fn(SongNames.PrettyInPink, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Pretty%20in%20Pink&Author=The%20Psychedelic%20Furs&Tempo=136&Measures=6&H=|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|----------------|----------------|----------------|c---------------|&S=|----O-------O---|----O-------O---|----f-----------|----f-----------|f---f---f-------|----------------|&K=|o-------o-o-----|o-------o-o-----|o-----o-o-------|o-----o-o-------|--o---o---o-----|----------------|&T1=|----------------|----------------|------------o---|------------o---|------------o---|----------------|&T4=|----------------|----------------|------------o---|------------o---|------------o---|----------------|'
 });
 
-fn(SongNames.RadioFree, {
+fn(SongNames.RadioFreeEurope, {
     artist: 'REM',
     title: 'Radio Free Europe',
     startsWith: StartsWith.Drums,
@@ -418,7 +392,7 @@ fn(SongNames.RadioFree, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Radio%20Free%20Europe&Author=REM&Tempo=155&Measures=10&H=|x---x---x---c---|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-o-x-o-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-b-x-x-|x-x-x-x-x-b-x-x-|&S=|O---O---O---O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|--O-O---O---O-O-|----O-------O---|----O-------O---|----O-------O---|----O-------O---|&K=|o---o---o---o---|o-------o-------|o-------o-------|o-------o-------|o-------o-------|o-------o-------|o-------o-o-----|o-------o-o-----|o-----o---o-----|o-----o---o-----|&T1=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.Sanctuary, {
+fn(SongNames.SheSellsSanctuary, {
     artist: 'Cult',
     title: 'She Sells Sanctuary',
     startsWith: StartsWith.LeadGuitar,
@@ -434,7 +408,7 @@ fn(SongNames.Shine, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Shine&Author=Collective%20Soul&Tempo=150&Measures=10&H=|x---x---x---x---|x---x---x---x---|x---x---x---x---|x---x---x---x---|x---x---x---x---|x---x---x-------|x---x---x---x---|x---x---x---c---|c---r---r---r---|r---r---r---r---|&S=|--------O-------|--------O-------|--------O-------|--------O---O---|--------O-------|----O---O-------|--------O-------|----O---O-------|--------O-------|--------O-------|&K=|o-------------o-|--o-------------|o-------------o-|--o-------------|o-------------o-|----------------|o-------------o-|------------o---|o-------------o-|--------------o-|'
 });
 
-fn(SongNames.ShouldIStay, {
+fn(SongNames.ShouldIStayOrShouldIGo, {
     artist: 'The Clash',
     title: 'Should I Stay, or Should I Go?',
     startsWith: StartsWith.LeadGuitar,
@@ -459,7 +433,7 @@ fn(SongNames.StacysMom, {
     pad: DrumPad.Claps
 });
 
-fn(SongNames.Middle, {
+fn(SongNames.TheMiddle, {
     artist: 'Jimmy Eat World',
     title: 'The Middle',
     startsWith: StartsWith.LeadGuitar,
@@ -467,7 +441,7 @@ fn(SongNames.Middle, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=The%20Middle&Author=Jimmy%20Eat%20World&Tempo=162&Measures=10&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x---|----c-x-x-x-x-x-|x-x-x-x-x-x-x---|----c-x-x-x-x-x-|x-x-x-x-x-x-x---|----c-------c---|----c-----------|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-----O-O-O-|&K=|o-------o-------|o-------o-----o-|o-------o-------|o-------o-------|o-------o-----o-|--o-----o-o-----|o-o-----o-----o-|--o-----o-o-----|o-o-----o-o-----|o-o-----o-------|&T1=|----------------|----------------|----------------|--------------oo|----------------|--------------oo|----------------|--------------oo|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.Train, {
+fn(SongNames.TrainInVain, {
     artist: 'The Clash',
     title: 'Train in Vain',
     startsWith: StartsWith.Drums,
@@ -483,7 +457,7 @@ fn(SongNames.Vertigo, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Vertigo&Author=U2&Tempo=140&Measures=8&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-o-|----------------|----------------|c-x-x-x-x-x-x-c-|x-x-x-x-x-x-x-x-|o-o-o-o-o-o-o-o-|o-o-o-o-o-o-o-o-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O-O-|----O-------O---|----O-------O---|O-----O-----O---|--O-----O---O---|&K=|o-------o-o-----|o-------o-o-----|o-----o-o-------|o-----o-o-------|o-------o-o---o-|--o-----o-o---o-|o-o-o-o-o-o-o-o-|o-o-o-o-o-o-o-o-|&T1=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|o-o-o-o-o-o-o-o-|o-o-o-o-o-o-o-o-|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.Wanted, {
+fn(SongNames.WantedDeadOrAlive, {
     artist: 'Bon Jovi',
     title: 'Wanted, Dead or Alive',
     startsWith: StartsWith.DrumsAndKeys,
@@ -492,7 +466,7 @@ fn(SongNames.Wanted, {
     pad: DrumPad.BellTree
 });
 
-fn(SongNames.Werewolves, {
+fn(SongNames.WerewolvesOfLondon, {
     artist: 'Warren Zevon',
     title: 'Werewolves of London',
     startsWith: StartsWith.Drums,
@@ -500,7 +474,7 @@ fn(SongNames.Werewolves, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Werewolves%20of%20London&Author=Warren%20Zevon&Tempo=104&Measures=4&H=|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|&K=|o-------o-----o-|o-----o---o---o-|o-o-----o-o-----|o-o-----o-o-----|&T1=|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.WhatILike, {
+fn(SongNames.WhatILikeAboutYou, {
     artist: 'The Romantics',
     title: 'What I Like About You',
     startsWith: StartsWith.LeadGuitar,
@@ -509,7 +483,7 @@ fn(SongNames.WhatILike, {
     pad: DrumPad.Claps
 });
 
-fn(SongNames.ShookMe, {
+fn(SongNames.YouShookMeAllNightLong, {
     artist: 'AC/DC',
     title: 'You Shook Me All Night Long',
     startsWith: StartsWith.LeadGuitar,
@@ -525,7 +499,7 @@ fn(SongNames.AmericanGirl, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=American%20Girl&Author=Tom%20Petty&Tempo=114&Measures=4&H=|x-x-x-x-x-x-o-x-|x-x-x-x-x-x-o-x-|x-x-x-x-x-o-x-x-|x-x-x-x-x-o-x-x-|&S=|--O---O---O---O-|--O---O---O---O-|------------O---|------------O---|&K=|o--o-o------o---|o--o-o------o---|o--o--o---------|o--o--o---------|'
 });
 
-fn(SongNames.BackDown, {
+fn(SongNames.IWontBackDown, {
     artist: 'Tom Petty',
     title: "I Won't Back Down",
     startsWith: StartsWith.All,
@@ -533,7 +507,7 @@ fn(SongNames.BackDown, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=I%20Won%27t%20Back%20Down&Author=Tom%20Petty&Tempo=114&Measures=4&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-c-x-x-x-|&S=|----O-------O---|----O-------O---|----O-------O---|O-O-O-O-----O---|&K=|o-------o-------|o-------o-------|o-------o-------|o-o-o-o-o-------|&T1=|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.RunningDown, {
+fn(SongNames.RunningDownADream, {
     artist: 'Tom Petty',
     title: 'Running Down a Dream',
     startsWith: StartsWith.LeadGuitar,
@@ -541,7 +515,7 @@ fn(SongNames.RunningDown, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Running%20Down%20a%20Dream&Author=Tom%20Petty&Tempo=168&Measures=4&H=|x---x---x---x---|x---x---x---x---|x---x---x---x---|x---x---x---x---|&S=|----O-------O---|----O-------O---|O-----O-----O---|--O-----O---O-O-|&K=|o-------o-------|o-------o-------|----o-----o-----|o-----o---------|&T1=|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.YouDontKnow, {
+fn(SongNames.YouDontKnowHowItFeels, {
     artist: 'Tom Petty',
     title: "You Don't Know How it Feels",
     startsWith: StartsWith.All,
@@ -565,7 +539,7 @@ fn(SongNames.HashPipe, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Hash%20Pipe&Author=Weezer&Tempo=126&Measures=10&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-o-|c---c---c---c---|c---c---c---c---|c---c---c---c---|c---c---c---c---|c---c---x---x---|x---x---x---x---|r-r-r-r-r-r-r-r-|r-r-r-r-r-r-r---|&S=|----O-------O---|----O-------O---|----O---O-O-----|--O-----O---O---|----O--O----O--O|----O--O----O--O|----O---O---O---|O---O---O---O---|----O--o-o--O---|----O--O-O--O---|&K=|o-o-----o-o-----|o-o-----o-o-----|o-o---------o-o-|----o-o---------|o-o-----o-o-----|o-o-----o-o-----|o-o---o---o---o-|--o---o---o---o-|o-o-----o-o-----|o-o-----o-o-----|&T1=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|--------------oo|&T4=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.IslandInSun, {
+fn(SongNames.IslandInTheSun, {
     artist: 'Weezer',
     title: 'Island in the Sun',
     startsWith: StartsWith.Bass,
@@ -581,7 +555,7 @@ fn(SongNames.SayItAintSo, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Say%20It%20Ain%27t%20So&Author=Weezer&Tempo=77&Measures=10&H=|r---r---r---r---|r---r---r---r---|c-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|r-r-r-c---------|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----------------|----------------|----O-------O---|----O-------O---|----O-------O---|----O-----------|----O-------O---|----O-------O---|----O-------O---|----O-------O---|&K=|----------------|----------------|o-----o---o-----|o-----o---o-----|o-----o---o-----|o-----o---------|o-----o---o-----|o-----o---o-----|o-----o---o-----|o-----o---o-----|&T1=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.Galway, {
+fn(SongNames.GalwayGirl, {
     artist: 'Steve Earle',
     title: 'Galway Girl',
     startsWith: StartsWith.Guitars,
@@ -595,14 +569,14 @@ fn(SongNames.SnowDay, {
     length: 240
 });
 
-fn(SongNames.SaveIt, {
+fn(SongNames.SaveItForLater, {
     artist: 'English Beat',
     title: 'Save it for Later',
     startsWith: StartsWith.LeadGuitar,
     length: 214
 });
 
-fn(SongNames.ThreeAM, {
+fn(SongNames.ThreeAm, {
     artist: 'Matchbox 20',
     title: '3AM',
     startsWith: StartsWith.RhythmGuitar,
@@ -626,7 +600,7 @@ fn(SongNames.Birthday, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Birthday&Author=The%20Beatles&Tempo=139&Measures=4&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O-------O---|O---O---O---O---|O---O---O---O---|O-O-O-O-O-O-O-O-|&K=|o-------o-o-----|o---o---o---o---|o-o-o-o-o-o-o-o-|o-o-o-o-o-o-o-o-|'
 });
 
-fn(SongNames.Boulevard, {
+fn(SongNames.BoulevardOfBrokenDreams, {
     artist: 'Greenday',
     title: 'Boulevard of Broken Dreams',
     startsWith: StartsWith.Drums,
@@ -642,7 +616,7 @@ fn(SongNames.ClosingTime, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Closing%20Time&Author=Semisonic&Tempo=92&Measures=6&H=|c-x-x-x-x-o-x-x-|c-x-x-x-x-o-x-x-|c-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-o-|&S=|----O--g-g--O---|----O--g-g--O---|----O--g-g--O---|----O--g-g--O---|----x-------x---|----x-------x---|&K=|o---------o-----|o---------o-----|o---------o-----|o---------o-----|o--o--o--oo---o-|o--o--o--oo---o-|'
 });
 
-fn(SongNames.Rockville, {
+fn(SongNames.DontGoBackToRockville, {
     artist: 'REM',
     title: "Don't go back to Rockville",
     startsWith: StartsWith.Drums,
@@ -706,7 +680,7 @@ fn(SongNames.JustWhatINeeded, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Just%20What%20I%20Needed&Author=The%20Cars&Tempo=127&Measures=8&H=|----------------|----------------|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|c-x-x-c-x-x-x-x-|c-x-x-c-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----f-------f---|----f-------f---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|O-------O-------|O-------O---O---|&K=|----------------|----------------|o-o-----o-o-----|o-o-----o-o-----|o-o---o-------o-|o-----o-------o-|--o-o-o---o-o-o-|--o-o-o---o-o-o-|'
 });
 
-fn(SongNames.KeepYourHands, {
+fn(SongNames.KeepYourHandsToYourself, {
     artist: 'The Georgia Satellites',
     title: 'Keep Your Hands to Yourself',
     startsWith: StartsWith.LeadGuitar,
@@ -762,7 +736,7 @@ fn(SongNames.RaspberryBeret, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Raspberry%20Beret&Author=Hindu%20Love%20Gods&Tempo=125&Measures=10&H=|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|o-o-o-o-o-o-o-o-|o-o-o-o-o-o-o-o-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-c-x-c-x-|c-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O-------O---|----O-------O---|O---O---O---O---|O---O---O---O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|&K=|o-------o-o-----|o-------o-o-----|o---------o---o-|o---------o---o-|o-------o-o-----|o-------o-o-----|o-------o-o-----|o-------o-o-----|o-----o-o-------|o-----o-o-------|'
 });
 
-fn(SongNames.RockInFreeWorld, {
+fn(SongNames.KeepOnRockinInTheFreeWorld, {
     artist: 'Neil Young',
     title: "Keep on Rockin' in the Free World",
     startsWith: StartsWith.All,
@@ -770,7 +744,7 @@ fn(SongNames.RockInFreeWorld, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Rockin%27%20in%20the%20Free%20World&Author=Neil%20Young&Tempo=132&Measures=10&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|r-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-r-|r-r-r-r-r-r-r-c-|c-r-r-r-r-r-r-r-|r-r-r-r-r-r-r---|----------------|----------------|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-----O-O---|----------------|----------------|&K=|o-------o-o-----|o-------o-o-----|o---o---o---o---|o---o---o---o---|o---o---o---o---|o---o---o---o---|o---o---o---o---|o---o---o---o---|----------------|----------------|&T1=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.ShortSkirt, {
+fn(SongNames.ShortSkirtLongJacket, {
     artist: 'Cake',
     title: 'Short Skirt / Long Jacket',
     startsWith: StartsWith.Trumpet,
@@ -786,7 +760,7 @@ fn(SongNames.SteadyAsSheGoes, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Steady%20as%20She%20Goes&Author=The%20Raconteurs&Tempo=124&Measures=10&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-o-x-|x-x-x-x-x-x-o-x-|c---c---c---c---|c---c---c---c---|&S=|----O-------O---|----O-------O---|----------------|----------------|----O-------O---|----O-------O---|----O-----O-----|----O-----O-----|----O--g----O---|----O--g----O---|&K=|----------------|----------------|o-----o-o-----o-|o-----o-o---o---|o-----o-o-----o-|o-----o-o---o---|o-----o-o-----o-|o-----o-o-----o-|o-------o-o---o-|o-------o-o-----|'
 });
 
-fn(SongNames.StuckInMiddle, {
+fn(SongNames.StuckInTheMiddleWithYou, {
     artist: 'Steelers Wheel',
     title: 'Stuck in the Middle With You',
     startsWith: StartsWith.RhythmGuitar,
@@ -795,7 +769,7 @@ fn(SongNames.StuckInMiddle, {
     pad: DrumPad.Cowbell
 });
 
-fn(SongNames.TalkDirty, {
+fn(SongNames.TalkDirtyToMe, {
     artist: 'Poison',
     title: 'Talk Dirty to Me',
     startsWith: StartsWith.LeadGuitar,
@@ -811,7 +785,7 @@ fn(SongNames.TeenAngst, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Teen%20Angst&Author=Cracker&Tempo=157&Measures=4&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-----O-O-O-|&K=|o-------o-o-----|o-------o-o-----|o-------o-o-----|o-------o-------|'
 });
 
-fn(SongNames.OldApartment, {
+fn(SongNames.TheOldApartment, {
     artist: 'Barenaked Ladies',
     title: 'The Old Apartment',
     startsWith: StartsWith.All,
@@ -827,7 +801,7 @@ fn(SongNames.ThereSheGoes, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=There%20She%20Goes&Author=The%20La%27s&Tempo=123&Measures=6&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-o-|x-x-x-x-x-x-x-o-|&S=|----O-O-----O---|----O-O-----O---|----O-O-----O---|--O-O-O-O-O-O-O-|----O-------O---|----O-------O---|&K=|o-------o-----o-|o-------o-----o-|o-------o-----o-|--o-o-o-o-o-o-o-|o-----o-o-------|o-----o-o-------|&T1=|----------------|----------------|----------------|----------------|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|----------------|----------------|'
 });
 
-fn(SongNames.Whiskey, {
+fn(SongNames.WhiskeyInTheJar, {
     artist: 'Metallica',
     title: 'Whiskey in the Jar',
     startsWith: StartsWith.RhythmGuitar,
@@ -835,7 +809,7 @@ fn(SongNames.Whiskey, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Whiskey%20in%20the%20Jar&Author=Metallica&Tempo=133&Measures=7&H=|c-o-o-o-o-o-o-o-|o-o-o-o-o-o-o-o-|c---o-o-o-o-o-o-|--o---o---o-----|o-o-o-o-o-o-c---|o-o-o-o-o-o-c---|--------c---c---|&S=|----O-------O---|----O-------O---|----O-O-----O---|----------------|------------O---|------------O---|O---O-----------|&K=|o-------o-------|o-------o-----o-|o-------o-----o-|--o---o---o---o-|o-o-----o-o-----|o-o-----o-o-----|--o---o-o---o---|&T1=|----------------|----------------|----------------|----------------|----o-o---------|----------------|----------------|&T4=|----------------|----------------|----------------|----------------|----------------|----o-o---------|----------------|'
 });
 
-fn(SongNames.WhatchaWant, {
+fn(SongNames.SoWhatchaWant, {
     artist: 'The Record Company',
     title: "So What'cha Want",
     startsWith: StartsWith.RhythmGuitar,
@@ -851,7 +825,7 @@ fn(SongNames.WhatsUp, {
     groove: `https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=What's%20Up&Author=4%20Non%20Blondes&Tempo=67&Measures=4&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|c-rrrrrrrrrrrrrr|rrrrrrrrrrrrrrrr|&S=|----x-------x---|----x-------x---|----O-------O---|----O-------O---|&K=|o--o---oo--o---o|o--o---oo--o---o|o-o----oo-oo---o|o-o----oo-oo---o|`
 });
 
-fn(SongNames.Lips, {
+fn(SongNames.LipsLikeSugar, {
     artist: 'Echo and the Bunnymen',
     title: 'Lips Like Sugar',
     startsWith: StartsWith.DrumsAndGuitar,
@@ -860,7 +834,7 @@ fn(SongNames.Lips, {
     pad: DrumPad.BellTree
 });
 
-fn(SongNames.Jealousy, {
+fn(SongNames.HeyJealousy, {
     artist: 'Gin Blossoms',
     title: 'Hey Jealousy',
     startsWith: StartsWith.Bass,
@@ -876,7 +850,7 @@ fn(SongNames.MustangSally, {
     groove: `https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=Mustang%20Sally&Author=Wilson%20Pickett&Tempo=110&Measures=4&MetronomeFreq=4&H=|x-x-x-x-x-o-x-x-|x-x-x-x-x-o-x-x-|x-x-x-x-x-o-x-x-|x-x-x-x-x-o-x-x-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|&K=|o-------o-o-----|o---------o-----|o---------o-----|o-o-------o---o-|`
 });
 
-fn(SongNames.BloodySunday, {
+fn(SongNames.SundayBloodySunday, {
     artist: 'U2',
     title: 'Sunday, Bloody Sunday',
     startsWith: StartsWith.Drums,
@@ -932,7 +906,7 @@ fn(SongNames.SoLonely, {
     groove: 'https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Title=So%20Lonely&Author=The%20Police&Tempo=154&Measures=6&H=%7Cx-x-x-x-x-x-x-x-%7Cx-x-x-x-x-x-x-x-%7Cx-x-x-x-x-x-x-x-%7Cx-x-x-x-x-x-c---%7Cc-r-r-r-r-r-r-r-%7C--c-------c-----%7C&S=%7C--------O-------%7C--------O-------%7C--------O-------%7C--O-----O---O---%7C----O-------O---%7CO-------f-------%7C&K=%7Co-------------o-%7Co-------------o-%7Co-------------o-%7Co---o-------o---%7Co-o---o-o-o---o-%7C--o---o---o---o-%7C&T1=%7C----------------%7C----------------%7C----------------%7C----------------%7C----------------%7C----------------%7C&T4=%7C----------------%7C----------------%7C----------------%7C----------------%7C----------------%7C----------------%7C'
 });
 
-fn(SongNames.SweetHome, {
+fn(SongNames.SweetHomeAlabama, {
     artist: 'Lynyrd Skynyrd',
     title: 'Sweet Home Alabama',
     startsWith: StartsWith.RhythmGuitar,

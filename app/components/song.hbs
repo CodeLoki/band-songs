@@ -1,0 +1,21 @@
+<EuiCard
+    @title={{this.data.title}}
+    @description={{this.data.artist}}
+    @href={{this.href}}
+>
+    <:body>
+        {{#if this.notes}}
+            <EuiPanel @paddingSize="m" @hasShadow={{false}}>
+                <EuiBadgeGroup @gutterSize="xs" as |Group|>
+                    {{#each this.notes as |note|}}
+                        <Group.item>
+                            <EuiBadge @iconType={{note.icon}} @color="primary">
+                                {{note.text}}
+                            </EuiBadge>
+                        </Group.item>
+                    {{/each}}
+                </EuiBadgeGroup>
+            </EuiPanel>
+        {{/if}}
+    </:body>
+</EuiCard>

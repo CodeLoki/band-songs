@@ -1,0 +1,74 @@
+<EuiTitle @size="s">
+    <h5>{{this.setListTitle}}</h5>
+</EuiTitle>
+
+<EuiFlexGroup>
+    <EuiFlexItem>
+        <EuiPanel @hasBorder={{true}}>
+            <EuiBadgeGroup @gutterSize="xs" as |Group|>
+                {{#each @allSongs as |song|}}
+                    <Group.item>
+                        <EuiBadge
+                            @color="#666"
+                            @onClick={{fn @addSong song @set}}
+                        >
+                            {{this.getTitle song}}
+                        </EuiBadge>
+                    </Group.item>
+                {{/each}}
+            </EuiBadgeGroup>
+        </EuiPanel>
+    </EuiFlexItem>
+    <EuiFlexItem>
+        <EuiPanel @paddingSize="s" @hasBorder={{true}}>
+            <EuiBadgeGroup @gutterSize="xs" as |Group|>
+                {{#each @selectedSongs as |song|}}
+                    <Group.item>
+                        <EuiBadge
+                            @color={{if
+                                (eq song this.selectedSong)
+                                "primary"
+                                "hollow"
+                            }}
+                            @onClick={{fn this.selectSong song}}
+                        >
+                            {{this.getTitle song}}
+                        </EuiBadge>
+                    </Group.item>
+                {{/each}}
+            </EuiBadgeGroup>
+        </EuiPanel>
+    </EuiFlexItem>
+    <EuiFlexItem @grow={{false}}>
+        <EuiFlexGroup @direction="column" @gutterSize="m">
+            <EuiButtonIcon
+                @iconType="arrowUp"
+                @isDisabled={{not this.enableArrowUp}}
+                @size="m"
+                aria-label="Move up"
+                {{on "click" (fn this.moveSong -1)}}
+            />
+            <EuiButtonIcon
+                @iconType="arrowDown"
+                @isDisabled={{not this.enableArrowDown}}
+                @size="m"
+                aria-label="Move down"
+                {{on "click" (fn this.moveSong 1)}}
+            />
+            <EuiButtonIcon
+                @iconType="cross"
+                @isDisabled={{not this.selectedSong}}
+                @size="m"
+                aria-label="Remove song"
+                {{on "click" this.removeSong}}
+            />
+            <EuiSpacer />
+            <EuiButtonIcon
+                @iconType="trash"
+                @size="m"
+                aria-label="Clear all"
+                {{on "click" (fn @clearAll @set)}}
+            />
+        </EuiFlexGroup>
+    </EuiFlexItem>
+</EuiFlexGroup>

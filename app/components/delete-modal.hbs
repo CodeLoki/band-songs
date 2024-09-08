@@ -1,0 +1,20 @@
+<EuiModal ...attributes>
+    <EuiModalHeader>
+        <EuiTitle @size="m">
+            Delete
+        </EuiTitle>
+    </EuiModalHeader>
+    <EuiModalBody>
+        <EuiText>
+            <p>Are you sure you want to delete "{{@title}}"?</p>
+        </EuiText>
+    </EuiModalBody>
+    <EuiModalFooter>
+        <EuiButton {{on "click" @toggleDeleteModal}}>
+            Cancel
+        </EuiButton>
+        <EuiButton @color="danger" @fill={{true}} {{on "click" @delete}}>
+            Delete
+        </EuiButton>
+    </EuiModalFooter>
+</EuiModal>

@@ -4,3 +4,31 @@ body {
     font-size: 14px;
     padding: 8px;
 }
+
+main {
+    margin-top: 48px;
+    padding: 16px;
+}
+
+.form-control + .form-control {
+    margin-top: 8px;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.euiFormLabel {
+    width: 150px;
+}
+
+input[type="date"] {
+    color-scheme: dark;
+}
+
+.progress-indicator {
+    inset: 25%;
+    position: absolute;
+}
+
+#header-links {
+    border-right: 2px groove #333;
+    padding-right: 16px;
+}

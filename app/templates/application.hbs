@@ -1,5 +1,38 @@
+<EuiHeader @position="fixed">
+    <EuiHeaderSectionItem @border="right">
+        <EuiHeaderLogo>Band Songs</EuiHeaderLogo>
+    </EuiHeaderSectionItem>
+
+    <EuiHeaderSectionItem @border="none">
+        <EuiHeaderLinks>
+            <EuiHeaderSectionItem @border="right">
+                <div id="header-links" />
+            </EuiHeaderSectionItem>
+
+            <EuiHeaderLink
+                @href="/"
+                @isSelected={{eq "/" this.router.currentRouteName}}
+                @iconType="graphApp"
+            >
+                Gigs
+            </EuiHeaderLink>
+
+            <EuiHeaderLink
+                @href="/songs"
+                @isSelected={{eq "/songs" this.router.currentRouteName}}
+                @iconType="discoverApp"
+            >
+                Songs
+            </EuiHeaderLink>
+        </EuiHeaderLinks>
+    </EuiHeaderSectionItem>
+</EuiHeader>
+
+<main>
+    {{outlet}}
+</main>
+
 {{page-title "Band Songs"}}
 
-<h1>Band Songs</h1>
-
-{{outlet}}
+{{! @glint-expect-error - `toasts` seems to be required }}
+<EuiGlobalToastList @toastLifeTimeMs={{4500}} />

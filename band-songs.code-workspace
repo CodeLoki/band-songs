@@ -39,7 +39,8 @@
         "stylelint.validate": ["css"],
         "cSpell.words": [
             "drummeo",
-            "firestore"
+            "firestore",
+            "Setlist"
         ]
     },
 

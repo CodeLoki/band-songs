@@ -1,0 +1,153 @@
+{{page-title "Edit Song"}}
+
+{{#in-element (get-header-links)}}
+    <EuiHeaderLink @iconType="save" {{on "click" this.save}}>
+        Save
+    </EuiHeaderLink>
+    {{#if @model}}
+        <EuiHeaderLink @iconType="eraser" {{on "click" this.toggleDeleteModal}}>
+            Delete
+        </EuiHeaderLink>
+    {{/if}}
+    <EuiHeaderLink @iconType="cross" @href="/songs">
+        Cancel
+    </EuiHeaderLink>
+{{/in-element}}
+
+<EuiForm>
+    <EuiFlexGroup @direction="column" @gutterSize="s">
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="txtTitle" class={{classes}}>
+                        Title
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <input
+                        type="text"
+                        class="euiFieldText euiFieldText--inGroup"
+                        id="txtTitle"
+                        value={{this.title}}
+                        {{on "change" (fn this.updateStringValue "title")}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="txtArtist" class={{classes}}>
+                        Artist
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <input
+                        type="text"
+                        class="euiFieldText euiFieldText--inGroup"
+                        id="txtArtist"
+                        value={{this.artist}}
+                        {{on "change" (fn this.updateStringValue "artist")}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="txtLength" class={{classes}}>
+                        Length
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <input
+                        type="number"
+                        class="euiFieldText euiFieldText--inGroup"
+                        id="txtLength"
+                        value={{this.length}}
+                        {{on "change" (fn this.updateNumberValue "length")}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="selStartsWith" class={{classes}}>
+                        Starts With
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <EuiSelect
+                        @value={{this.startsWith}}
+                        @options={{this.startsWithOptions}}
+                        id="selStartsWith"
+                        {{on "change" this.updateStartsWith}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="txtGroove" class={{classes}}>
+                        GrooveScribe
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <EuiTextArea
+                        @value={{this.groove}}
+                        rows={{5}}
+                        id="txtGroove"
+                        {{on "change" (fn this.updateStringValue "groove")}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="txtNotes" class={{classes}}>
+                        Notes
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <input
+                        type="tet"
+                        class="euiFieldText euiFieldText--inGroup"
+                        id="txtNotes"
+                        value={{this.notes}}
+                        {{on "change" (fn this.updateStringValue "notes")}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="selTrigger" class={{classes}}>
+                        Percussion trigger
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <EuiSelect
+                        @value={{this.pad}}
+                        @options={{this.padOptions}}
+                        id="selTrigger"
+                        {{on "change" this.updatePad}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+    </EuiFlexGroup>
+</EuiForm>
+
+{{#if this.showDeleteModal}}
+    <DeleteModal
+        @title={{this.title}}
+        @toggleDeleteModal={{this.toggleDeleteModal}}
+        @delete={{this.delete}}
+    />
+{{/if}}
