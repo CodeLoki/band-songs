@@ -6,6 +6,7 @@ module.exports = function (environment) {
         environment,
         rootURL: '/',
         locationType: 'history',
+        firebaseApiKey: process.env.FIREBASE_API_KEY,
         EmberENV: {
             EXTEND_PROTOTYPES: false,
             FEATURES: {

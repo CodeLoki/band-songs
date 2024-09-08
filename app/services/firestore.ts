@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import ENV from 'band-songs/config/environment';
 
 import type Owner from '@ember/owner';
 
@@ -11,7 +12,7 @@ export default class FirestoreService extends Service {
         super(owner);
 
         const app = initializeApp({
-            apiKey: 'AIzaSyDwM6boz8brLJte7j5vwwO4ropUwV07qBU',
+            apiKey: ENV.firebaseApiKey,
             authDomain: 'band-songs-ccb11.firebaseapp.com',
             projectId: 'band-songs-ccb11',
             storageBucket: 'band-songs-ccb11.appspot.com',

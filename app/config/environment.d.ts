@@ -8,6 +8,7 @@ declare const config: {
     podModulePrefix: string;
     locationType: 'history' | 'hash' | 'none';
     rootURL: string;
+    firebaseApiKey: string;
     APP: Record<string, unknown>;
 };
 
