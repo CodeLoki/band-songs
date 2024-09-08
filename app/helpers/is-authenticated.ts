@@ -10,7 +10,8 @@ export default class IsAuthenticated extends Helper<IsAuthenticatedSignature> {
     @service declare firestore: ServiceRegistry['firestore'];
 
     compute(): IsAuthenticatedSignature['Return'] {
-        return !!this.firestore.user;
+        return false;
+        // return !!this.firestore.user;
     }
 
     // onNewUser = observer('firestore.user', () => {

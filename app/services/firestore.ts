@@ -4,15 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import ENV from 'band-songs/config/environment';
-import {
-    GoogleAuthProvider,
-    getAuth,
-    signInWithPopup,
-    signOut,
-    setPersistence,
-    browserSessionPersistence,
-    type UserInfo
-} from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, signInWithPopup, browserSessionPersistence, type UserInfo } from 'firebase/auth';
 
 import type Owner from '@ember/owner';
 
@@ -40,6 +32,7 @@ export default class FirestoreService extends Service {
 
     isAuthenticated(): boolean {
         console.log('foo-bar', getAuth(this.app).currentUser);
+
         return !!getAuth(this.app).currentUser;
     }
 
@@ -51,24 +44,27 @@ export default class FirestoreService extends Service {
         return this._user;
     }
 
+    @tracked auth?: ReturnType<typeof getAuth>;
+
     @action logout(): void {
-        signOut(getAuth(this.app));
+        this.auth?.signOut();
         this.user = undefined;
+        this.auth = undefined;
     }
 
     @action async login(): Promise<void> {
         try {
-            const auth = getAuth(this.app);
-            await setPersistence(auth, browserSessionPersistence);
+            this.auth = getAuth(this.app);
+            await (this.auth = getAuth(this.app)).setPersistence(browserSessionPersistence);
 
             const result = await signInWithPopup(getAuth(this.app), new GoogleAuthProvider());
             // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
-            console.log('token', token);
+            // const credential = GoogleAuthProvider.credentialFromResult(result);
+            // const token = credential?.accessToken;
+            // console.log('token', token);
             // The signed-in user info.
             this.user = result.user;
-            console.log('user', this.user);
+            // console.log('user', this.user);
             // IdP data available using getAdditionalUserInfo(result)
             // ...
         } catch (ex) {
