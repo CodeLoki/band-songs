@@ -1,5 +1,5 @@
 <EuiCard
     @title={{this.title}}
     @description={{await this.venue}}
-    @href="/gigs/{{@gig.id}}"
+    @onClick={{go-to "gigs" @gig.id}}
 />

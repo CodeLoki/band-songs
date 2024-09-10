@@ -14,7 +14,10 @@
 
 {{#in-element (get-header-links)}}
     {{#if (is-authenticated)}}
-        <EuiHeaderLink @href="/gigs/new" @iconType="createAdvancedJob">
+        <EuiHeaderLink
+            @iconType="createAdvancedJob"
+            {{on "click" (go-to "gigs" "new")}}
+        >
             Add
         </EuiHeaderLink>
     {{/if}}

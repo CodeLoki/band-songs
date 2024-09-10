@@ -13,7 +13,7 @@
                 Delete
             </EuiHeaderLink>
         {{/if}}
-        <EuiHeaderLink @iconType="cross" @href="/songs">
+        <EuiHeaderLink @iconType="cross" {{on "click" (go-to "songs")}}>
             Cancel
         </EuiHeaderLink>
     {{/if}}

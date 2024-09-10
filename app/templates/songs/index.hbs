@@ -12,7 +12,10 @@
             @onChange={{this.toggleEditMode}}
         />
 
-        <EuiHeaderLink @href="/songs/new" @iconType="createAdvancedJob">
+        <EuiHeaderLink
+            @iconType="createAdvancedJob"
+            {{on "click" (go-to "songs.edit" "new")}}
+        >
             Add
         </EuiHeaderLink>
     {{/if}}

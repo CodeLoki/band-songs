@@ -1,5 +1,7 @@
 import Component from '@glimmer/component';
+import { service, type Registry as ServiceRegistry } from '@ember/service';
 import { startsWithMap, DrumPad, drumPadMap } from 'band-songs/db/songs';
+import { action } from '@ember/object';
 import type { DocumentSnapshot } from 'firebase/firestore';
 import type { Song } from 'band-songs/db/songs';
 
@@ -17,12 +19,10 @@ export interface SongCardSignature {
 }
 
 export default class SongCard extends Component<SongCardSignature> {
+    @service declare router: ServiceRegistry['router'];
+
     get data(): Song {
         return this.args.song.data()!;
-    }
-
-    get href(): string | undefined {
-        return this.args.isEditMode ? `/songs/${this.args.song.id}` : this.data.groove;
     }
 
     get notes(): Note[] {
@@ -45,6 +45,15 @@ export default class SongCard extends Component<SongCardSignature> {
         fnAddNote(startsWithMap.get(startsWith)!);
 
         return results;
+    }
+
+    @action onClick(): void {
+        if (this.args.isEditMode) {
+            this.router.transitionTo('songs.edit', this.args.song.id);
+            return;
+        }
+
+        window.open(this.data.groove);
     }
 }
 

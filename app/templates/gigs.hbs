@@ -8,25 +8,27 @@
 
 {{#if this.showEdit}}
     {{#in-element (get-header-links)}}
-        <EuiHeaderLink
-            @iconType="save"
-            @isDisabled={{this.disableSave}}
-            {{on "click" this.saveGig}}
-        >
-            Save
-        </EuiHeaderLink>
-        {{#if @model.gig}}
+        {{#if (is-authenticated)}}
             <EuiHeaderLink
-                @iconType="eraser"
-                {{on "click" this.toggleDeleteModal}}
+                @iconType="save"
+                @isDisabled={{this.disableSave}}
+                {{on "click" this.saveGig}}
             >
-                Delete
+                Save
+            </EuiHeaderLink>
+            {{#if @model.gig}}
+                <EuiHeaderLink
+                    @iconType="eraser"
+                    {{on "click" this.toggleDeleteModal}}
+                >
+                    Delete
+                </EuiHeaderLink>
+            {{/if}}
+
+            <EuiHeaderLink @iconType="cross" {{on "click" this.cancel}}>
+                Cancel
             </EuiHeaderLink>
         {{/if}}
-
-        <EuiHeaderLink @iconType="cross" {{on "click" this.cancel}}>
-            Cancel
-        </EuiHeaderLink>
     {{/in-element}}
 
     <EuiForm>

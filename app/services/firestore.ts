@@ -4,7 +4,14 @@ import { tracked } from '@glimmer/tracking';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import ENV from 'band-songs/config/environment';
-import { GoogleAuthProvider, getAuth, signInWithPopup, browserSessionPersistence, type UserInfo } from 'firebase/auth';
+import {
+    GoogleAuthProvider,
+    getAuth,
+    signInWithPopup,
+    browserSessionPersistence,
+    onAuthStateChanged,
+    type User
+} from 'firebase/auth';
 
 import type Owner from '@ember/owner';
 
@@ -12,6 +19,7 @@ export default class FirestoreService extends Service {
     db: ReturnType<typeof getFirestore>;
 
     private app?: ReturnType<typeof initializeApp>;
+    auth?: ReturnType<typeof getAuth>;
 
     constructor(owner: Owner) {
         super(owner);
@@ -30,31 +38,26 @@ export default class FirestoreService extends Service {
         this.db = getFirestore(this.app);
     }
 
-    isAuthenticated(): boolean {
-        console.log('foo-bar', getAuth(this.app).currentUser);
-
-        return !!getAuth(this.app).currentUser;
-    }
-
-    @tracked _user?: UserInfo;
-    set user(v: UserInfo | undefined) {
+    @tracked _user: User | null = null;
+    set user(v: User | null) {
         this._user = v;
     }
-    get user(): UserInfo | undefined {
+    get user(): User | null {
         return this._user;
     }
 
-    @tracked auth?: ReturnType<typeof getAuth>;
-
     @action logout(): void {
         this.auth?.signOut();
-        this.user = undefined;
+        this.user = null;
         this.auth = undefined;
     }
 
     @action async login(): Promise<void> {
         try {
             this.auth = getAuth(this.app);
+            onAuthStateChanged(this.auth, (user) => {
+                this.user = user;
+            });
             await (this.auth = getAuth(this.app)).setPersistence(browserSessionPersistence);
 
             const result = await signInWithPopup(getAuth(this.app), new GoogleAuthProvider());
