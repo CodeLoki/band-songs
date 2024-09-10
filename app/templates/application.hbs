@@ -10,7 +10,7 @@
             </EuiHeaderSectionItem>
 
             <EuiHeaderLink
-                @href="/"
+                {{on "click" (go-to "index")}}
                 @isSelected={{eq "/" this.router.currentRouteName}}
                 @iconType="graphApp"
             >
@@ -18,9 +18,9 @@
             </EuiHeaderLink>
 
             <EuiHeaderLink
-                @href="/songs"
                 @isSelected={{eq "/songs" this.router.currentRouteName}}
                 @iconType="discoverApp"
+                {{on "click" (go-to "songs")}}
             >
                 Songs
             </EuiHeaderLink>
