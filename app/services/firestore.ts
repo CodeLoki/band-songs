@@ -1,4 +1,4 @@
-import Service from '@ember/service';
+import Service, { service, type Registry as ServiceRegistry } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { initializeApp } from 'firebase/app';
@@ -16,6 +16,8 @@ import {
 import type Owner from '@ember/owner';
 
 export default class FirestoreService extends Service {
+    @service declare toast: ServiceRegistry['toast'];
+
     db: ReturnType<typeof getFirestore>;
 
     private app?: ReturnType<typeof initializeApp>;
@@ -38,13 +40,7 @@ export default class FirestoreService extends Service {
         this.db = getFirestore(this.app);
     }
 
-    @tracked _user: User | null = null;
-    set user(v: User | null) {
-        this._user = v;
-    }
-    get user(): User | null {
-        return this._user;
-    }
+    @tracked user: User | null = null;
 
     @action logout(): void {
         this.auth?.signOut();
@@ -54,32 +50,16 @@ export default class FirestoreService extends Service {
 
     @action async login(): Promise<void> {
         try {
-            this.auth = getAuth(this.app);
-            onAuthStateChanged(this.auth, (user) => {
+            const auth = (this.auth = getAuth(this.app));
+            onAuthStateChanged(auth, (user) => {
                 this.user = user;
             });
-            await (this.auth = getAuth(this.app)).setPersistence(browserSessionPersistence);
+            await auth.setPersistence(browserSessionPersistence);
 
-            const result = await signInWithPopup(getAuth(this.app), new GoogleAuthProvider());
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            // const credential = GoogleAuthProvider.credentialFromResult(result);
-            // const token = credential?.accessToken;
-            // console.log('token', token);
-            // The signed-in user info.
+            const result = await signInWithPopup(auth, new GoogleAuthProvider());
             this.user = result.user;
-            // console.log('user', this.user);
-            // IdP data available using getAdditionalUserInfo(result)
-            // ...
         } catch (ex) {
-            console.log('error', ex);
-            // // Handle Errors here.
-            // const errorCode = error.code;
-            // const errorMessage = error.message;
-            // // The email of the user's account used.
-            // const email = error.customData.email;
-            // // The AuthCredential type that was used.
-            // const credential = GoogleAuthProvider.credentialFromError(error);
-            // // ...
+            this.toast.showError('authenticating', ex);
         }
     }
 }
