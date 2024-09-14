@@ -5,13 +5,35 @@
 </EuiText>
 
 {{#in-element (get-header-links)}}
-    {{#if (is-authenticated)}}
-        <EuiSwitch
-            @label="Edit Mode"
-            @checked={{this.isEditMode}}
-            @onChange={{this.toggleEditMode}}
-        />
+    <EuiPopover
+        @isOpen={{this.isLaunchSelectorOpen}}
+        @closePopover={{fn (mut this.isLaunchSelectorOpen) false}}
+    >
+        <:button>
+            <EuiHeaderLink
+                @isActive={{this.isLaunchSelectorOpen}}
+                {{on "click" (fn (mut this.isLaunchSelectorOpen) true)}}
+            >
+                Mode
+            </EuiHeaderLink>
+        </:button>
+        <:content>
+            <EuiFlexGroup @direction="column" @gutterSize="xs">
+                {{#each this.modes as |item|}}
+                    <EuiFlexItem @grow={{false}}>
+                        <EuiHeaderLink
+                            @isActive={{eq item.mode this.mode}}
+                            {{on "click" (fn this.changeMode item.mode)}}
+                        >
+                            {{item.text}}
+                        </EuiHeaderLink>
+                    </EuiFlexItem>
+                {{/each}}
+            </EuiFlexGroup>
+        </:content>
+    </EuiPopover>
 
+    {{#if (can-user-edit)}}
         <EuiHeaderLink
             @iconType="createAdvancedJob"
             {{on "click" (go-to "songs.edit" "new")}}
@@ -24,9 +46,9 @@
 <EuiSpacer @size="l" />
 
 <EuiFlexGrid @columns={{3}} @responsive={{true}}>
-    {{#each this.songs as |song|}}
+    {{#each @model as |song|}}
         <EuiFlexItem>
-            <Song @song={{song}} @isEditMode={{this.isEditMode}} />
+            <Song @song={{song}} @mode={{this.mode}} />
         </EuiFlexItem>
     {{/each}}
 </EuiFlexGrid>

@@ -1,20 +1,20 @@
 import Helper from '@ember/component/helper';
 import { service, type Registry as ServiceRegistry } from '@ember/service';
 
-export interface IsAuthenticatedSignature {
+export interface CanUserEditSignature {
     Return: boolean;
 }
 
-export default class IsAuthenticated extends Helper<IsAuthenticatedSignature> {
+export default class CanUserEdit extends Helper<CanUserEditSignature> {
     @service declare firestore: ServiceRegistry['firestore'];
 
-    compute(): IsAuthenticatedSignature['Return'] {
-        return !!this.firestore.user;
+    compute(): CanUserEditSignature['Return'] {
+        return this.firestore.userCanEdit;
     }
 }
 
 declare module '@glint/environment-ember-loose/registry' {
     export default interface Registry {
-        'is-authenticated': typeof IsAuthenticated;
+        'can-user-edit': typeof CanUserEdit;
     }
 }

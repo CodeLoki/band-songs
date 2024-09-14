@@ -10,11 +10,17 @@ type Note = {
     text: string;
 };
 
+export enum LaunchMode {
+    Groove,
+    Drummeo,
+    Lyrics,
+    Edit
+}
+
 export interface SongCardSignature {
-    // The arguments accepted by the component
     Args: {
         song: DocumentSnapshot<Song>;
-        isEditMode?: boolean;
+        mode?: LaunchMode;
     };
 }
 
@@ -48,12 +54,29 @@ export default class SongCard extends Component<SongCardSignature> {
     }
 
     @action onClick(): void {
-        if (this.args.isEditMode) {
+        const { mode } = this.args;
+
+        if (mode === LaunchMode.Edit) {
             this.router.transitionTo('songs.edit', this.args.song.id);
             return;
         }
 
-        window.open(this.data.groove);
+        let url = this.data.groove;
+
+        if (mode === LaunchMode.Lyrics) {
+            console.log('lyrics');
+            return;
+        }
+
+        if (mode === LaunchMode.Drummeo) {
+            url = this.data.drummeo;
+        }
+
+        if (!url) {
+            return;
+        }
+
+        window.open(url);
     }
 }
 

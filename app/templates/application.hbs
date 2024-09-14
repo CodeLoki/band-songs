@@ -1,6 +1,37 @@
 <EuiHeader @position="fixed">
     <EuiHeaderSectionItem @border="right">
-        <EuiHeaderLogo {{on "click" this.authenticate}}>Band Songs</EuiHeaderLogo>
+        {{#if (can-user-edit)}}
+            <EuiPopover
+                @isOpen={{this.bandSelectorOpen}}
+                @closePopover={{fn (mut this.bandSelectorOpen) false}}
+            >
+                <:button>
+                    <EuiHeaderLogo
+                        {{on "click" (fn (mut this.bandSelectorOpen) true)}}
+                    >
+                        {{get-model-data-value @model.band "description"}}
+                    </EuiHeaderLogo>
+                </:button>
+                <:content>
+                    <EuiFlexGroup @direction="column" @gutterSize="xs">
+                        {{#each @model.bands as |band|}}
+                            <EuiFlexItem @grow={{false}}>
+                                <EuiHeaderLink
+                                    @isActive={{eq band @model.band}}
+                                    {{on "click" (fn this.changeBand band)}}
+                                >
+                                    {{get-model-data-value band "description"}}
+                                </EuiHeaderLink>
+                            </EuiFlexItem>
+                        {{/each}}
+                    </EuiFlexGroup>
+                </:content>
+            </EuiPopover>
+        {{else}}
+            <EuiHeaderLogo {{on "click" this.authenticate}}>
+                {{get-model-data-value @model.band "description"}}
+            </EuiHeaderLogo>
+        {{/if}}
     </EuiHeaderSectionItem>
 
     <EuiHeaderSectionItem @border="none">
@@ -10,15 +41,15 @@
             </EuiHeaderSectionItem>
 
             <EuiHeaderLink
-                {{on "click" (go-to "index")}}
-                @isSelected={{eq "/" this.router.currentRouteName}}
+                @isActive={{eq "index" this.router.currentRouteName}}
                 @iconType="graphApp"
+                {{on "click" (go-to "index")}}
             >
                 Gigs
             </EuiHeaderLink>
 
             <EuiHeaderLink
-                @isSelected={{eq "/songs" this.router.currentRouteName}}
+                @isActive={{eq "songs.index" this.router.currentRouteName}}
                 @iconType="discoverApp"
                 {{on "click" (go-to "songs")}}
             >

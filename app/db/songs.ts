@@ -5,8 +5,9 @@ export type Song = {
     title: string;
     length: number;
     startsWith: StartsWith;
-    groove?: string;
-    notes?: string;
+    groove: string;
+    drummeo: string;
+    notes: string;
     pad: DrumPad;
 };
 

@@ -17,11 +17,13 @@ import type Owner from '@ember/owner';
 
 export default class FirestoreService extends Service {
     @service declare toast: ServiceRegistry['toast'];
+    @service declare router: ServiceRegistry['router'];
 
     db: ReturnType<typeof getFirestore>;
 
     private app?: ReturnType<typeof initializeApp>;
     auth?: ReturnType<typeof getAuth>;
+    @tracked user: User | null = null;
 
     constructor(owner: Owner) {
         super(owner);
@@ -40,7 +42,9 @@ export default class FirestoreService extends Service {
         this.db = getFirestore(this.app);
     }
 
-    @tracked user: User | null = null;
+    get userCanEdit(): boolean {
+        return this.user?.uid === 'ZC520skCOzUoJkrRUzHtIcggakm2';
+    }
 
     @action logout(): void {
         this.auth?.signOut();

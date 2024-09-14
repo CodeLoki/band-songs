@@ -1,27 +1,40 @@
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
+import { service, type Registry as ServiceRegistry } from '@ember/service';
 import { action } from '@ember/object';
+import { LaunchMode } from 'band-songs/components/song';
 
-import type { Song } from 'band-songs/db/songs';
 import type Route from 'band-songs/routes/songs/index';
 import type { ModelFrom } from 'band-songs/utils';
-import type { QueryDocumentSnapshot } from 'firebase/firestore';
 
 export default class SongsIndexController extends Controller {
+    @service declare firestore: ServiceRegistry['firestore'];
+
     declare model: ModelFrom<Route>;
 
-    @tracked isEditMode = false;
+    @tracked mode = LaunchMode.Groove;
+    @tracked isLaunchSelectorOpen = false;
 
-    get songs(): QueryDocumentSnapshot<Song>[] {
-        return this.model.docs.sort((a, b) => {
-            const aData = a.data(),
-                bData = b.data();
+    get modes(): { text: string; mode: LaunchMode }[] {
+        const fn = (text: string, mode: LaunchMode) => ({
+                text,
+                mode
+            }),
+            items = [
+                fn('GrooveScribe', LaunchMode.Groove),
+                fn('Drummeo', LaunchMode.Drummeo),
+                fn('Lyrics', LaunchMode.Lyrics)
+            ];
 
-            return aData.title > bData.title ? 1 : -1;
-        });
+        if (this.firestore.userCanEdit) {
+            items.push(fn('Edit', LaunchMode.Edit));
+        }
+
+        return items;
     }
 
-    @action toggleEditMode(evt: Event): void {
-        this.isEditMode = !!(evt.target as HTMLInputElement).checked;
+    @action changeMode(mode: LaunchMode): void {
+        this.isLaunchSelectorOpen = false;
+        this.mode = mode;
     }
 }

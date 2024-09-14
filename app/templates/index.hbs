@@ -13,7 +13,7 @@
 </EuiFlexGrid>
 
 {{#in-element (get-header-links)}}
-    {{#if (is-authenticated)}}
+    {{#if (can-user-edit)}}
         <EuiHeaderLink
             @iconType="createAdvancedJob"
             {{on "click" (go-to "gigs" "new")}}

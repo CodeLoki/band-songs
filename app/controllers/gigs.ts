@@ -23,8 +23,6 @@ const yearFormatter = new Intl.DateTimeFormat('en-US', {
     year: 'numeric'
 });
 
-type VenueItem = { value: string; text: string };
-
 export default class GigsController extends Controller {
     @service declare firestore: ServiceRegistry['firestore'];
     @service declare toast: ServiceRegistry['toast'];
@@ -49,7 +47,7 @@ export default class GigsController extends Controller {
             one: model?.one.slice() ?? [],
             two: model?.two.slice() ?? [],
             pocket: model?.pocket.slice() ?? [],
-            venue: data?.venue.id
+            venue: data?.venue
         });
     }
 
@@ -62,25 +60,17 @@ export default class GigsController extends Controller {
     }
 
     get title(): string {
-        const venue = this.model.venues.find(({ id }) => id === this.venue);
+        const { venue } = this;
         if (!venue) {
             return 'New Gig';
         }
 
-        return `${venue.data().description} - ${GigDateFormatter.format(this.date)}`;
+        return `${venue} - ${GigDateFormatter.format(this.date)}`;
     }
 
     get formattedDate(): string {
         const { date } = this;
         return [yearFormatter, monthFormatter, dayFormatter].map((f) => f.format(date)).join('-');
-    }
-
-    get venues(): VenueItem[] {
-        return this.model.venues.map((d) => ({ value: d.id, text: d.data().description }));
-    }
-
-    get selectedVenue(): VenueItem | undefined {
-        return this.venues.find(({ value }) => value === this.venue);
     }
 
     get availableSongs(): DocumentSnapshot<Song>[] {
@@ -127,8 +117,9 @@ export default class GigsController extends Controller {
             const { gig } = this.model,
                 gnGetSongsRefs = (songs: DocumentSnapshot<Song>[]) => songs.map((s) => s.ref),
                 data = {
+                    band: this.model.band.ref,
                     date: Timestamp.fromDate(this.date),
-                    venue: this.model.venues.find(({ id }) => id === this.venue)?.ref,
+                    venue: this.venue,
                     one: gnGetSongsRefs(this.one),
                     two: gnGetSongsRefs(this.two),
                     pocket: gnGetSongsRefs(this.pocket)

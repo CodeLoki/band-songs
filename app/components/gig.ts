@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { getDoc } from 'firebase/firestore';
 
 import type { Gig } from 'band-songs/db/gigs';
 import type { QueryDocumentSnapshot } from 'firebase/firestore';
@@ -19,13 +18,6 @@ export interface GigSignature {
 export default class GigCard extends Component<GigSignature> {
     get title(): string {
         return GigDateFormatter.format(this.args.gig.data().date.toDate());
-    }
-
-    get venue(): Promise<string> {
-        return (async () => {
-            const venue = await getDoc(this.args.gig.data().venue);
-            return venue.data()?.description ?? '';
-        })();
     }
 }
 

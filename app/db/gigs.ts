@@ -6,7 +6,7 @@ import type { Song } from './songs';
 
 export type Gig = {
     date: Timestamp;
-    venue: DocumentReference<{ description: string }>;
+    venue: string;
     one: DocumentReference<Song>[];
     two: DocumentReference<Song>[];
     pocket: DocumentReference<Song>[];
@@ -21,7 +21,7 @@ export async function seedDb(firestore: FirestoreService) {
             gigData.map(async ({ date, venue, one, two, pocket }) => {
                 const ref = await addDoc(collection(db, 'gigs'), {
                     date: Timestamp.fromDate(date),
-                    venue: doc(db, 'venues', venue),
+                    venue,
                     one: await Promise.all(one.map(fnGetSong)),
                     two: await Promise.all(two.map(fnGetSong)),
                     pocket: await Promise.all(pocket.map(fnGetSong))
@@ -38,7 +38,7 @@ export async function seedDb(firestore: FirestoreService) {
 const gigData = [
     {
         date: new Date('2024-05-04T12:00:00.000Z'),
-        venue: 'JHuzFkEnXbV3vGQzmUtR',
+        venue: 'Solace',
         one: [
             SongNames.HardToHandle,
             SongNames.FloatOn,
@@ -75,7 +75,7 @@ const gigData = [
     },
     {
         date: new Date('2023-12-09T12:00:00.000Z'),
-        venue: 'JHuzFkEnXbV3vGQzmUtR',
+        venue: 'Solace',
         one: [
             SongNames.Shine,
             SongNames.LonelyBoy,
@@ -118,7 +118,7 @@ const gigData = [
     },
     {
         date: new Date('2023-10-27T12:00:00.000Z'),
-        venue: 'xuHe8p3AnSiojk2nZhoI',
+        venue: 'Clare & Dons',
         one: [
             SongNames.AboutAGirl,
             SongNames.Good,
@@ -155,7 +155,7 @@ const gigData = [
     },
     {
         date: new Date('2023-08-19T12:00:00.000Z'),
-        venue: 'JHuzFkEnXbV3vGQzmUtR',
+        venue: 'Solace',
         one: [
             SongNames.AboutAGirl,
             SongNames.RadioFreeEurope,

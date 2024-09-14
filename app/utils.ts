@@ -1,9 +1,27 @@
 import AllSongs, { DrumPad } from 'band-songs/songs';
 import { collection, addDoc } from 'firebase/firestore';
 import { classify } from '@ember/string';
-
+import type { DocumentSnapshot, DocumentData } from 'firebase/firestore';
 import type Route from '@ember/routing/route';
 import type { Registry as ServiceRegistry } from '@ember/service';
+
+export function logError<T extends string>(msg: T, ...args: unknown[]): T {
+    console.error(msg, ...args);
+    return msg;
+}
+
+export function sortBy<T extends DocumentSnapshot>(models: T[], key: keyof DocumentData): T[] {
+    return models.sort((a: T, b: T) => {
+        const aData = a.data(),
+            bData = b.data();
+
+        if (!aData || !bData) {
+            throw logError('[sortBy] Model data not present', models, key);
+        }
+
+        return aData[key] > bData[key] ? 1 : -1;
+    });
+}
 
 export async function createDb(db: ServiceRegistry['firestore']['db']): Promise<void> {
     const enumValues: [string, string][] = [];

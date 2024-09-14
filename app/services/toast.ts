@@ -7,7 +7,8 @@ export default class ToastService extends Service {
 
     showToast(text: string): void {
         this.euiToaster.show({
-            title: text
+            title: text,
+            color: 'primary'
         });
     }
 
@@ -15,7 +16,8 @@ export default class ToastService extends Service {
         this.euiToaster.show({
             title: `Error ${action}`,
             useMarkdownFormat: true,
-            body: `> ${String(ex)}`
+            body: `> ${String(ex)}`,
+            color: 'danger'
         });
     }
 }

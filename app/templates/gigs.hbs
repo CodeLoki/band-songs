@@ -8,7 +8,7 @@
 
 {{#if this.showEdit}}
     {{#in-element (get-header-links)}}
-        {{#if (is-authenticated)}}
+        {{#if (can-user-edit)}}
             <EuiHeaderLink
                 @iconType="save"
                 @isDisabled={{this.disableSave}}
@@ -55,15 +55,16 @@
             <EuiFlexItem>
                 <EuiFormControlLayout class="form-control">
                     <:prepend as |classes|>
-                        <EuiFormLabel for="selVenue" class={{classes}}>
+                        <EuiFormLabel for="txtVenue" class={{classes}}>
                             Venue
                         </EuiFormLabel>
                     </:prepend>
                     <:field>
-                        <EuiSelect
-                            @value={{this.venue}}
-                            @options={{this.venues}}
-                            @hasNoInitialSelection={{not @model.gig}}
+                        <input
+                            type="text"
+                            class="euiFieldText euiFieldText--inGroup"
+                            id="txtVenue"
+                            value={{this.venue}}
                             {{on "change" this.updateVenue}}
                         />
                     </:field>
@@ -117,7 +118,7 @@
     {{/if}}
 {{else}}
     {{#in-element (get-header-links)}}
-        {{#if (is-authenticated)}}
+        {{#if (can-user-edit)}}
             <EuiHeaderLink
                 @iconType="documentEdit"
                 {{on "click" (fn (mut this.isEditMode) true)}}
