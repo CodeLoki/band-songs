@@ -12,7 +12,7 @@ type Note = {
 
 export enum LaunchMode {
     Groove,
-    Drummeo,
+    Drumeo,
     Lyrics,
     Edit
 }
@@ -68,8 +68,8 @@ export default class SongCard extends Component<SongCardSignature> {
             return;
         }
 
-        if (mode === LaunchMode.Drummeo) {
-            url = this.data.drummeo;
+        if (mode === LaunchMode.Drumeo) {
+            url = this.data.drumeo;
         }
 
         if (!url) {

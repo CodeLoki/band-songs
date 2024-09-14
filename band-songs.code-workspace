@@ -38,7 +38,7 @@
         "stylelint.packageManager": "yarn",
         "stylelint.validate": ["css"],
         "cSpell.words": [
-            "drummeo",
+            "drumeo",
             "firestore",
             "Setlist"
         ]

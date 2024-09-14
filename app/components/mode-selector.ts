@@ -14,7 +14,7 @@ export interface ModeSelectorSignature {
 
 const iconMap = {
     [LaunchMode.Groove]: 'flag',
-    [LaunchMode.Drummeo]: 'function',
+    [LaunchMode.Drumeo]: 'function',
     [LaunchMode.Lyrics]: 'discuss',
     [LaunchMode.Edit]: 'documentEdit'
 };
@@ -36,7 +36,7 @@ export default class ModeSelector extends Component<ModeSelectorSignature> {
             }),
             items = [
                 fn('GrooveScribe', LaunchMode.Groove),
-                fn('Drummeo', LaunchMode.Drummeo),
+                fn('Drumeo', LaunchMode.Drumeo),
                 fn('Lyrics', LaunchMode.Lyrics)
             ];
 

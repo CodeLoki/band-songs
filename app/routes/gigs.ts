@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import { doc, getDoc, getDocs, collection } from 'firebase/firestore';
+import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firestore';
 import { sortBy } from 'band-songs/utils';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
@@ -25,7 +25,14 @@ export default class GigsRoute extends Route {
     async model({ gig_id }: { gig_id: string }): Promise<RouteModel> {
         const appModel = this.modelFor('application') as AppModel,
             all = sortBy(
-                (await getDocs(collection(this.firestore.db, 'songs'))).docs as QueryDocumentSnapshot<Song>[],
+                (
+                    await getDocs(
+                        query(
+                            collection(this.firestore.db, 'songs'),
+                            where('bands', 'array-contains', appModel.band.ref)
+                        )
+                    )
+                ).docs as QueryDocumentSnapshot<Song>[],
                 'title'
             );
 

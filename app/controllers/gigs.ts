@@ -148,7 +148,7 @@ export default class GigsController extends Controller {
             if (gig) {
                 await deleteDoc(gig.ref);
                 this.showToast('deleted');
-                this.router.transitionTo('/');
+                this.router.transitionTo('index');
             }
         } catch (ex) {
             this.toast.showError('deleting', ex);

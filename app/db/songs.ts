@@ -7,7 +7,7 @@ export type Song = {
     length: number;
     startsWith: StartsWith;
     groove: string;
-    drummeo: string;
+    drumeo: string;
     notes: string;
     pad: DrumPad;
     bands: QueryDocumentSnapshot<Band>[];

@@ -31,6 +31,7 @@ export default class SongsEditController extends Controller {
     @tracked length = 0;
     @tracked startsWith = StartsWith.All;
     @tracked groove = '';
+    @tracked drumeo = '';
     @tracked notes = '';
     @tracked pad = DrumPad.None;
     @tracked selectedBands: Record<string, boolean> = {};
@@ -46,6 +47,7 @@ export default class SongsEditController extends Controller {
             length: data?.length ?? 0,
             startsWith: data?.startsWith ?? StartsWith.All,
             groove: data?.groove ?? '',
+            drumeo: data?.drumeo ?? '',
             notes: data?.notes ?? '',
             pad: data?.pad ?? DrumPad.None,
             selectedBands: (data?.bands ?? model.bands).reduce<Record<string, boolean>>(
@@ -89,7 +91,7 @@ export default class SongsEditController extends Controller {
         this.toast.showToast(`Song "${this.title}" ${type}`);
     }
 
-    @action updateStringValue(n: 'title' | 'artist' | 'groove' | 'notes', evt: Event): void {
+    @action updateStringValue(n: 'title' | 'artist' | 'groove' | 'drumeo' | 'notes', evt: Event): void {
         this[n] = (evt.target as HTMLInputElement).value ?? '';
     }
 
@@ -123,6 +125,7 @@ export default class SongsEditController extends Controller {
                     length: this.length,
                     startsWith: this.startsWith,
                     groove: this.groove,
+                    drumeo: this.drumeo,
                     notes: this.notes,
                     pad: this.pad,
                     bands: Object.entries(this.selectedBands)
@@ -138,7 +141,7 @@ export default class SongsEditController extends Controller {
                 this.showToast('updated');
             }
 
-            this.router.transitionTo('/songs');
+            this.router.transitionTo('songs');
         } catch (ex) {
             this.toast.showError('saving', ex);
         }
@@ -154,7 +157,7 @@ export default class SongsEditController extends Controller {
             if (model.song) {
                 await deleteDoc(model.song.ref);
                 this.showToast('deleted');
-                this.router.transitionTo('/songs');
+                this.router.transitionTo('songs');
             }
         } catch (ex) {
             this.toast.showError('deleting', ex);

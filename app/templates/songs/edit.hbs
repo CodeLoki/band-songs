@@ -112,6 +112,23 @@
             </EuiFormControlLayout>
         </EuiFlexItem>
         <EuiFlexItem>
+            <EuiFormControlLayout class="form-control auto-height">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="txtDrumeo" class={{classes}}>
+                        Drumeo
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <EuiTextArea
+                        @value={{this.drumeo}}
+                        rows={{5}}
+                        id="txtDrumeo"
+                        {{on "change" (fn this.updateStringValue "drumeo")}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+        <EuiFlexItem>
             <EuiFormControlLayout class="form-control">
                 <:prepend as |classes|>
                     <EuiFormLabel for="txtNotes" class={{classes}}>
