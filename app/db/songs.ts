@@ -1,4 +1,5 @@
-import type { DocumentSnapshot } from 'firebase/firestore';
+import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
+import type { Band } from 'band-songs/routes/application';
 
 export type Song = {
     artist: string;
@@ -9,6 +10,7 @@ export type Song = {
     drummeo: string;
     notes: string;
     pad: DrumPad;
+    bands: QueryDocumentSnapshot<Band>[];
 };
 
 export enum DrumPad {

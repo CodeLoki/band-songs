@@ -33,11 +33,12 @@ export default class SongsEditController extends Controller {
     @tracked groove = '';
     @tracked notes = '';
     @tracked pad = DrumPad.None;
+    @tracked selectedBands: Record<string, boolean> = {};
 
     @tracked showDeleteModal = false;
 
     resetFields(model: Awaited<ModelFrom<Route>>) {
-        const data = model?.data();
+        const data = model.song?.data();
 
         Object.assign(this, {
             title: data?.title ?? '',
@@ -46,7 +47,14 @@ export default class SongsEditController extends Controller {
             startsWith: data?.startsWith ?? StartsWith.All,
             groove: data?.groove ?? '',
             notes: data?.notes ?? '',
-            pad: data?.pad ?? DrumPad.None
+            pad: data?.pad ?? DrumPad.None,
+            selectedBands: (data?.bands ?? model.bands).reduce<Record<string, boolean>>(
+                (m, band) => ({
+                    ...m,
+                    [band.id]: band.id === this.model.band.id
+                }),
+                {}
+            )
         });
     }
 
@@ -70,6 +78,13 @@ export default class SongsEditController extends Controller {
         return items;
     }
 
+    get bandOptions(): { value: string; label: string }[] {
+        return this.model.bands.map((band) => ({
+            value: band.id,
+            label: band.data()?.description ?? 'Band data failed'
+        }));
+    }
+
     private showToast(type: string): void {
         this.toast.showToast(`Song "${this.title}" ${type}`);
     }
@@ -90,17 +105,13 @@ export default class SongsEditController extends Controller {
         this.pad = Number((evt.target as HTMLSelectElement).value) as DrumPad;
     }
 
-    @action async delete(): Promise<void> {
-        try {
-            const { model } = this;
-            if (model) {
-                await deleteDoc(model.ref);
-                this.showToast('deleted');
-                this.router.transitionTo('/songs');
+    @action selectBands(id: string): void {
+        this.selectedBands = {
+            ...this.selectedBands,
+            ...{
+                [id]: !this.selectedBands[id]
             }
-        } catch (ex) {
-            this.toast.showError('deleting', ex);
-        }
+        };
     }
 
     @action async save(): Promise<void> {
@@ -113,14 +124,17 @@ export default class SongsEditController extends Controller {
                     startsWith: this.startsWith,
                     groove: this.groove,
                     notes: this.notes,
-                    pad: this.pad
+                    pad: this.pad,
+                    bands: Object.entries(this.selectedBands)
+                        .map(([id, isSelected]) => (isSelected ? model.bands.find((b) => b.id === id)?.ref : undefined))
+                        .filter((b) => !!b)
                 };
 
-            if (!model) {
+            if (!model.song) {
                 await addDoc(collection(this.firestore.db, 'songs'), data);
                 this.showToast('created');
             } else {
-                await updateDoc(model.ref, data);
+                await updateDoc(model.song.ref, data);
                 this.showToast('updated');
             }
 
@@ -132,5 +146,18 @@ export default class SongsEditController extends Controller {
 
     @action toggleDeleteModal(): void {
         this.showDeleteModal = !this.showDeleteModal;
+    }
+
+    @action async delete(): Promise<void> {
+        try {
+            const { model } = this;
+            if (model.song) {
+                await deleteDoc(model.song.ref);
+                this.showToast('deleted');
+                this.router.transitionTo('/songs');
+            }
+        } catch (ex) {
+            this.toast.showError('deleting', ex);
+        }
     }
 }

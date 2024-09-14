@@ -95,7 +95,7 @@
             </EuiFormControlLayout>
         </EuiFlexItem>
         <EuiFlexItem>
-            <EuiFormControlLayout class="form-control">
+            <EuiFormControlLayout class="form-control auto-height">
                 <:prepend as |classes|>
                     <EuiFormLabel for="txtGroove" class={{classes}}>
                         GrooveScribe
@@ -142,6 +142,24 @@
                         @options={{this.padOptions}}
                         id="selTrigger"
                         {{on "change" this.updatePad}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control auto-height">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="chkBands" class={{classes}}>
+                        Bands
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <EuiCheckboxGroup
+                        @options={{this.bandOptions}}
+                        @idToSelectedMap={{this.selectedBands}}
+                        @valueKey="value"
+                        @onChange={{this.selectBands}}
+                        id="chkBands"
                     />
                 </:field>
             </EuiFormControlLayout>
