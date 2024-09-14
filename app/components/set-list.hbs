@@ -5,7 +5,7 @@
 <EuiFlexGrid @columns={{1}}>
     {{#each @songs as |song|}}
         <EuiFlexItem>
-            <Song @song={{song}} />
+            <Song @song={{song}} @mode={{@mode}} />
         </EuiFlexItem>
     {{/each}}
 </EuiFlexGrid>

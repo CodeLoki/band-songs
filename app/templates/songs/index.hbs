@@ -5,33 +5,7 @@
 </EuiText>
 
 {{#in-element (get-header-links)}}
-    <EuiPopover
-        @isOpen={{this.isLaunchSelectorOpen}}
-        @closePopover={{fn (mut this.isLaunchSelectorOpen) false}}
-    >
-        <:button>
-            <EuiHeaderLink
-                @isActive={{this.isLaunchSelectorOpen}}
-                {{on "click" (fn (mut this.isLaunchSelectorOpen) true)}}
-            >
-                Mode
-            </EuiHeaderLink>
-        </:button>
-        <:content>
-            <EuiFlexGroup @direction="column" @gutterSize="xs">
-                {{#each this.modes as |item|}}
-                    <EuiFlexItem @grow={{false}}>
-                        <EuiHeaderLink
-                            @isActive={{eq item.mode this.mode}}
-                            {{on "click" (fn this.changeMode item.mode)}}
-                        >
-                            {{item.text}}
-                        </EuiHeaderLink>
-                    </EuiFlexItem>
-                {{/each}}
-            </EuiFlexGroup>
-        </:content>
-    </EuiPopover>
+    <ModeSelector @mode={{this.mode}} @changeMode={{fn (mut this.mode)}} />
 
     {{#if (can-user-edit)}}
         <EuiHeaderLink
