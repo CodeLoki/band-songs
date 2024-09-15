@@ -19,7 +19,8 @@ export enum DrumPad {
     Claps,
     Tambourine,
     BellTree,
-    China
+    China,
+    Edrum
 }
 
 export const drumPadMap = new Map<DrumPad, string>([
@@ -28,7 +29,8 @@ export const drumPadMap = new Map<DrumPad, string>([
     [DrumPad.Claps, 'Claps (#800)'],
     [DrumPad.Tambourine, 'Tambourine (#727)'],
     [DrumPad.BellTree, 'Tree chime (#631)'],
-    [DrumPad.China, 'China Crash']
+    [DrumPad.China, 'China Crash'],
+    [DrumPad.Edrum, 'EDrum']
 ]);
 
 export enum StartsWith {

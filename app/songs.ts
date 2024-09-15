@@ -20,7 +20,8 @@ export enum DrumPad {
     Claps,
     Tambourine,
     BellTree,
-    China
+    China,
+    Edrum
 }
 
 export type Song = {
