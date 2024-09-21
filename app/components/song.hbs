@@ -21,7 +21,11 @@
 
     <:footer>
         {{#if this.showIndicators}}
-            <EuiFlexGroup @justifyContent="spaceBetween" @alignItems="center">
+            <EuiFlexGroup
+                @justifyContent="spaceBetween"
+                @alignItems="center"
+                @responsive={{false}}
+            >
                 <EuiFlexItem @grow={{false}}>
                     {{#if this.data.groove}}
                         <EuiButtonIcon
