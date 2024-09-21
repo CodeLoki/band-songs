@@ -4,7 +4,6 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { addDoc, collection, updateDoc, Timestamp, deleteDoc, type DocumentSnapshot } from 'firebase/firestore';
 import { GigDateFormatter } from 'band-songs/components/gig';
-import { LaunchMode } from 'band-songs/components/song';
 
 import type Route from 'band-songs/routes/gigs';
 import type { ModelFrom } from 'band-songs/utils';
@@ -33,7 +32,6 @@ export default class GigsController extends Controller {
 
     @tracked isEditMode = false;
     @tracked showDeleteModal = false;
-    @tracked mode = LaunchMode.Groove;
 
     @tracked date = new Date();
     @tracked venue = '';

@@ -1,7 +1,7 @@
 <EuiCard
     @title={{this.data.title}}
     @description={{this.data.artist}}
-    @onClick={{this.onClick}}
+    ...attributes
 >
     <:body>
         {{#if this.notes}}
@@ -18,4 +18,56 @@
             </EuiPanel>
         {{/if}}
     </:body>
+
+    <:footer>
+        {{#if this.showIndicators}}
+            <EuiFlexGroup @justifyContent="spaceBetween" @alignItems="center">
+                <EuiFlexItem @grow={{false}}>
+                    {{#if this.data.groove}}
+                        <EuiButtonIcon
+                            @iconType="packetbeatApp"
+                            @size="m"
+                            @color="text"
+                            @href={{this.data.groove}}
+                            aria-label="GrooveScribe Tab"
+                        />
+                    {{/if}}
+                </EuiFlexItem>
+                <EuiFlexItem @grow={{false}}>
+                    {{#if this.data.drumeo}}
+                        <EuiButtonIcon
+                            @iconType="metricbeatApp"
+                            @size="m"
+                            @color={{if this.isDrumeo "primary" "text"}}
+                            @href={{this.data.drumeo}}
+                            aria-label="Generic Tab"
+                        />
+                    {{/if}}
+                </EuiFlexItem>
+                {{#if (can-user-edit)}}
+                    <EuiFlexItem @grow={{false}}>
+                        <EuiButtonIcon
+                            @iconType="documentEdit"
+                            @size="m"
+                            @color="text"
+                            aria-label="Edit"
+                            {{on "click" this.edit}}
+                        />
+                    </EuiFlexItem>
+                {{/if}}
+                <EuiFlexItem @grow={{false}}>
+                    {{#if this.lyricsLink}}
+                        <EuiButtonIcon
+                            @iconType="discuss"
+                            @size="m"
+                            @color="text"
+                            @href={{this.lyricsLink}}
+                            aria-label="Lyrics"
+                        />
+                    {{/if}}
+                </EuiFlexItem>
+            </EuiFlexGroup>
+        {{/if}}
+
+    </:footer>
 </EuiCard>

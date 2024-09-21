@@ -25,7 +25,9 @@ export default class SongBasket extends Component<SongBasketSignature> {
     @tracked selectedSong?: DocumentSnapshot<Song>;
 
     get setListTitle(): string {
-        return `Set ${classify(this.args.set)} (${this.setLength})`;
+        const set = classify(this.args.set),
+            name = set !== 'Pocket' ? `Set ${set}` : set;
+        return `${name} (${this.setLength})`;
     }
 
     getTitle = (song: DocumentSnapshot<Song>) => song.data()?.title ?? '';

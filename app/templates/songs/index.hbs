@@ -5,8 +5,6 @@
 </EuiText>
 
 {{#in-element (get-header-links)}}
-    <ModeSelector @mode={{this.mode}} @changeMode={{fn (mut this.mode)}} />
-
     {{#if (can-user-edit)}}
         <EuiHeaderLink
             @iconType="createAdvancedJob"
@@ -22,7 +20,11 @@
 <EuiFlexGrid @columns={{3}} @responsive={{true}}>
     {{#each @model as |song|}}
         <EuiFlexItem>
-            <Song @song={{song}} @mode={{this.mode}} />
+            <Song
+                @song={{song}}
+                @songEditing={{this.cacheScrollPosition}}
+                {{did-insert this.scrollToSong}}
+            />
         </EuiFlexItem>
     {{/each}}
 </EuiFlexGrid>

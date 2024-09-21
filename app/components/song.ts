@@ -4,28 +4,24 @@ import { startsWithMap, DrumPad, drumPadMap } from 'band-songs/db/songs';
 import { action } from '@ember/object';
 import type { DocumentSnapshot } from 'firebase/firestore';
 import type { Song } from 'band-songs/db/songs';
+import type { EuiCardSignature } from '@ember-eui/core/components/eui-card';
 
 type Note = {
     icon: string;
     text: string;
 };
 
-export enum LaunchMode {
-    Groove,
-    Tabs,
-    Lyrics,
-    Edit
-}
-
 export interface SongCardSignature {
+    Element: EuiCardSignature['Element'];
     Args: {
         song: DocumentSnapshot<Song>;
-        mode?: LaunchMode;
+        songEditing?: VoidFunction;
     };
 }
 
 export default class SongCard extends Component<SongCardSignature> {
     @service declare router: ServiceRegistry['router'];
+    @service declare firestore: ServiceRegistry['firestore'];
 
     get data(): Song {
         return this.args.song.data()!;
@@ -53,30 +49,30 @@ export default class SongCard extends Component<SongCardSignature> {
         return results;
     }
 
-    @action onClick(): void {
-        const { mode } = this.args;
-
-        if (mode === LaunchMode.Edit) {
-            this.router.transitionTo('songs.edit', this.args.song.id);
-            return;
+    get lyricsLink(): string {
+        if (['Group W Bench', 'Convertible Jerk'].some((n) => this.data.artist === n)) {
+            return '';
         }
 
-        let url = this.data.groove;
+        const { data } = this,
+            q = encodeURI(`${data.artist} ${data.title}`);
 
-        if (mode === LaunchMode.Lyrics) {
-            console.log('lyrics');
-            return;
-        }
+        return `https://search.azlyrics.com/search.php?q=${q}`;
+    }
 
-        if (mode === LaunchMode.Tabs) {
-            url = this.data.drumeo;
-        }
+    get showIndicators(): boolean {
+        const { data } = this;
+        return this.firestore.userCanEdit || !!(data.drumeo || data.groove || this.lyricsLink);
+    }
 
-        if (!url) {
-            return;
-        }
+    get isDrumeo(): boolean {
+        const { drumeo } = this.data;
+        return drumeo.includes('musora') || drumeo.includes('drumeo');
+    }
 
-        window.open(url);
+    @action edit(): void {
+        this.args.songEditing?.();
+        this.router.transitionTo('songs.edit', this.args.song.id);
     }
 }
 

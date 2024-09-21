@@ -36,3 +36,7 @@ input[type="date"] {
     border-right: 2px groove #333;
     padding-right: 16px;
 }
+
+.song-center-button {
+    align-self: center;
+}
