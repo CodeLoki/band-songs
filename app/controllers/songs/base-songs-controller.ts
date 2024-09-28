@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { scheduleOnce } from '@ember/runloop';
+import { scheduleTask } from 'ember-lifeline';
+import { modifier } from 'ember-modifier';
 
 function scrollToCard(x: number): void {
     const body = document.querySelector('html');
@@ -12,14 +13,16 @@ function scrollToCard(x: number): void {
 export default class BaseSongsController extends Controller {
     lastScrollPosition = 0;
 
-    @action cacheScrollPosition(): void {
-        this.lastScrollPosition = document.querySelector('html')?.scrollTop ?? 0;
-    }
-
-    @action scrollToSong(): void {
+    scrollToSong = modifier(() => {
         if (this.lastScrollPosition) {
-            scheduleOnce('afterRender', scrollToCard, this.lastScrollPosition);
+            scheduleTask(this, 'render', scrollToCard, this.lastScrollPosition);
             this.lastScrollPosition = 0;
         }
+
+        return () => {};
+    });
+
+    @action cacheScrollPosition(): void {
+        this.lastScrollPosition = document.querySelector('html')?.scrollTop ?? 0;
     }
 }

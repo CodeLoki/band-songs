@@ -13,8 +13,8 @@
                 @user={{@model.user}}
                 @song={{song}}
                 @songEditing={{this.cacheScrollPosition}}
-                {{did-insert this.scrollToSong}}
             />
         </EuiFlexItem>
     {{/each}}
+    <div {{this.scrollToSong}} />
 </EuiFlexGrid>

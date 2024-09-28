@@ -21,7 +21,6 @@ type PadItem = {
 
 export default class SongsEditController extends Controller {
     @service declare firestore: ServiceRegistry['firestore'];
-    @service declare router: ServiceRegistry['router'];
     @service declare toast: ServiceRegistry['toast'];
 
     declare model: Awaited<ModelFrom<Route>>;
@@ -116,6 +115,10 @@ export default class SongsEditController extends Controller {
         };
     }
 
+    @action goBack(): void {
+        window.history.back();
+    }
+
     @action async save(): Promise<void> {
         try {
             const { model } = this,
@@ -141,7 +144,7 @@ export default class SongsEditController extends Controller {
                 this.showToast('updated');
             }
 
-            this.router.transitionTo('songs');
+            this.goBack();
         } catch (ex) {
             this.toast.showError('saving', ex);
         }
@@ -157,7 +160,7 @@ export default class SongsEditController extends Controller {
             if (model.song) {
                 await deleteDoc(model.song.ref);
                 this.showToast('deleted');
-                this.router.transitionTo('songs');
+                this.goBack();
             }
         } catch (ex) {
             this.toast.showError('deleting', ex);

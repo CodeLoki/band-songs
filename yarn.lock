@@ -1303,7 +1303,7 @@
     ember-cli-version-checker "^5.1.2"
     semver "^7.3.5"
 
-"@embroider/addon-shim@^1.0.0", "@embroider/addon-shim@^1.8.3", "@embroider/addon-shim@^1.8.5", "@embroider/addon-shim@^1.8.6", "@embroider/addon-shim@^1.8.7", "@embroider/addon-shim@^1.8.9":
+"@embroider/addon-shim@^1.0.0", "@embroider/addon-shim@^1.6.0", "@embroider/addon-shim@^1.8.3", "@embroider/addon-shim@^1.8.5", "@embroider/addon-shim@^1.8.6", "@embroider/addon-shim@^1.8.7", "@embroider/addon-shim@^1.8.9":
   version "1.8.9"
   resolved "https://registry.yarnpkg.com/@embroider/addon-shim/-/addon-shim-1.8.9.tgz#ef37eba069d391b2d2a80aa62880c469051c4d43"
   integrity sha512-qyN64T1jMHZ99ihlk7VFHCWHYZHLE1DOdHi0J7lmn5waV1DoW7gD8JLi1i7FregzXtKhbDc7shyEmTmWPTs8MQ==
@@ -6484,6 +6484,13 @@ ember-keyboard@^7.0.1:
     ember-cli-htmlbars "^6.0.1"
     ember-modifier "^2.1.2 || ^3.0.0"
     ember-modifier-manager-polyfill "^1.2.0"
+
+ember-lifeline@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/ember-lifeline/-/ember-lifeline-7.0.0.tgz#46780c8f832b6c784ee4681b938a1e1437bfa676"
+  integrity sha512-2l51NzgH5vjN972zgbs+32rnXnnEFKB7qsSpJF+lBI4V5TG6DMy4SfowC72ZEuAtS58OVfwITbOO+RnM21EdpA==
+  dependencies:
+    "@embroider/addon-shim" "^1.6.0"
 
 ember-load-initializers@^2.1.2:
   version "2.1.2"
