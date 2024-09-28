@@ -16,6 +16,9 @@ export default class ApplicationRoute extends Route {
     queryParams = {
         b: {
             refreshModel: true
+        },
+        u: {
+            refreshModel: false
         }
     };
 

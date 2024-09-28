@@ -8,20 +8,27 @@ import type { ModelFrom } from 'band-songs/utils';
 import type { QueryDocumentSnapshot } from 'firebase/firestore';
 import '@ember-eui/core/themes/dark.css';
 
+export type User = 'd' | 'v' | 'rg' | '';
+
 export default class ApplicationController extends Controller {
     @service declare router: ServiceRegistry['router'];
     @service declare firestore: ServiceRegistry['firestore'];
 
     declare model: ModelFrom<ApplicationRoute>;
 
-    queryParams = ['b'];
+    queryParams = ['b', 'u'];
+
+    /**
+     * The selected band.
+     */
     @tracked b = 'qRphnEOTg8GeDc0dQa4K';
 
-    @tracked bandSelectorOpen = false;
+    /**
+     * The selected user.
+     */
+    @tracked u: User = '';
 
-    @action authenticate(): void {
-        this.firestore.login();
-    }
+    @tracked bandSelectorOpen = false;
 
     @action changeBand(band: QueryDocumentSnapshot<Band>) {
         const { id } = band;
@@ -30,7 +37,7 @@ export default class ApplicationController extends Controller {
         }
 
         this.bandSelectorOpen = false;
-        this.router.transitionTo({
+        this.router.transitionTo('index', {
             queryParams: {
                 b: id
             }

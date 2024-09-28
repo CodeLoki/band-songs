@@ -131,6 +131,7 @@
     <EuiFlexGrid @columns={{2}} @responsive={{true}}>
         <EuiFlexItem>
             <SetList
+                @user={{@model.user}}
                 @gig={{@model.gig}}
                 @songs={{@model.one}}
                 @title="Set One"
@@ -138,6 +139,7 @@
         </EuiFlexItem>
         <EuiFlexItem>
             <SetList
+                @user={{@model.user}}
                 @gig={{@model.gig}}
                 @songs={{@model.two}}
                 @title="Set Two"
@@ -146,6 +148,7 @@
         {{#if @model.pocket}}
             <EuiFlexItem>
                 <SetList
+                    @user={{@model.user}}
                     @gig={{@model.gig}}
                     @songs={{@model.pocket}}
                     @title="Pocket"

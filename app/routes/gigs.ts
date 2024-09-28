@@ -10,8 +10,10 @@ import type Controller from 'band-songs/controllers/gigs';
 import type Transition from '@ember/routing/transition';
 import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import type { AppModel } from 'band-songs/routes/application';
+import type { User } from 'band-songs/controllers/application';
 
 type RouteModel = AppModel & {
+    user: User;
     gig?: DocumentSnapshot<Gig>;
     one: DocumentSnapshot<Song>[];
     two: DocumentSnapshot<Song>[];
@@ -24,6 +26,7 @@ export default class GigsRoute extends Route {
 
     async model({ gig_id }: { gig_id: string }): Promise<RouteModel> {
         const appModel = this.modelFor('application') as AppModel,
+            user = this.paramsFor('application')['u'] as User,
             all = sortBy(
                 (
                     await getDocs(
@@ -39,6 +42,7 @@ export default class GigsRoute extends Route {
         if (gig_id === 'new') {
             return {
                 ...appModel,
+                user,
                 one: [],
                 two: [],
                 pocket: [],
@@ -54,6 +58,7 @@ export default class GigsRoute extends Route {
 
         return {
             ...appModel,
+            user,
             gig,
             one,
             two,

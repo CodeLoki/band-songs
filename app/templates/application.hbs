@@ -28,7 +28,7 @@
                 </:content>
             </EuiPopover>
         {{else}}
-            <EuiHeaderLogo {{on "click" this.authenticate}}>
+            <EuiHeaderLogo {{on "click" this.firestore.login}}>
                 {{get-model-data-value @model.band "description"}}
             </EuiHeaderLogo>
         {{/if}}

@@ -1,7 +1,7 @@
 {{page-title "All Songs"}}
 
 <EuiText @grow={{false}}>
-    <h2>All Songs ({{@model.length}})</h2>
+    <h2>All Songs ({{@model.songs.length}})</h2>
 </EuiText>
 
 {{#in-element (get-header-links)}}
@@ -18,9 +18,10 @@
 <EuiSpacer @size="l" />
 
 <EuiFlexGrid @columns={{3}} @responsive={{true}}>
-    {{#each @model as |song|}}
+    {{#each @model.songs as |song|}}
         <EuiFlexItem>
             <Song
+                @user={{@model.user}}
                 @song={{song}}
                 @songEditing={{this.cacheScrollPosition}}
                 {{did-insert this.scrollToSong}}

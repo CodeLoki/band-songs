@@ -10,6 +10,7 @@ export type Song = {
     drumeo: string;
     notes: string;
     pad: DrumPad;
+    practice?: boolean;
     bands: QueryDocumentSnapshot<Band>[];
 };
 

@@ -1,6 +1,8 @@
 <EuiCard
     @title={{this.data.title}}
     @description={{this.data.artist}}
+    @onClick={{if this.useCardClick this.clickFirstButton undefined}}
+    class={{unless this.showButtons "no-buttons"}}
     ...attributes
 >
     <:body>
@@ -20,56 +22,23 @@
     </:body>
 
     <:footer>
-        {{#if this.showIndicators}}
+        {{#if this.showButtons}}
             <EuiFlexGroup
                 @justifyContent="spaceBetween"
                 @alignItems="center"
                 @responsive={{false}}
             >
-                <EuiFlexItem @grow={{false}}>
-                    {{#if this.data.groove}}
-                        <EuiButtonIcon
-                            @iconType="packetbeatApp"
-                            @size="m"
-                            @color="text"
-                            @href={{this.data.groove}}
-                            aria-label="GrooveScribe Tab"
-                        />
-                    {{/if}}
-                </EuiFlexItem>
-                <EuiFlexItem @grow={{false}}>
-                    {{#if this.data.drumeo}}
-                        <EuiButtonIcon
-                            @iconType="metricbeatApp"
-                            @size="m"
-                            @color={{if this.isDrumeo "primary" "text"}}
-                            @href={{this.data.drumeo}}
-                            aria-label="Generic Tab"
-                        />
-                    {{/if}}
-                </EuiFlexItem>
-                {{#if (can-user-edit)}}
+                {{#each this.buttons as |btn|}}
                     <EuiFlexItem @grow={{false}}>
                         <EuiButtonIcon
-                            @iconType="documentEdit"
+                            @iconType={{btn.icon}}
                             @size="m"
-                            @color="text"
-                            aria-label="Edit"
-                            {{on "click" this.edit}}
+                            @color={{btn.color}}
+                            aria-label={{btn.text}}
+                            {{on "click" btn.click}}
                         />
                     </EuiFlexItem>
-                {{/if}}
-                <EuiFlexItem @grow={{false}}>
-                    {{#if this.lyricsLink}}
-                        <EuiButtonIcon
-                            @iconType="discuss"
-                            @size="m"
-                            @color="text"
-                            @href={{this.lyricsLink}}
-                            aria-label="Lyrics"
-                        />
-                    {{/if}}
-                </EuiFlexItem>
+                {{/each}}
             </EuiFlexGroup>
         {{/if}}
 
