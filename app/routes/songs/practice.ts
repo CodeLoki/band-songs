@@ -9,13 +9,17 @@ import type { ModelFrom } from 'band-songs/utils';
 import type ApplicationRoute from 'band-songs/routes/application';
 import type { User } from 'band-songs/controllers/application';
 
-export default class SongsIndexRoute extends Route {
+export default class SongsPracticeRoute extends Route {
     @service declare firestore: ServiceRegistry['firestore'];
 
     async model(): Promise<{ user: User; songs: QueryDocumentSnapshot<Song>[] }> {
         const appModel = (await this.modelFor('application')) as ModelFrom<ApplicationRoute>,
             songs = await getDocs(
-                query(collection(this.firestore.db, 'songs'), where('bands', 'array-contains', appModel.band.ref))
+                query(
+                    collection(this.firestore.db, 'songs'),
+                    where('bands', 'array-contains', appModel.band.ref),
+                    where('practice', '==', true)
+                )
             );
 
         return {

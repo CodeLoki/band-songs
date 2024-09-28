@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { service, type Registry as ServiceRegistry } from '@ember/service';
 import { getDocs, collection, type QueryDocumentSnapshot } from 'firebase/firestore';
 import { sortBy } from 'band-songs/utils';
+
 import type { ModelFrom } from 'band-songs/utils';
 
 export type Band = {
@@ -27,11 +28,16 @@ export default class ApplicationRoute extends Route {
         band: QueryDocumentSnapshot<Band>;
     }> {
         const { firestore } = this,
-            bands = (await getDocs(collection(firestore.db, 'bands'))).docs as QueryDocumentSnapshot<Band>[];
+            bands = (await getDocs(collection(firestore.db, 'bands'))).docs as QueryDocumentSnapshot<Band>[],
+            band = bands.find((band) => band.id === b);
+
+        if (!band) {
+            throw `Band not found "${b}"`;
+        }
 
         return {
             bands: sortBy(bands, 'description'),
-            band: bands.find((band) => band.id === b)!
+            band
         };
     }
 }

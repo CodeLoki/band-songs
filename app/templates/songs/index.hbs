@@ -12,6 +12,15 @@
         >
             Add
         </EuiHeaderLink>
+
+        {{#if this.showPracticeLink}}
+            <EuiHeaderLink
+                @iconType="flag"
+                {{on "click" (go-to "songs.practice")}}
+            >
+                Practice
+            </EuiHeaderLink>
+        {{/if}}
     {{/if}}
 {{/in-element}}
 
