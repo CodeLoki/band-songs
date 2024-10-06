@@ -2,16 +2,32 @@ import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore
 import type { Band } from 'band-songs/routes/application';
 
 export type Song = {
+    /** Song artist. */
     artist: string;
+    /** Song title. */
     title: string;
+    /** Song length. */
     length: number;
+    /** The musician that starts the song. */
     startsWith: StartsWith;
+    /** The groovescribe drum tab. */
     groove: string;
+    /** Any non-groovescribe drum tab. */
     drumeo: string;
+    /** Drummer notes for this song. */
     notes: string;
+    /** Auxiliary drum pad used in this song. */
     pad: DrumPad;
+    /** Indicates this song needs practice */
     practice?: boolean;
+    /** The collection of bands that play this song. */
     bands: QueryDocumentSnapshot<Band>[];
+    /** Notes for Paul Plawin. */
+    pp: string;
+    /** Notes for Jay Lee */
+    jl: string;
+    /** Notes for Eric Glick. */
+    eg: string;
 };
 
 export enum DrumPad {

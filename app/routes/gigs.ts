@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firestore';
-import { sortBy } from 'band-songs/utils';
+import { sortBy } from 'band-songs/utils/general';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
-import type { Gig } from 'band-songs/db/gigs';
-import type { Song } from 'band-songs/db/songs';
+import type { Gig } from 'band-songs/utils/gigs';
+import type { Song } from 'band-songs/utils/songs';
 import type Controller from 'band-songs/controllers/gigs';
 import type Transition from '@ember/routing/transition';
 import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';

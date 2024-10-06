@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { getDocs, collection, query, where } from 'firebase/firestore';
-import { sortBy } from 'band-songs/utils';
+import { sortBy } from 'band-songs/utils/general';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type { QueryDocumentSnapshot, QuerySnapshot } from 'firebase/firestore';
-import type { Gig } from 'band-songs/db/gigs';
+import type { Gig } from 'band-songs/utils/gigs';
 import type { AppModel } from 'band-songs/routes/application';
 
 export default class IndexRoute extends Route {

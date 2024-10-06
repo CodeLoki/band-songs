@@ -2,12 +2,12 @@ import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { StartsWith, startsWithMap, DrumPad, drumPadMap } from 'band-songs/db/songs';
+import { StartsWith, startsWithMap, DrumPad, drumPadMap } from 'band-songs/utils/songs';
 import { collection, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type Route from 'band-songs/routes/songs/edit';
-import type { ModelFrom } from 'band-songs/utils';
+import type { ModelFrom } from 'band-songs/utils/general';
 
 type StartsWithItem = {
     value: StartsWith;
@@ -29,11 +29,16 @@ export default class SongsEditController extends Controller {
     @tracked artist = '';
     @tracked length = 0;
     @tracked startsWith = StartsWith.All;
+    @tracked selectedBands: Record<string, boolean> = {};
+
     @tracked groove = '';
     @tracked drumeo = '';
     @tracked notes = '';
     @tracked pad = DrumPad.None;
-    @tracked selectedBands: Record<string, boolean> = {};
+
+    @tracked pp = '';
+    @tracked jl = '';
+    @tracked eg = '';
 
     @tracked showDeleteModal = false;
 
@@ -45,17 +50,25 @@ export default class SongsEditController extends Controller {
             artist: data?.artist ?? '',
             length: data?.length ?? 0,
             startsWith: data?.startsWith ?? StartsWith.All,
-            groove: data?.groove ?? '',
-            drumeo: data?.drumeo ?? '',
-            notes: data?.notes ?? '',
-            pad: data?.pad ?? DrumPad.None,
+
             selectedBands: (data?.bands ?? model.bands).reduce<Record<string, boolean>>(
                 (m, band) => ({
                     ...m,
                     [band.id]: band.id === this.model.band.id
                 }),
                 {}
-            )
+            ),
+
+            // Me
+            groove: data?.groove ?? '',
+            drumeo: data?.drumeo ?? '',
+            notes: data?.notes ?? '',
+            pad: data?.pad ?? DrumPad.None,
+
+            // Users
+            pp: data?.pp ?? '',
+            jl: data?.jl ?? '',
+            eg: data?.eg ?? ''
         });
     }
 
@@ -90,7 +103,10 @@ export default class SongsEditController extends Controller {
         this.toast.showToast(`Song "${this.title}" ${type}`);
     }
 
-    @action updateStringValue(n: 'title' | 'artist' | 'groove' | 'drumeo' | 'notes', evt: Event): void {
+    @action updateStringValue(
+        n: 'title' | 'artist' | 'groove' | 'drumeo' | 'notes' | 'pp' | 'jl' | 'eg',
+        evt: Event
+    ): void {
         this[n] = (evt.target as HTMLInputElement).value ?? '';
     }
 
@@ -133,7 +149,11 @@ export default class SongsEditController extends Controller {
                     pad: this.pad,
                     bands: Object.entries(this.selectedBands)
                         .map(([id, isSelected]) => (isSelected ? model.bands.find((b) => b.id === id)?.ref : undefined))
-                        .filter((b) => !!b)
+                        .filter((b) => !!b),
+
+                    pp: this.pp,
+                    jl: this.jl,
+                    eg: this.eg
                 };
 
             if (!model.song) {

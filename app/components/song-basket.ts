@@ -2,10 +2,10 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { classify } from '@ember/string';
-import { calculateSetListLength } from 'band-songs/db/songs';
+import { calculateSetListLength } from 'band-songs/utils/songs';
 
 import type { DocumentSnapshot } from 'firebase/firestore';
-import type { Song } from 'band-songs/db/songs';
+import type { Song } from 'band-songs/utils/songs';
 
 export type Setlist = 'one' | 'two' | 'pocket';
 

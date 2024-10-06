@@ -6,9 +6,9 @@ import { addDoc, collection, updateDoc, Timestamp, deleteDoc, type DocumentSnaps
 import { GigDateFormatter } from 'band-songs/components/gig';
 
 import type Route from 'band-songs/routes/gigs';
-import type { ModelFrom } from 'band-songs/utils';
+import type { ModelFrom } from 'band-songs/utils/general';
 import type { Registry as ServiceRegistry } from '@ember/service';
-import type { Song } from 'band-songs/db/songs';
+import type { Song } from 'band-songs/utils/songs';
 import type { Setlist } from 'band-songs/components/song-basket';
 
 const dayFormatter = new Intl.DateTimeFormat('en-US', {

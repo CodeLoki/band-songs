@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 
-import type { Gig } from 'band-songs/db/gigs';
+import type { Gig } from 'band-songs/utils/gigs';
 import type { QueryDocumentSnapshot } from 'firebase/firestore';
 
 export const GigDateFormatter = new Intl.DateTimeFormat('en-US', {

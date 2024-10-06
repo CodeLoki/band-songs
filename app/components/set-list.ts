@@ -1,9 +1,9 @@
 import Component from '@glimmer/component';
-import { calculateSetListLength } from 'band-songs/db/songs';
+import { calculateSetListLength } from 'band-songs/utils/songs';
 
 import { type DocumentSnapshot } from 'firebase/firestore';
-import type { Song } from 'band-songs/db/songs';
-import type { Gig } from 'band-songs/db/gigs';
+import type { Song } from 'band-songs/utils/songs';
+import type { Gig } from 'band-songs/utils/gigs';
 import type { SongCardSignature } from './song';
 
 export interface SetListSignature {

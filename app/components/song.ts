@@ -1,12 +1,12 @@
 import Component from '@glimmer/component';
 import { service, type Registry as ServiceRegistry } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { startsWithMap, DrumPad, drumPadMap } from 'band-songs/db/songs';
+import { startsWithMap, DrumPad, drumPadMap } from 'band-songs/utils/songs';
 import { action } from '@ember/object';
 import { updateDoc, onSnapshot, type DocumentSnapshot, type Unsubscribe } from 'firebase/firestore';
-import type { Song } from 'band-songs/db/songs';
+import { User } from 'band-songs/controllers/application';
+import type { Song } from 'band-songs/utils/songs';
 import type { EuiCardSignature } from '@ember-eui/core/components/eui-card';
-import type { User } from 'band-songs/controllers/application';
 import type { EuiButtonIconSignature } from '@ember-eui/core/components/eui-button-icon';
 
 type Note = {
@@ -14,11 +14,9 @@ type Note = {
     text: string;
 };
 
-type ButtonConfig = {
+type ButtonConfig = Pick<EuiButtonIconSignature['Args'], 'color' | 'iconType'> & {
     text: string;
-    icon: EuiButtonIconSignature['Args']['iconType'];
     click: VoidFunction;
-    color: EuiButtonIconSignature['Args']['color'];
 };
 
 export interface SongCardSignature {
@@ -65,7 +63,7 @@ export default class SongCard extends Component<SongCardSignature> {
                 });
 
         // Is the user drummer AND is there a pad?
-        if (user === 'd' && pad > DrumPad.None) {
+        if (user === User.Me && pad > DrumPad.None) {
             fnAddNote(drumPadMap.get(pad)!, 'starFilled');
         }
 
@@ -84,48 +82,54 @@ export default class SongCard extends Component<SongCardSignature> {
             return [];
         }
 
-        const buttons: ButtonConfig[] = [],
-            fnAddButton = (
-                text: ButtonConfig['text'],
-                icon: ButtonConfig['icon'],
-                click: ButtonConfig['click'],
-                isPrimary = false
-            ): ButtonConfig => ({
-                text,
-                icon: icon ?? 'packetbeatApp',
-                click,
-                color: isPrimary ? 'primary' : 'text'
-            });
+        const fnGetButton = (
+            text: ButtonConfig['text'],
+            icon: ButtonConfig['iconType'],
+            click: ButtonConfig['click'],
+            isActive = false
+        ): ButtonConfig => ({
+            text,
+            iconType: icon ?? 'packetbeatApp',
+            click,
+            color: isActive ? 'warning' : 'text'
+        });
 
-        if (user === 'v') {
-            const { lyricsLink } = this;
-            if (lyricsLink) {
-                buttons.push(fnAddButton('Lyrics', 'discuss', () => this.openExternalLink(lyricsLink)));
+        if (user !== User.Me) {
+            let link = '';
+
+            if (user === User.Jeff) {
+                link = this.lyricsLink;
+            } else {
+                const p = String(user);
+                if (p === 'pp' || p === 'jl' || p === 'eg') {
+                    link = this.data[p] ?? '';
+                }
             }
+
+            return link ? [fnGetButton('Link', 'packetbeatApp', () => this.openExternalLink(link))] : [];
         }
 
-        if (user === 'd') {
-            const { groove, drumeo } = this.data;
+        const buttons: ButtonConfig[] = [],
+            { groove, drumeo } = this.data;
 
-            if (groove) {
-                buttons.push(fnAddButton('GrooveScribe Tab', 'packetbeatApp', () => this.openExternalLink(groove)));
-            }
+        if (groove) {
+            buttons.push(fnGetButton('GrooveScribe Tab', 'packetbeatApp', () => this.openExternalLink(groove)));
+        }
 
-            if (drumeo) {
-                buttons.push(
-                    fnAddButton(
-                        'Generic Tab',
-                        'metricbeatApp',
-                        () => this.openExternalLink(drumeo),
-                        drumeo.includes('musora') || drumeo.includes('drumeo')
-                    )
-                );
-            }
+        if (drumeo) {
+            buttons.push(
+                fnGetButton(
+                    'Generic Tab',
+                    'metricbeatApp',
+                    () => this.openExternalLink(drumeo),
+                    drumeo.includes('musora') || drumeo.includes('drumeo')
+                )
+            );
         }
 
         if (this.firestore.userCanEdit) {
-            buttons.push(fnAddButton('Needs Practice', 'flag', () => this.needsPractice(), !!this.data.practice));
-            buttons.push(fnAddButton('Edit Song', 'documentEdit', () => this.edit()));
+            buttons.push(fnGetButton('Needs Practice', 'flag', () => this.needsPractice(), !!this.data.practice));
+            buttons.push(fnGetButton('Edit Song', 'documentEdit', () => this.edit()));
         }
 
         return buttons;
