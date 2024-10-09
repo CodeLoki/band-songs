@@ -53,8 +53,7 @@ export default class SongCard extends Component<SongCardSignature> {
     }
 
     get notes(): Note[] {
-        const { startsWith, notes, pad } = this.data,
-            { user } = this.args,
+        const { data } = this,
             results: Note[] = [],
             fnAddNote = (text: string, icon = '') =>
                 results.push({
@@ -62,16 +61,19 @@ export default class SongCard extends Component<SongCardSignature> {
                     text
                 });
 
-        // Is the user drummer AND is there a pad?
-        if (user === User.Me && pad > DrumPad.None) {
-            fnAddNote(drumPadMap.get(pad)!, 'starFilled');
+        if (this.args.user === User.Me) {
+            const { pad } = data;
+            if (pad > DrumPad.None) {
+                fnAddNote(drumPadMap.get(pad)!, 'starFilled');
+            }
+
+            const { notes } = data;
+            if (notes) {
+                fnAddNote(notes);
+            }
         }
 
-        if (notes) {
-            fnAddNote(notes);
-        }
-
-        fnAddNote(startsWithMap.get(startsWith)!);
+        fnAddNote(startsWithMap.get(data.startsWith)!);
 
         return results;
     }
@@ -95,17 +97,7 @@ export default class SongCard extends Component<SongCardSignature> {
         });
 
         if (user !== User.Me) {
-            let link = '';
-
-            if (user === User.Jeff) {
-                link = this.lyricsLink;
-            } else {
-                const p = String(user);
-                if (p === 'pp' || p === 'jl' || p === 'eg') {
-                    link = this.data[p] ?? '';
-                }
-            }
-
+            const link = user === User.Jeff ? this.lyricsLink : this.ugLink;
             return link ? [fnGetButton('Link', 'packetbeatApp', () => this.openExternalLink(link))] : [];
         }
 
@@ -135,17 +127,25 @@ export default class SongCard extends Component<SongCardSignature> {
         return buttons;
     }
 
-    get lyricsLink(): string {
-        if (['Group W Bench', 'Convertible Jerk'].some((n) => this.data.artist === n)) {
+    private getSearchParam(): string {
+        const { artist, title } = this.data;
+        if (artist === 'Group W Bench' || artist === 'Convertible Jerk') {
             return '';
         }
 
-        const { artist, title } = this.data,
-            q = encodeURI(`${artist} ${title}`);
+        return encodeURI(`${artist} ${title}`);
+    }
 
+    get lyricsLink(): string {
+        const q = this.getSearchParam();
+        return q ? `https://genius.com/search?q=${q}` : '';
         // return `https://songmeanings.com/query/?query=${q}&type=songtitles`;
         // return `https://search.azlyrics.com/search.php?q=${q}`;
-        return `https://genius.com/search?q=${q}`;
+    }
+
+    get ugLink(): string {
+        const q = this.getSearchParam();
+        return q ? `https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}` : '';
     }
 
     /**

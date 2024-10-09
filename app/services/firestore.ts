@@ -7,11 +7,9 @@ import ENV from 'band-songs/config/environment';
 import {
     GoogleAuthProvider,
     getAuth,
-    signInWithRedirect,
     signInWithPopup,
     browserSessionPersistence,
     onAuthStateChanged,
-    getRedirectResult,
     type User
 } from 'firebase/auth';
 
@@ -62,16 +60,8 @@ export default class FirestoreService extends Service {
             });
             await auth.setPersistence(browserSessionPersistence);
 
-            if (ENV.environment === 'development') {
-                const result = await signInWithPopup(auth, new GoogleAuthProvider());
-                this.user = result.user;
-            } else {
-                await signInWithRedirect(auth, new GoogleAuthProvider());
-                const result = await getRedirectResult(auth);
-                if (result) {
-                    this.user = result.user;
-                }
-            }
+            const result = await signInWithPopup(auth, new GoogleAuthProvider());
+            this.user = result.user;
         } catch (ex) {
             this.toast.showError('authenticating', ex);
         }
