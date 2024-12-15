@@ -36,10 +36,6 @@ export default class SongsEditController extends Controller {
     @tracked notes = '';
     @tracked pad = DrumPad.None;
 
-    @tracked pp = '';
-    @tracked jl = '';
-    @tracked eg = '';
-
     @tracked showDeleteModal = false;
 
     resetFields(model: Awaited<ModelFrom<Route>>) {
@@ -103,10 +99,7 @@ export default class SongsEditController extends Controller {
         this.toast.showToast(`Song "${this.title}" ${type}`);
     }
 
-    @action updateStringValue(
-        n: 'title' | 'artist' | 'groove' | 'drumeo' | 'notes' | 'pp' | 'jl' | 'eg',
-        evt: Event
-    ): void {
+    @action updateStringValue(n: 'title' | 'artist' | 'groove' | 'drumeo' | 'notes', evt: Event): void {
         this[n] = (evt.target as HTMLInputElement).value ?? '';
     }
 
@@ -149,11 +142,7 @@ export default class SongsEditController extends Controller {
                     pad: this.pad,
                     bands: Object.entries(this.selectedBands)
                         .map(([id, isSelected]) => (isSelected ? model.bands.find((b) => b.id === id)?.ref : undefined))
-                        .filter((b) => !!b),
-
-                    pp: this.pp,
-                    jl: this.jl,
-                    eg: this.eg
+                        .filter((b) => !!b)
                 };
 
             if (!model.song) {

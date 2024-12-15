@@ -44,7 +44,7 @@ export const drumPadMap = new Map<DrumPad, string>([
     [DrumPad.None, 'None'],
     [DrumPad.Cowbell, 'Cowbell (#641)'],
     [DrumPad.Claps, 'Claps (#800)'],
-    [DrumPad.Tambourine, 'Tambourine (#727)'],
+    [DrumPad.Tambourine, 'Tambourine (#725)'],
     [DrumPad.BellTree, 'Tree chime (#631)'],
     [DrumPad.China, 'China Crash'],
     [DrumPad.Edrum, 'EDrum']

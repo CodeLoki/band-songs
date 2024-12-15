@@ -10,6 +10,7 @@ Router.map(function () {
     this.route('songs', function () {
         this.route('edit', { path: '/:song_id' });
         this.route('practice');
+        this.route('orphans');
     });
     this.route('gigs', { path: '/gigs/:gig_id' });
 });

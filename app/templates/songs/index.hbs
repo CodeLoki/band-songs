@@ -21,6 +21,13 @@
                 Practice
             </EuiHeaderLink>
         {{/if}}
+
+        <EuiHeaderLink
+            @iconType="faceSad"
+            {{on "click" (go-to "songs.orphans")}}
+        >
+            Orphans
+        </EuiHeaderLink>
     {{/if}}
 {{/in-element}}
 

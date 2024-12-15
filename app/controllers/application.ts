@@ -12,10 +12,8 @@ import '@ember-eui/core/themes/dark.css';
 export enum User {
     None = '',
     Me = 'z',
-    Paul = 'pp',
-    Jeff = 'jt',
-    JayLee = 'jl',
-    Eric = 'eg'
+    Vocals = 'vocals',
+    Guitars = 'guitars'
 }
 
 export default class ApplicationController extends Controller {

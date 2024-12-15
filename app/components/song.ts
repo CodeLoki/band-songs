@@ -97,7 +97,7 @@ export default class SongCard extends Component<SongCardSignature> {
         });
 
         if (user !== User.Me) {
-            const link = user === User.Jeff ? this.lyricsLink : this.ugLink;
+            const link = user === User.Vocals ? this.lyricsLink : this.ugLink;
             return link ? [fnGetButton('Link', 'packetbeatApp', () => this.openExternalLink(link))] : [];
         }
 
@@ -105,14 +105,14 @@ export default class SongCard extends Component<SongCardSignature> {
             { groove, drumeo } = this.data;
 
         if (groove) {
-            buttons.push(fnGetButton('GrooveScribe Tab', 'packetbeatApp', () => this.openExternalLink(groove)));
+            buttons.push(fnGetButton('GrooveScribe Tab', 'faceHappy', () => this.openExternalLink(groove)));
         }
 
         if (drumeo) {
             buttons.push(
                 fnGetButton(
                     'Generic Tab',
-                    'metricbeatApp',
+                    'globe',
                     () => this.openExternalLink(drumeo),
                     drumeo.includes('musora') || drumeo.includes('drumeo')
                 )

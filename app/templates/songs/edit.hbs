@@ -214,11 +214,6 @@
                     </EuiFormControlLayout>
                 </EuiFlexItem>
 
-            </EuiFlexGroup>
-        </EuiFlexItem>
-
-        <EuiFlexItem>
-            <EuiFlexGroup @direction="column" @gutterSize="s">
                 <EuiFlexItem>
                     <EuiFormControlLayout
                         @fullWidth={{true}}
@@ -236,72 +231,6 @@
                                 @valueKey="value"
                                 @onChange={{this.selectBands}}
                                 id="chkBands"
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
-                </EuiFlexItem>
-
-                <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control auto-height"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtPaulPlawin" class={{classes}}>
-                                Paul Plawin
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiTextArea
-                                @value={{this.pp}}
-                                @fullWidth={{true}}
-                                rows={{5}}
-                                id="txtPaulPlawin"
-                                {{on "change" (fn this.updateStringValue "pp")}}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
-                </EuiFlexItem>
-
-                <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control auto-height"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtJayLee" class={{classes}}>
-                                Jay Lee
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiTextArea
-                                @value={{this.jl}}
-                                @fullWidth={{true}}
-                                rows={{5}}
-                                id="txtJayLee"
-                                {{on "change" (fn this.updateStringValue "jl")}}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
-                </EuiFlexItem>
-
-                <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control auto-height"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtEricGlick" class={{classes}}>
-                                Eric Glick
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiTextArea
-                                @value={{this.eg}}
-                                @fullWidth={{true}}
-                                rows={{5}}
-                                id="txtEricGlick"
-                                {{on "change" (fn this.updateStringValue "eg")}}
                             />
                         </:field>
                     </EuiFormControlLayout>
