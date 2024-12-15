@@ -27,7 +27,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.25.2",
-        "@ember-eui/core": "^8.0.22",
+        "@ember-eui/core": "^8.0.38",
         "@ember/optional-features": "^2.1.0",
         "@ember/string": "^3.1.1",
         "@ember/test-helpers": "^3.3.1",
@@ -54,7 +54,6 @@
         "ember-cli-dependency-checker": "^3.3.2",
         "ember-cli-htmlbars": "^6.3.0",
         "ember-cli-inject-live-reload": "^2.1.0",
-        "ember-data": "~5.3.8",
         "ember-fetch": "^8.1.2",
         "ember-focus-trap": "^1.1.0",
         "ember-lifeline": "^7.0.0",

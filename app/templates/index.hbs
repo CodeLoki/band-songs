@@ -9,6 +9,10 @@
         <EuiFlexItem>
             <Gig @gig={{gig}} />
         </EuiFlexItem>
+    {{else}}
+        <EuiPanel @color="subdued" @borderRadius="none" @hasShadow={{false}}>
+            <p>No gigs yet.</p>
+        </EuiPanel>
     {{/each}}
 </EuiFlexGrid>
 
