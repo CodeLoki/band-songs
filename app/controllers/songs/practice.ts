@@ -25,6 +25,10 @@ export default class SongsPracticeController extends BaseSongsController {
             {
                 value: TabSource.Drumeo,
                 text: 'Drumeo'
+            },
+            {
+                value: TabSource.GrooveScribe,
+                text: 'GrooveScribe'
             }
         ];
     }
