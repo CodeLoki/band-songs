@@ -5,6 +5,8 @@ import { startsWithMap, DrumPad, drumPadMap } from 'band-songs/utils/songs';
 import { action } from '@ember/object';
 import { updateDoc, onSnapshot, type DocumentSnapshot, type Unsubscribe } from 'firebase/firestore';
 import { User } from 'band-songs/controllers/application';
+import { TabSource } from 'band-songs/utils/songs';
+
 import type { Song } from 'band-songs/utils/songs';
 import type { EuiCardSignature } from '@ember-eui/core/components/eui-card';
 import type { EuiButtonIconSignature } from '@ember-eui/core/components/eui-button-icon';
@@ -25,6 +27,7 @@ export interface SongCardSignature {
         user: User;
         song: DocumentSnapshot<Song>;
         songEditing?: VoidFunction;
+        tabSource?: TabSource;
     };
 }
 
@@ -52,6 +55,9 @@ export default class SongCard extends Component<SongCardSignature> {
         this.unsub();
     }
 
+    /**
+     * Notes about the song.
+     */
     get notes(): Note[] {
         const { data } = this,
             results: Note[] = [],
@@ -78,78 +84,96 @@ export default class SongCard extends Component<SongCardSignature> {
         return results;
     }
 
-    get buttons(): ButtonConfig[] {
-        const { user } = this.args;
-        if (!user) {
-            return [];
+    /**
+     * Calculated tablature source website (based on user and whether performance or practice).
+     */
+    get tabSource(): TabSource {
+        const { tabSource, user } = this.args;
+        if (tabSource) {
+            return tabSource;
         }
 
-        const fnGetButton = (
-            text: ButtonConfig['text'],
-            icon: ButtonConfig['iconType'],
-            click: ButtonConfig['click'],
-            isActive = false
-        ): ButtonConfig => ({
-            text,
-            iconType: icon ?? 'packetbeatApp',
-            click,
-            color: isActive ? 'warning' : 'text'
-        });
+        if (user === User.Vocals) {
+            return TabSource.LyricsGenius;
+        }
 
         if (user !== User.Me) {
-            const link = user === User.Vocals ? this.lyricsLink : this.ugLink;
-            return link ? [fnGetButton('Link', 'packetbeatApp', () => this.openExternalLink(link))] : [];
+            return TabSource.UltimateGuitar;
         }
 
+        return this.router.currentRouteName === 'songs.practice' ? TabSource.Songsterr : TabSource.GrooveScribe;
+    }
+
+    /**
+     * External link to tablature.
+     */
+    get tabLink(): string {
+        const { tabSource } = this,
+            { artist, title, groove } = this.data,
+            q = encodeURI(`${artist} ${title}`);
+
+        if (tabSource === TabSource.LyricsGenius) {
+            return `https://genius.com/search?q=${q}`;
+            // return `https://songmeanings.com/query/?query=${q}&type=songtitles`;
+            // return `https://search.azlyrics.com/search.php?q=${q}`;
+        }
+
+        if (tabSource === TabSource.UltimateGuitar) {
+            return `https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}`;
+        }
+
+        if (tabSource === TabSource.Drumeo) {
+            return `https://www.musora.com/drumeo/songs?title=${encodeURI(title)}&sort=-popularity`;
+        }
+
+        if (tabSource === TabSource.Songsterr) {
+            return `https://www.songsterr.com/?pattern=${q}&inst=drum`;
+        }
+
+        if (tabSource === TabSource.GrooveScribe) {
+            return groove;
+        }
+
+        return '';
+    }
+
+    /**
+     * Action buttons (based on user and environment).
+     */
+    get buttons(): ButtonConfig[] {
         const buttons: ButtonConfig[] = [],
-            { groove, drumeo } = this.data;
+            fnAddButton = (
+                text: ButtonConfig['text'],
+                icon: ButtonConfig['iconType'],
+                click: ButtonConfig['click'],
+                isActive = false
+            ) =>
+                buttons.push({
+                    text,
+                    iconType: icon ?? 'globe',
+                    click,
+                    color: isActive ? 'warning' : 'text'
+                });
 
-        if (groove) {
-            buttons.push(fnGetButton('GrooveScribe Tab', 'faceHappy', () => this.openExternalLink(groove)));
+        if (!this.args.user) {
+            return buttons;
         }
 
-        if (drumeo) {
-            buttons.push(
-                fnGetButton(
-                    'Generic Tab',
-                    'globe',
-                    () => this.openExternalLink(drumeo),
-                    drumeo.includes('musora') || drumeo.includes('drumeo')
-                )
-            );
+        const { tabLink } = this;
+        if (tabLink) {
+            fnAddButton('Tablature', 'globe', () => window.open(tabLink));
         }
 
         if (this.firestore.userCanEdit) {
-            buttons.push(fnGetButton('Needs Practice', 'flag', () => this.needsPractice(), !!this.data.practice));
-            buttons.push(fnGetButton('Edit Song', 'documentEdit', () => this.edit()));
+            fnAddButton('Needs Practice', 'flag', () => this.needsPractice(), !!this.data.practice);
+            fnAddButton('Edit Song', 'documentEdit', () => this.edit());
         }
 
         return buttons;
     }
 
-    private getSearchParam(): string {
-        const { artist, title } = this.data;
-        if (artist === 'Group W Bench' || artist === 'Convertible Jerk') {
-            return '';
-        }
-
-        return encodeURI(`${artist} ${title}`);
-    }
-
-    get lyricsLink(): string {
-        const q = this.getSearchParam();
-        return q ? `https://genius.com/search?q=${q}` : '';
-        // return `https://songmeanings.com/query/?query=${q}&type=songtitles`;
-        // return `https://search.azlyrics.com/search.php?q=${q}`;
-    }
-
-    get ugLink(): string {
-        const q = this.getSearchParam();
-        return q ? `https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}` : '';
-    }
-
     /**
-     * Indicates there is only one buttons, so should be tied to card click.
+     * Indicates there is only one button, so should be tied to card click.
      */
     get useCardClick(): boolean {
         return this.buttons.length === 1;
@@ -163,7 +187,7 @@ export default class SongCard extends Component<SongCardSignature> {
     }
 
     /**
-     * Executes the first button click when the card is clicked (only if there is one button).
+     * Executes the first button click when the card is clicked (when there is only one button).
      */
     @action clickFirstButton(): void {
         const [btn] = this.buttons;
@@ -178,13 +202,6 @@ export default class SongCard extends Component<SongCardSignature> {
     @action edit(): void {
         this.args.songEditing?.();
         this.router.transitionTo('songs.edit', this.args.song.id);
-    }
-
-    /**
-     * Opens an external link.
-     */
-    @action openExternalLink(uri: string): void {
-        window.open(uri);
     }
 
     /**

@@ -36,6 +36,10 @@ export default class ApplicationController extends Controller {
 
     @tracked bandSelectorOpen = false;
 
+    get isUserMe(): boolean {
+        return this.u === User.Me;
+    }
+
     @action changeBand(band: QueryDocumentSnapshot<Band>) {
         this.bandSelectorOpen = false;
 

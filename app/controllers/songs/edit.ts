@@ -59,12 +59,7 @@ export default class SongsEditController extends Controller {
             groove: data?.groove ?? '',
             drumeo: data?.drumeo ?? '',
             notes: data?.notes ?? '',
-            pad: data?.pad ?? DrumPad.None,
-
-            // Users
-            pp: data?.pp ?? '',
-            jl: data?.jl ?? '',
-            eg: data?.eg ?? ''
+            pad: data?.pad ?? DrumPad.None
         });
     }
 

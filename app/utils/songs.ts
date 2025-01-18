@@ -22,12 +22,6 @@ export type Song = {
     practice?: boolean;
     /** The collection of bands that play this song. */
     bands: QueryDocumentSnapshot<Band>[];
-    /** Notes for Paul Plawin. */
-    pp: string;
-    /** Notes for Jay Lee */
-    jl: string;
-    /** Notes for Eric Glick. */
-    eg: string;
 };
 
 export enum DrumPad {
@@ -44,7 +38,7 @@ export const drumPadMap = new Map<DrumPad, string>([
     [DrumPad.None, 'None'],
     [DrumPad.Cowbell, 'Cowbell (#641)'],
     [DrumPad.Claps, 'Claps (#800)'],
-    [DrumPad.Tambourine, 'Tambourine (#725)'],
+    [DrumPad.Tambourine, 'Tambourine (#724)'],
     [DrumPad.BellTree, 'Tree chime (#631)'],
     [DrumPad.China, 'China Crash'],
     [DrumPad.Edrum, 'EDrum']
@@ -81,6 +75,14 @@ export const startsWithMap = new Map<StartsWith, string>([
     [StartsWith.Keys, 'Keys'],
     [StartsWith.Trumpet, 'Trumpet']
 ]);
+
+export enum TabSource {
+    Songsterr,
+    Drumeo,
+    UltimateGuitar,
+    LyricsGenius,
+    GrooveScribe
+}
 
 export function calculateSetListLength(songs: DocumentSnapshot<Song>[]): string {
     return `${Math.round(

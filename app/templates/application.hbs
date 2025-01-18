@@ -55,6 +55,19 @@
             >
                 Songs
             </EuiHeaderLink>
+
+            {{#if this.isUserMe}}
+                <EuiHeaderLink
+                    @isActive={{eq
+                        "songs.practice"
+                        this.router.currentRouteName
+                    }}
+                    @iconType="flag"
+                    {{on "click" (go-to "songs.practice")}}
+                >
+                    Practice
+                </EuiHeaderLink>
+            {{/if}}
         </EuiHeaderLinks>
     </EuiHeaderSectionItem>
 </EuiHeader>

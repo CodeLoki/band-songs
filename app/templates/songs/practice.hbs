@@ -1,8 +1,21 @@
 {{page-title "Songs to Practice"}}
 
-<EuiText @grow={{false}}>
-    <h2>Practice ({{@model.songs.length}})</h2>
-</EuiText>
+<EuiFlexGroup>
+    <EuiFlexItem>
+        <EuiText @grow={{false}}>
+            <h2>Practice ({{@model.songs.length}})</h2>
+        </EuiText>
+    </EuiFlexItem>
+    <EuiFlexItem @grow={{false}}>
+        {{#if this.isUserMe}}
+            <EuiSelect
+                @value={{this.drumTabSource}}
+                @options={{this.drumTabSources}}
+                {{on "change" this.updateDrumTabSource}}
+            />
+        {{/if}}
+    </EuiFlexItem>
+</EuiFlexGroup>
 
 <EuiSpacer @size="l" />
 
@@ -13,6 +26,7 @@
                 @user={{@model.user}}
                 @song={{song}}
                 @songEditing={{this.cacheScrollPosition}}
+                @tabSource={{this.drumTabSource}}
             />
         </EuiFlexItem>
     {{/each}}
