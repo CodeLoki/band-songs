@@ -81,7 +81,8 @@ export enum TabSource {
     Drumeo,
     UltimateGuitar,
     LyricsGenius,
-    GrooveScribe
+    GrooveScribe,
+    YouTubeMusic
 }
 
 export function calculateSetListLength(songs: DocumentSnapshot<Song>[]): string {

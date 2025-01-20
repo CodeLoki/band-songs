@@ -130,6 +130,10 @@ export default class SongCard extends Component<SongCardSignature> {
             return `https://www.songsterr.com/?pattern=${q}&inst=drum`;
         }
 
+        if (tabSource === TabSource.YouTubeMusic) {
+            return `https://music.youtube.com/search?q=${q}`;
+        }
+
         if (tabSource === TabSource.GrooveScribe) {
             return groove;
         }

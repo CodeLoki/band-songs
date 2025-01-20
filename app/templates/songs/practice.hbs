@@ -1,21 +1,18 @@
 {{page-title "Songs to Practice"}}
 
-<EuiFlexGroup>
-    <EuiFlexItem>
-        <EuiText @grow={{false}}>
-            <h2>Practice ({{@model.songs.length}})</h2>
-        </EuiText>
-    </EuiFlexItem>
-    <EuiFlexItem @grow={{false}}>
-        {{#if this.isUserMe}}
-            <EuiSelect
-                @value={{this.drumTabSource}}
-                @options={{this.drumTabSources}}
-                {{on "change" this.updateDrumTabSource}}
-            />
-        {{/if}}
-    </EuiFlexItem>
-</EuiFlexGroup>
+{{#in-element (get-header-links)}}
+    {{#if this.isUserMe}}
+        <EuiSelect
+            @value={{this.drumTabSource}}
+            @options={{this.drumTabSources}}
+            {{on "change" this.updateDrumTabSource}}
+        />
+    {{/if}}
+{{/in-element}}
+
+<EuiText @grow={{false}}>
+    <h2>Practice ({{@model.songs.length}})</h2>
+</EuiText>
 
 <EuiSpacer @size="l" />
 

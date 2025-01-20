@@ -29,6 +29,10 @@ export default class SongsPracticeController extends BaseSongsController {
             {
                 value: TabSource.GrooveScribe,
                 text: 'GrooveScribe'
+            },
+            {
+                value: TabSource.YouTubeMusic,
+                text: 'YouTube Music'
             }
         ];
     }
