@@ -146,31 +146,6 @@
                 <EuiFlexItem>
                     <EuiFormControlLayout
                         @fullWidth={{true}}
-                        class="form-control auto-height"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtTabs" class={{classes}}>
-                                Drum Tab
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiTextArea
-                                @value={{this.drumeo}}
-                                @fullWidth={{true}}
-                                rows={{5}}
-                                id="txtTabs"
-                                {{on
-                                    "change"
-                                    (fn this.updateStringValue "drumeo")
-                                }}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
-                </EuiFlexItem>
-
-                <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
                         class="form-control"
                     >
                         <:prepend as |classes|>
