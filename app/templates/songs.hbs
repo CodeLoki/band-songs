@@ -1,50 +1,55 @@
-<EuiFlexGroup @alignItems="center">
-    <EuiFlexItem @grow={{true}}>
-        <EuiText>
-            <h2>{{@model.pageTitle}}</h2>
-        </EuiText>
-    </EuiFlexItem>
+<EuiFlexGroup @direction="column" @gutterSize="m" class="main-flex-group">
     <EuiFlexItem @grow={{false}}>
-        {{#if (is-user-me @model.user)}}
-            <EuiFlexGroup
-                @responsive={{false}}
-                @wrap={{false}}
-                @gutterSize="s"
-                @alignItems="center"
-            >
-                <EuiFlexItem @grow={{false}}>
-                    <EuiButtonEmpty
-                        @size="s"
-                        @iconType="faceSad"
-                        @color="text"
-                        {{on "click" (go-to "songs.orphans")}}
+        <EuiFlexGroup @alignItems="center">
+            <EuiFlexItem @grow={{true}}>
+                <EuiText>
+                    <h2>{{@model.pageTitle}}</h2>
+                </EuiText>
+            </EuiFlexItem>
+            <EuiFlexItem @grow={{false}}>
+                {{#if (is-user-me @model.user)}}
+                    <EuiFlexGroup
+                        @responsive={{false}}
+                        @wrap={{false}}
+                        @gutterSize="s"
+                        @alignItems="center"
                     >
-                        Orphans
-                    </EuiButtonEmpty>
-                </EuiFlexItem>
-                <EuiFlexItem @grow={{false}}>
-                    <EuiButtonEmpty
-                        @size="s"
-                        @iconType="flag"
-                        @color="text"
-                        {{on "click" (go-to "songs.practice")}}
-                    >
-                        Practice
-                    </EuiButtonEmpty>
-                </EuiFlexItem>
-                <EuiFlexItem @grow={{false}}>
-                    <EuiButtonEmpty
-                        @size="s"
-                        @iconType=""
-                        @color="text"
-                        {{on "click" (go-to "songs.incomplete")}}
-                    >
-                        Incomplete
-                    </EuiButtonEmpty>
-                </EuiFlexItem>
-            </EuiFlexGroup>
-        {{/if}}
+                        <EuiFlexItem @grow={{false}}>
+                            <EuiButtonEmpty
+                                @size="s"
+                                @iconType="faceSad"
+                                @color="text"
+                                {{on "click" (go-to "songs.orphans")}}
+                            >
+                                Orphans
+                            </EuiButtonEmpty>
+                        </EuiFlexItem>
+                        <EuiFlexItem @grow={{false}}>
+                            <EuiButtonEmpty
+                                @size="s"
+                                @iconType="flag"
+                                @color="text"
+                                {{on "click" (go-to "songs.practice")}}
+                            >
+                                Practice
+                            </EuiButtonEmpty>
+                        </EuiFlexItem>
+                        <EuiFlexItem @grow={{false}}>
+                            <EuiButtonEmpty
+                                @size="s"
+                                @iconType="notebookApp"
+                                @color="text"
+                                {{on "click" (go-to "songs.incomplete")}}
+                            >
+                                Incomplete
+                            </EuiButtonEmpty>
+                        </EuiFlexItem>
+                    </EuiFlexGroup>
+                {{/if}}
+            </EuiFlexItem>
+        </EuiFlexGroup>
+    </EuiFlexItem>
+    <EuiFlexItem @grow={{true}}>
+        {{outlet}}
     </EuiFlexItem>
 </EuiFlexGroup>
-
-{{outlet}}

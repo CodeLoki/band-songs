@@ -33,6 +33,7 @@ export default class SongsEditController extends Controller {
     @tracked selectedBands: Record<string, boolean> = {};
 
     @tracked groove = '';
+    @tracked ytMusic = '';
     @tracked notes = '';
     @tracked pad = DrumPad.None;
 
@@ -57,6 +58,7 @@ export default class SongsEditController extends Controller {
 
             // Me
             groove: data?.groove ?? '',
+            ytMusic: data?.ytMusic ?? '',
             notes: data?.notes ?? '',
             pad: data?.pad ?? DrumPad.None
         });
@@ -93,7 +95,7 @@ export default class SongsEditController extends Controller {
         this.toast.showToast(`Song "${this.title}" ${type}`);
     }
 
-    @action updateStringValue(n: 'title' | 'artist' | 'groove' | 'notes', evt: Event): void {
+    @action updateStringValue(n: 'title' | 'artist' | 'groove' | 'ytMusic' | 'notes', evt: Event): void {
         this[n] = (evt.target as HTMLInputElement).value ?? '';
     }
 
@@ -131,6 +133,7 @@ export default class SongsEditController extends Controller {
                     length: this.length,
                     startsWith: this.startsWith,
                     groove: this.groove,
+                    ytMusic: this.ytMusic,
                     notes: this.notes,
                     pad: this.pad,
                     bands: Object.entries(this.selectedBands)

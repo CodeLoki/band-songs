@@ -1,4 +1,14 @@
-{{page-title "Songs Without Tabs"}}
+{{page-title "Songs to Practice"}}
+
+{{#in-element (get-header-links)}}
+    {{#if (is-user-me @model.user)}}
+        <EuiSelect
+            @value={{this.drumTabSource}}
+            @options={{this.drumTabSources}}
+            {{on "change" this.updateDrumTabSource}}
+        />
+    {{/if}}
+{{/in-element}}
 
 <EuiFlexGrid @columns={{3}} @responsive={{true}}>
     {{#each @model.songs as |song|}}

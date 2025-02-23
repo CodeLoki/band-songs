@@ -26,7 +26,7 @@ export interface SongCardSignature {
     Args: {
         user: User;
         song: DocumentSnapshot<Song>;
-        songEditing?: VoidFunction;
+        cacheScroll?: VoidFunction;
         tabSource?: TabSource;
     };
 }
@@ -101,48 +101,65 @@ export default class SongCard extends Component<SongCardSignature> {
             return TabSource.UltimateGuitar;
         }
 
-        return this.router.currentRouteName === 'songs.practice' ? TabSource.Songsterr : TabSource.GrooveScribe;
+        return this.router.currentRouteName === 'songs.practice.index'
+            ? (tabSource ?? TabSource.Songsterr)
+            : TabSource.GrooveScribe;
     }
 
     /**
      * External link to tablature.
      */
-    get tabLink(): string {
+    get tabLink(): VoidFunction | undefined {
         const { tabSource } = this,
             { artist, title, groove } = this.data,
-            q = encodeURI(`${artist} ${title}`);
+            q = encodeURI(`${artist} ${title}`),
+            getOpenFn = (url: string) => {
+                return () => window.open(url);
+            };
 
         if (!this.args.user) {
-            return `https://www.youtube.com/results?search_query=${q}`;
+            const { ytMusic } = this.data;
+            if (ytMusic) {
+                return getOpenFn(`https://www.youtube.com/watch?v=${ytMusic}`);
+            }
+
+            return getOpenFn(`https://www.youtube.com/results?search_query=${q}`);
         }
 
         if (tabSource === TabSource.LyricsGenius) {
-            return `https://genius.com/search?q=${q}`;
+            return getOpenFn(`https://genius.com/search?q=${q}`);
             // return `https://songmeanings.com/query/?query=${q}&type=songtitles`;
             // return `https://search.azlyrics.com/search.php?q=${q}`;
         }
 
         if (tabSource === TabSource.UltimateGuitar) {
-            return `https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}`;
+            return getOpenFn(`https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}`);
         }
 
         if (tabSource === TabSource.Drumeo) {
-            return `https://www.musora.com/drumeo/songs?title=${encodeURI(title)}&sort=-popularity`;
+            return getOpenFn(`https://www.musora.com/drumeo/songs?title=${encodeURI(title)}&sort=-popularity`);
         }
 
         if (tabSource === TabSource.Songsterr) {
-            return `https://www.songsterr.com/?pattern=${q}&inst=drum`;
+            return getOpenFn(`https://www.songsterr.com/?pattern=${q}&inst=drum`);
         }
 
         if (tabSource === TabSource.YouTubeMusic) {
-            return `https://music.youtube.com/search?q=${q}`;
+            return getOpenFn(`https://music.youtube.com/search?q=${q}`);
         }
 
         if (tabSource === TabSource.GrooveScribe) {
-            return groove;
+            return getOpenFn(groove);
         }
 
-        return '';
+        if (tabSource === TabSource.Rehearse) {
+            return () => {
+                this.args.cacheScroll?.();
+                this.router.transitionTo('songs.practice.rehearse', this.args.song.id);
+            };
+        }
+
+        return undefined;
     }
 
     /**
@@ -165,7 +182,7 @@ export default class SongCard extends Component<SongCardSignature> {
 
         const { tabLink } = this;
         if (tabLink) {
-            fnAddButton('Tablature', 'globe', () => window.open(tabLink));
+            fnAddButton('Tablature', 'globe', tabLink);
         }
 
         if (this.firestore.userCanEdit) {
@@ -204,7 +221,7 @@ export default class SongCard extends Component<SongCardSignature> {
      * Transitions to the edit route for the current song.
      */
     @action edit(): void {
-        this.args.songEditing?.();
+        this.args.cacheScroll?.();
         this.router.transitionTo('songs.edit', this.args.song.id);
     }
 

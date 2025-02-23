@@ -14,6 +14,8 @@ export type Song = {
     groove: string;
     /** Any non-groovescribe drum tab. */
     drumeo: string;
+    /** Embedded youtube url. */
+    ytMusic: string;
     /** Drummer notes for this song. */
     notes: string;
     /** Auxiliary drum pad used in this song. */
@@ -82,7 +84,8 @@ export enum TabSource {
     UltimateGuitar,
     LyricsGenius,
     GrooveScribe,
-    YouTubeMusic
+    YouTubeMusic,
+    Rehearse
 }
 
 export function calculateSetListLength(songs: DocumentSnapshot<Song>[]): string {

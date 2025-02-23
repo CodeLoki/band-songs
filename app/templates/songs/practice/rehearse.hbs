@@ -1,0 +1,24 @@
+{{page-title (concat "Rehearse " @model.title)}}
+
+<EuiFlexGroup @direction="column" class="rehearse-group">
+    <EuiFlexItem @grow={{true}}>
+        <iframe
+            src={{@model.groove}}
+            title="GrooveScribe"
+            class="embedded-groovescribe"
+        />
+    </EuiFlexItem>
+</EuiFlexGroup>
+
+{{#if @model.ytMusic}}
+    <iframe
+        width="200"
+        height="200"
+        src="https://www.youtube.com/embed/{{@model.ytMusic}}"
+        title="{{@model.artist}} - {{@model.title}}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        class="embedded-yt-music"
+    />
+{{/if}}

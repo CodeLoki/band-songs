@@ -6,8 +6,10 @@ body {
 }
 
 main {
+    height: calc(100vh - 80px);
     margin-top: 48px;
     padding: 16px;
+    position: relative;
 }
 
 .form-control + .form-control {
@@ -40,4 +42,17 @@ input[type="date"] {
 /* stylelint-disable-next-line selector-class-pattern */
 .euiPanel.no-buttons .euiCard__footer {
     margin-top: 0;
+}
+
+.main-flex-group {
+    height: 100%;
+}
+
+.embedded-groovescribe {
+    height: 100%;
+}
+
+.embedded-yt-music {
+    position: absolute;
+    inset: auto 32px 32px auto;
 }

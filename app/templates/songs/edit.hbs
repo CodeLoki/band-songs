@@ -149,6 +149,30 @@
                         class="form-control"
                     >
                         <:prepend as |classes|>
+                            <EuiFormLabel for="txtYtMusic" class={{classes}}>
+                                YT Music
+                            </EuiFormLabel>
+                        </:prepend>
+                        <:field>
+                            <EuiFieldText
+                                @value={{this.ytMusic}}
+                                @id="txtYtMusic"
+                                @fullWidth={{true}}
+                                {{on
+                                    "change"
+                                    (fn this.updateStringValue "ytMusic")
+                                }}
+                            />
+                        </:field>
+                    </EuiFormControlLayout>
+                </EuiFlexItem>
+
+                <EuiFlexItem>
+                    <EuiFormControlLayout
+                        @fullWidth={{true}}
+                        class="form-control"
+                    >
+                        <:prepend as |classes|>
                             <EuiFormLabel for="txtNotes" class={{classes}}>
                                 Drum Notes
                             </EuiFormLabel>
