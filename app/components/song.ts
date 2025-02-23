@@ -112,6 +112,10 @@ export default class SongCard extends Component<SongCardSignature> {
             { artist, title, groove } = this.data,
             q = encodeURI(`${artist} ${title}`);
 
+        if (!this.args.user) {
+            return `https://www.youtube.com/results?search_query=${q}`;
+        }
+
         if (tabSource === TabSource.LyricsGenius) {
             return `https://genius.com/search?q=${q}`;
             // return `https://songmeanings.com/query/?query=${q}&type=songtitles`;
@@ -158,10 +162,6 @@ export default class SongCard extends Component<SongCardSignature> {
                     click,
                     color: isActive ? 'warning' : 'text'
                 });
-
-        if (!this.args.user) {
-            return buttons;
-        }
 
         const { tabLink } = this;
         if (tabLink) {

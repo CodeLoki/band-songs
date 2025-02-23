@@ -1,11 +1,5 @@
 {{page-title "Orphaned Songs"}}
 
-<EuiText @grow={{false}}>
-    <h2>Orphaned Songs ({{@model.songs.length}})</h2>
-</EuiText>
-
-<EuiSpacer @size="l" />
-
 <EuiFlexGrid @columns={{3}} @responsive={{true}}>
     {{#each @model.songs as |song|}}
         <EuiFlexItem>

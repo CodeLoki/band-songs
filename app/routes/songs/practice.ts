@@ -8,12 +8,14 @@ import type { Song } from 'band-songs/utils/songs';
 import type { ModelFrom } from 'band-songs/utils/general';
 import type ApplicationRoute from 'band-songs/routes/application';
 import type { User } from 'band-songs/controllers/application';
+import type SongsRoute from '../songs';
 
 export default class SongsPracticeRoute extends Route {
     @service declare firestore: ServiceRegistry['firestore'];
 
     async model(): Promise<{ user: User; songs: QueryDocumentSnapshot<Song>[] }> {
         const appModel = (await this.modelFor('application')) as ModelFrom<ApplicationRoute>,
+            songsModel = this.modelFor('songs') as ModelFrom<SongsRoute>,
             songs = await getDocs(
                 query(
                     collection(this.firestore.db, 'songs'),
@@ -22,8 +24,10 @@ export default class SongsPracticeRoute extends Route {
                 )
             );
 
+        songsModel.updateTitle(`Practice Songs (${songs.docs.length})`);
+
         return {
-            user: this.paramsFor('application')['u'] as User,
+            user: songsModel.user,
             songs: sortBy(songs.docs as QueryDocumentSnapshot<Song>[], 'title')
         };
     }

@@ -12,10 +12,6 @@ export default class SongsPracticeController extends BaseSongsController {
 
     @tracked drumTabSource = TabSource.Songsterr;
 
-    get isUserMe(): boolean {
-        return this.model.user === User.Me;
-    }
-
     get drumTabSources(): { value: TabSource; text: string }[] {
         return [
             {

@@ -11,6 +11,7 @@ Router.map(function () {
         this.route('edit', { path: '/:song_id' });
         this.route('practice');
         this.route('orphans');
+        this.route('incomplete');
     });
     this.route('gigs', { path: '/gigs/:gig_id' });
 });

@@ -1,15 +1,4 @@
-{{page-title "All Songs"}}
-
-{{#in-element (get-header-links)}}
-    {{#if (can-user-edit)}}
-        <EuiHeaderLink
-            @iconType="createAdvancedJob"
-            {{on "click" (go-to "songs.edit" "new")}}
-        >
-            Add
-        </EuiHeaderLink>
-    {{/if}}
-{{/in-element}}
+{{page-title "Songs Without Tabs"}}
 
 <EuiFlexGrid @columns={{3}} @responsive={{true}}>
     {{#each @model.songs as |song|}}
@@ -18,6 +7,7 @@
                 @user={{@model.user}}
                 @song={{song}}
                 @songEditing={{this.cacheScrollPosition}}
+                @tabSource={{this.drumTabSource}}
             />
         </EuiFlexItem>
     {{/each}}

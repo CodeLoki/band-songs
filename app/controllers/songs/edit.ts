@@ -4,6 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { StartsWith, startsWithMap, DrumPad, drumPadMap } from 'band-songs/utils/songs';
 import { collection, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { A } from '@ember/array';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type Route from 'band-songs/routes/songs/edit';
@@ -68,7 +69,7 @@ export default class SongsEditController extends Controller {
             items.push({ value, text });
         });
 
-        return items;
+        return A(items).sortBy('text');
     }
 
     get padOptions(): PadItem[] {
