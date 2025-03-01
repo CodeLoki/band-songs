@@ -17,7 +17,10 @@ module.exports = {
         {
             files: ['**/*.ts'],
             extends: ['plugin:@typescript-eslint/eslint-recommended', 'plugin:@typescript-eslint/recommended'],
-            rules: {}
+            rules: {
+                '@typescript-eslint/explicit-function-return-type': 'error',
+                '@typescript-eslint/consistent-type-imports': 'error'
+            }
         },
         // node files
         {

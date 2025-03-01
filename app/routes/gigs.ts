@@ -10,7 +10,7 @@ import type Controller from 'band-songs/controllers/gigs';
 import type Transition from '@ember/routing/transition';
 import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import type { AppModel } from 'band-songs/routes/application';
-import type { User } from 'band-songs/controllers/application';
+import type { User } from 'band-songs/utils/songs';
 
 type RouteModel = AppModel & {
     user: User;
@@ -67,7 +67,7 @@ export default class GigsRoute extends Route {
         };
     }
 
-    setupController(controller: Controller, model: RouteModel, transition: Transition) {
+    setupController(controller: Controller, model: RouteModel, transition: Transition): void {
         super.setupController(controller, model, transition);
         controller.resetFields(model);
     }

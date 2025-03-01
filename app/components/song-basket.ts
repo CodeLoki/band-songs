@@ -30,7 +30,7 @@ export default class SongBasket extends Component<SongBasketSignature> {
         return `${name} (${this.setLength})`;
     }
 
-    getTitle = (song: DocumentSnapshot<Song>) => song.data()?.title ?? '';
+    getTitle = (song: DocumentSnapshot<Song>): string => song.data()?.title ?? '';
 
     get setLength(): string {
         return calculateSetListLength(this.args.selectedSongs);

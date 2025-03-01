@@ -1,11 +1,17 @@
 import Component from '@glimmer/component';
 import { service, type Registry as ServiceRegistry } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { startsWithMap, DrumPad, drumPadMap } from 'band-songs/utils/songs';
+import {
+    startsWithMap,
+    DrumPad,
+    drumPadMap,
+    getTabSource,
+    User,
+    PerformanceMode,
+    getTabLink
+} from 'band-songs/utils/songs';
 import { action } from '@ember/object';
 import { updateDoc, onSnapshot, type DocumentSnapshot, type Unsubscribe } from 'firebase/firestore';
-import { User } from 'band-songs/controllers/application';
-import { TabSource } from 'band-songs/utils/songs';
 
 import type { Song } from 'band-songs/utils/songs';
 import type { EuiCardSignature } from '@ember-eui/core/components/eui-card';
@@ -26,8 +32,8 @@ export interface SongCardSignature {
     Args: {
         user: User;
         song: DocumentSnapshot<Song>;
+        mode?: PerformanceMode;
         cacheScroll?: VoidFunction;
-        tabSource?: TabSource;
     };
 }
 
@@ -61,7 +67,7 @@ export default class SongCard extends Component<SongCardSignature> {
     get notes(): Note[] {
         const { data } = this,
             results: Note[] = [],
-            fnAddNote = (text: string, icon = '') =>
+            fnAddNote = (text: string, icon = ''): number =>
                 results.push({
                     icon,
                     text
@@ -85,81 +91,28 @@ export default class SongCard extends Component<SongCardSignature> {
     }
 
     /**
-     * Calculated tablature source website (based on user and whether performance or practice).
-     */
-    get tabSource(): TabSource {
-        const { tabSource, user } = this.args;
-        if (tabSource) {
-            return tabSource;
-        }
-
-        if (user === User.Vocals) {
-            return TabSource.LyricsGenius;
-        }
-
-        if (user !== User.Me) {
-            return TabSource.UltimateGuitar;
-        }
-
-        return this.router.currentRouteName === 'songs.practice.index'
-            ? (tabSource ?? TabSource.Songsterr)
-            : TabSource.GrooveScribe;
-    }
-
-    /**
      * External link to tablature.
      */
     get tabLink(): VoidFunction | undefined {
-        const { tabSource } = this,
-            { artist, title, groove } = this.data,
-            q = encodeURI(`${artist} ${title}`),
-            getOpenFn = (url: string) => {
-                return () => window.open(url);
-            };
+        const { args } = this,
+            { mode } = args;
 
-        if (!this.args.user) {
-            const { ytMusic } = this.data;
-            if (ytMusic) {
-                return getOpenFn(`https://www.youtube.com/watch?v=${ytMusic}`);
-            }
-
-            return getOpenFn(`https://www.youtube.com/results?search_query=${q}`);
-        }
-
-        if (tabSource === TabSource.LyricsGenius) {
-            return getOpenFn(`https://genius.com/search?q=${q}`);
-            // return `https://songmeanings.com/query/?query=${q}&type=songtitles`;
-            // return `https://search.azlyrics.com/search.php?q=${q}`;
-        }
-
-        if (tabSource === TabSource.UltimateGuitar) {
-            return getOpenFn(`https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}`);
-        }
-
-        if (tabSource === TabSource.Drumeo) {
-            return getOpenFn(`https://www.musora.com/drumeo/songs?title=${encodeURI(title)}&sort=-popularity`);
-        }
-
-        if (tabSource === TabSource.Songsterr) {
-            return getOpenFn(`https://www.songsterr.com/?pattern=${q}&inst=drum`);
-        }
-
-        if (tabSource === TabSource.YouTubeMusic) {
-            return getOpenFn(`https://music.youtube.com/search?q=${q}`);
-        }
-
-        if (tabSource === TabSource.GrooveScribe) {
-            return getOpenFn(groove);
-        }
-
-        if (tabSource === TabSource.Rehearse) {
+        if (mode === PerformanceMode.rehearse) {
             return () => {
-                this.args.cacheScroll?.();
-                this.router.transitionTo('songs.practice.rehearse', this.args.song.id);
+                args.cacheScroll?.();
+                this.router.transitionTo('songs.rehearse', args.song.id);
             };
         }
 
-        return undefined;
+        if (mode === PerformanceMode.edit) {
+            return () => {
+                args.cacheScroll?.();
+                this.router.transitionTo('songs.edit', args.song.id);
+            };
+        }
+
+        const link = getTabLink(this.data, getTabSource(args.user, mode));
+        return link ? (): ReturnType<Window['open']> => window.open(link) : undefined;
     }
 
     /**
@@ -172,7 +125,7 @@ export default class SongCard extends Component<SongCardSignature> {
                 icon: ButtonConfig['iconType'],
                 click: ButtonConfig['click'],
                 isActive = false
-            ) =>
+            ): number =>
                 buttons.push({
                     text,
                     iconType: icon ?? 'globe',
@@ -182,12 +135,11 @@ export default class SongCard extends Component<SongCardSignature> {
 
         const { tabLink } = this;
         if (tabLink) {
-            fnAddButton('Tablature', 'globe', tabLink);
+            fnAddButton('Execute', 'watchesApp', tabLink);
         }
 
         if (this.firestore.userCanEdit) {
             fnAddButton('Needs Practice', 'flag', () => this.needsPractice(), !!this.data.practice);
-            fnAddButton('Edit Song', 'documentEdit', () => this.edit());
         }
 
         return buttons;

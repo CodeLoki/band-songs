@@ -19,7 +19,7 @@ export default class BaseSongsController extends Controller {
             this.lastScrollPosition = 0;
         }
 
-        return () => {};
+        return (): void => {};
     });
 
     @action cacheScrollPosition(): void {

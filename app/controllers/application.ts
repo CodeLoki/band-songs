@@ -2,19 +2,14 @@ import Controller from '@ember/controller';
 import { service, type Registry as ServiceRegistry } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { User } from 'band-songs/utils/songs';
+
 import type ApplicationRoute from 'band-songs/routes/application';
 import type { Band } from 'band-songs/routes/application';
 import type { ModelFrom } from 'band-songs/utils/general';
 import type { QueryDocumentSnapshot } from 'firebase/firestore';
 
 import '@ember-eui/core/themes/dark.css';
-
-export enum User {
-    None = '',
-    Me = 'z',
-    Vocals = 'vocals',
-    Guitars = 'guitars'
-}
 
 export default class ApplicationController extends Controller {
     @service declare router: ServiceRegistry['router'];
@@ -36,7 +31,7 @@ export default class ApplicationController extends Controller {
 
     @tracked bandSelectorOpen = false;
 
-    @action changeBand(band: QueryDocumentSnapshot<Band>) {
+    @action changeBand(band: QueryDocumentSnapshot<Band>): void {
         this.bandSelectorOpen = false;
 
         const { id } = band;

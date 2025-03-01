@@ -4,8 +4,7 @@ import { getDocs, collection, query, type QueryDocumentSnapshot } from 'firebase
 import { sortBy } from 'band-songs/utils/general';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
-import type { Song } from 'band-songs/utils/songs';
-import type { User } from 'band-songs/controllers/application';
+import type { Song, User } from 'band-songs/utils/songs';
 import type SongsRoute from '../songs';
 import type { ModelFrom } from 'band-songs/utils/general';
 
@@ -17,8 +16,6 @@ export default class SongsOrphansRoute extends Route {
             songs = (
                 (await getDocs(query(collection(this.firestore.db, 'songs')))).docs as QueryDocumentSnapshot<Song>[]
             ).filter((s) => s.data().bands.length === 0);
-
-        songsModel.updateTitle(`Orphaned Songs (${songs.length})`);
 
         return {
             user: songsModel.user,

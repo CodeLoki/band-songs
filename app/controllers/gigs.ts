@@ -8,6 +8,7 @@ import { GigDateFormatter } from 'band-songs/components/gig';
 import type Route from 'band-songs/routes/gigs';
 import type { ModelFrom } from 'band-songs/utils/general';
 import type { Registry as ServiceRegistry } from '@ember/service';
+import type { DocumentReference } from 'firebase/firestore';
 import type { Song } from 'band-songs/utils/songs';
 import type { Setlist } from 'band-songs/components/song-basket';
 
@@ -115,7 +116,7 @@ export default class GigsController extends Controller {
     @action async saveGig(): Promise<void> {
         try {
             const { gig } = this.model,
-                gnGetSongsRefs = (songs: DocumentSnapshot<Song>[]) => songs.map((s) => s.ref),
+                gnGetSongsRefs = (songs: DocumentSnapshot<Song>[]): DocumentReference[] => songs.map((s) => s.ref),
                 data = {
                     band: this.model.band.ref,
                     date: Timestamp.fromDate(this.date),

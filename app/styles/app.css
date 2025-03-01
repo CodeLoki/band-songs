@@ -6,10 +6,9 @@ body {
 }
 
 main {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 48px);
     margin-top: 48px;
-    padding: 16px;
-    position: relative;
+    padding: 16px 16px 0;
 }
 
 .form-control + .form-control {
@@ -44,15 +43,32 @@ input[type="date"] {
     margin-top: 0;
 }
 
-.main-flex-group {
+.songs-flex-group {
     height: 100%;
 }
 
-.embedded-groovescribe {
+.main-songs-list {
+    overflow-y: auto;
+}
+
+.practice-route {
+    inset: 0;
+    position: absolute;
+    z-index: 1001;
+}
+
+.embedded-tablature {
     height: 100%;
+    width: 100%;
 }
 
 .embedded-yt-music {
+    inset: auto auto 0 0;
     position: absolute;
-    inset: auto 32px 32px auto;
+    z-index: 1;
+}
+
+.btn-exit-practice {
+    inset: auto auto 208px 16px;
+    position: absolute;
 }

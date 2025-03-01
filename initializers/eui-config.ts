@@ -1,7 +1,7 @@
 import type EuiConfigService from '@ember-eui/core/services/eui-config';
 import type ApplicationInstance from '@ember/application/instance';
 
-export function initialize(appInstance: ApplicationInstance) {
+export function initialize(appInstance: ApplicationInstance): void {
     const euiConfig = appInstance.lookup('service:eui-config') as EuiConfigService;
 
     euiConfig.setConfig({

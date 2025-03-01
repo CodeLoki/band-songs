@@ -7,23 +7,19 @@ import type { Registry as ServiceRegistry } from '@ember/service';
 import type { Song } from 'band-songs/utils/songs';
 import type { ModelFrom } from 'band-songs/utils/general';
 import type ApplicationRoute from 'band-songs/routes/application';
-import type { User } from 'band-songs/controllers/application';
-import type SongsRoute from '../songs';
+import type { User } from 'band-songs/utils/songs';
 
 export default class SongsIndexRoute extends Route {
     @service declare firestore: ServiceRegistry['firestore'];
 
     async model(): Promise<{ user: User; songs: QueryDocumentSnapshot<Song>[] }> {
         const appModel = (await this.modelFor('application')) as ModelFrom<ApplicationRoute>,
-            songsModel = this.modelFor('songs') as ModelFrom<SongsRoute>,
             songs = await getDocs(
                 query(collection(this.firestore.db, 'songs'), where('bands', 'array-contains', appModel.band.ref))
             );
 
-        songsModel.updateTitle(`All Songs (${songs.docs.length})`);
-
         return {
-            user: songsModel.user,
+            user: this.paramsFor('application')['u'] as User,
             songs: sortBy(songs.docs as QueryDocumentSnapshot<Song>[], 'title')
         };
     }

@@ -39,7 +39,7 @@ export default class SongsEditController extends Controller {
 
     @tracked showDeleteModal = false;
 
-    resetFields(model: Awaited<ModelFrom<Route>>) {
+    resetFields(model: Awaited<ModelFrom<Route>>): void {
         const data = model.song?.data();
 
         Object.assign(this, {

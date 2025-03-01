@@ -1,25 +1,61 @@
-{{page-title "All Songs"}}
-
-{{#in-element (get-header-links)}}
-    {{#if (can-user-edit)}}
-        <EuiHeaderLink
-            @iconType="createAdvancedJob"
-            {{on "click" (go-to "songs.edit" "new")}}
-        >
-            Add
-        </EuiHeaderLink>
-    {{/if}}
-{{/in-element}}
-
-<EuiFlexGrid @columns={{3}} @responsive={{true}}>
-    {{#each @model.songs as |song|}}
-        <EuiFlexItem>
-            <Song
-                @user={{@model.user}}
-                @song={{song}}
-                @cacheScroll={{this.cacheScrollPosition}}
-            />
-        </EuiFlexItem>
-    {{/each}}
-    <div {{this.scrollToSong}} />
-</EuiFlexGrid>
+<EuiFlexGroup
+    @responsive={{false}}
+    @direction="column"
+    @gutterSize="m"
+    class="songs-flex-group"
+>
+    <EuiFlexItem @grow={{false}} class="songs-header">
+        <EuiFlexGroup @alignItems="center">
+            <EuiFlexItem @grow={{true}}>
+                <EuiText>
+                    <h2>Songs ({{this.songs.length}})</h2>
+                </EuiText>
+            </EuiFlexItem>
+            {{#if (is-user-me @model.user)}}
+                <EuiFlexItem @grow={{false}}>
+                    <EuiFlexGroup
+                        @responsive={{false}}
+                        @wrap={{false}}
+                        @gutterSize="s"
+                        @alignItems="center"
+                    >
+                        <EuiFlexItem @grow={{false}}>
+                            <EuiSelect
+                                @value={{this.view}}
+                                @options={{this.viewOptions}}
+                                {{on "change" this.updateView}}
+                            />
+                        </EuiFlexItem>
+                        <EuiFlexItem @grow={{false}}>
+                            <EuiSelect
+                                @value={{this.mode}}
+                                @options={{this.modeOptions}}
+                                {{on "change" this.updateMode}}
+                            />
+                        </EuiFlexItem>
+                    </EuiFlexGroup>
+                </EuiFlexItem>
+            {{/if}}
+        </EuiFlexGroup>
+    </EuiFlexItem>
+    <EuiFlexItem @grow={{true}} class="main-songs-list">
+        {{#if this.songs.length}}
+            <EuiFlexGrid @columns={{3}} @responsive={{true}}>
+                {{#each this.songs as |song|}}
+                    <EuiFlexItem>
+                        <Song
+                            @user={{@model.user}}
+                            @song={{song}}
+                            @mode={{this.mode}}
+                            @cacheScroll={{this.cacheScrollPosition}}
+                        />
+                    </EuiFlexItem>
+                {{/each}}
+                <div {{this.scrollToSong}} />
+            </EuiFlexGrid>
+        {{else}}
+            <EuiSpacer @size="xl" />
+            <p>No {{this.view}} songs.</p>
+        {{/if}}
+    </EuiFlexItem>
+</EuiFlexGroup>
