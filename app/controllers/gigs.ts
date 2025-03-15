@@ -40,6 +40,40 @@ export default class GigsController extends Controller {
     @tracked two: DocumentSnapshot<Song>[] = [];
     @tracked pocket: DocumentSnapshot<Song>[] = [];
 
+    // #region Gig display.
+
+    get isJustOneSet(): boolean {
+        return this.model.two.length === 0;
+    }
+
+    get firstSetOfSongs(): DocumentSnapshot<Song>[] {
+        const { one } = this.model;
+        if (this.isJustOneSet) {
+            const mid = Math.ceil(one.length / 2);
+            return one.slice(0, mid);
+        }
+
+        return one;
+    }
+
+    get secondSetOfSongs(): DocumentSnapshot<Song>[] {
+        const { one, two } = this.model;
+        if (this.isJustOneSet) {
+            const mid = Math.ceil(one.length / 2);
+            return one.slice(mid + 1);
+        }
+
+        return two;
+    }
+
+    get allSongs(): DocumentSnapshot<Song>[] {
+        return [...this.firstSetOfSongs, ...this.secondSetOfSongs];
+    }
+
+    // #endregion Gig display.
+
+    // #region Gig editing.
+
     resetFields(model: Awaited<ModelFrom<Route>>): void {
         const data = model.gig?.data();
 
@@ -53,7 +87,7 @@ export default class GigsController extends Controller {
     }
 
     get disableSave(): boolean {
-        return !this.venue || !this.one.length || !this.two.length;
+        return !this.venue || !this.one.length;
     }
 
     get showEdit(): boolean {
@@ -166,4 +200,6 @@ export default class GigsController extends Controller {
     @action toggleDeleteModal(): void {
         this.showDeleteModal = !this.showDeleteModal;
     }
+
+    // #endregion Gig editing.
 }

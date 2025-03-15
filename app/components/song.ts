@@ -1,41 +1,90 @@
 import Component from '@glimmer/component';
 import { service, type Registry as ServiceRegistry } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import {
-    startsWithMap,
-    DrumPad,
-    drumPadMap,
-    getTabSource,
-    User,
-    PerformanceMode,
-    getTabLink
-} from 'band-songs/utils/songs';
+import { startsWithMap, DrumPad, drumPadMap, User, ActionMode } from 'band-songs/utils/songs';
 import { action } from '@ember/object';
 import { updateDoc, onSnapshot, type DocumentSnapshot, type Unsubscribe } from 'firebase/firestore';
 
 import type { Song } from 'band-songs/utils/songs';
 import type { EuiCardSignature } from '@ember-eui/core/components/eui-card';
-import type { EuiButtonIconSignature } from '@ember-eui/core/components/eui-button-icon';
-
-type Note = {
-    icon: string;
-    text: string;
-};
-
-type ButtonConfig = Pick<EuiButtonIconSignature['Args'], 'color' | 'iconType'> & {
-    text: string;
-    click: VoidFunction;
-};
 
 export interface SongCardSignature {
     Element: EuiCardSignature['Element'];
     Args: {
         user: User;
         song: DocumentSnapshot<Song>;
-        mode?: PerformanceMode;
+        mode?: ActionMode;
         cacheScroll?: VoidFunction;
     };
 }
+
+enum TabSource {
+    Songsterr,
+    UltimateGuitar,
+    LyricsGenius,
+    GrooveScribe,
+    YouTubeMusic
+}
+
+/**
+ * Calculated tablature source website (based on user and whether performance or practice).
+ */
+function getTabSource(user: User, mode?: ActionMode): TabSource {
+    if (user === User.Me) {
+        return mode === ActionMode.Practice ? TabSource.Songsterr : TabSource.GrooveScribe;
+    }
+
+    if (user === User.Vocals) {
+        return TabSource.LyricsGenius;
+    }
+
+    if (user === User.Guitars) {
+        return TabSource.UltimateGuitar;
+    }
+
+    return TabSource.YouTubeMusic;
+}
+
+/**
+ * Returns the URL for the passed tab source.
+ */
+function getTabLink(song: Song, tabSource: TabSource): string | undefined {
+    const q = encodeURI(`${song.artist} ${song.title}`);
+
+    if (tabSource === TabSource.YouTubeMusic) {
+        const { ytMusic } = song;
+        if (ytMusic) {
+            return `https://www.youtube.com/watch?v=${ytMusic}`;
+        }
+
+        return `https://www.youtube.com/results?search_query=${q}`;
+    }
+
+    if (tabSource === TabSource.LyricsGenius) {
+        return `https://genius.com/search?q=${q}`;
+        // return `https://songmeanings.com/query/?query=${q}&type=songtitles`;
+        // return `https://search.azlyrics.com/search.php?q=${q}`;
+    }
+
+    if (tabSource === TabSource.UltimateGuitar) {
+        return `https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}`;
+    }
+
+    if (tabSource === TabSource.Songsterr) {
+        return `https://www.songsterr.com/?pattern=${q}&inst=drum`;
+    }
+
+    if (tabSource === TabSource.GrooveScribe) {
+        return song.groove;
+    }
+
+    return undefined;
+}
+
+type Note = {
+    icon: string;
+    text: string;
+};
 
 export default class SongCard extends Component<SongCardSignature> {
     @service declare router: ServiceRegistry['router'];
@@ -91,81 +140,32 @@ export default class SongCard extends Component<SongCardSignature> {
     }
 
     /**
-     * External link to tablature.
+     * Executes the first button click when the card is clicked (when there is only one button).
      */
-    get tabLink(): VoidFunction | undefined {
+    @action clickButton(): void {
         const { args } = this,
             { mode } = args;
 
-        if (mode === PerformanceMode.rehearse) {
-            return () => {
-                args.cacheScroll?.();
-                this.router.transitionTo('songs.rehearse', args.song.id);
-            };
+        if (this.firestore.userCanEdit && mode === ActionMode.Flag) {
+            this.togglePractice();
+            return;
         }
 
-        if (mode === PerformanceMode.edit) {
-            return () => {
-                args.cacheScroll?.();
-                this.router.transitionTo('songs.edit', args.song.id);
-            };
+        if (mode === ActionMode.Rehearse) {
+            args.cacheScroll?.();
+            this.router.transitionTo('songs.rehearse', args.song.id);
+            return;
+        }
+
+        if (mode === ActionMode.Edit) {
+            args.cacheScroll?.();
+            this.router.transitionTo('songs.edit', args.song.id);
+            return;
         }
 
         const link = getTabLink(this.data, getTabSource(args.user, mode));
-        return link ? (): ReturnType<Window['open']> => window.open(link) : undefined;
-    }
-
-    /**
-     * Action buttons (based on user and environment).
-     */
-    get buttons(): ButtonConfig[] {
-        const buttons: ButtonConfig[] = [],
-            fnAddButton = (
-                text: ButtonConfig['text'],
-                icon: ButtonConfig['iconType'],
-                click: ButtonConfig['click'],
-                isActive = false
-            ): number =>
-                buttons.push({
-                    text,
-                    iconType: icon ?? 'globe',
-                    click,
-                    color: isActive ? 'warning' : 'text'
-                });
-
-        const { tabLink } = this;
-        if (tabLink) {
-            fnAddButton('Execute', 'watchesApp', tabLink);
-        }
-
-        if (this.firestore.userCanEdit) {
-            fnAddButton('Needs Practice', 'flag', () => this.needsPractice(), !!this.data.practice);
-        }
-
-        return buttons;
-    }
-
-    /**
-     * Indicates there is only one button, so should be tied to card click.
-     */
-    get useCardClick(): boolean {
-        return this.buttons.length === 1;
-    }
-
-    /**
-     * Indicates whether to show the row of buttons.
-     */
-    get showButtons(): boolean {
-        return this.buttons.length > 1;
-    }
-
-    /**
-     * Executes the first button click when the card is clicked (when there is only one button).
-     */
-    @action clickFirstButton(): void {
-        const [btn] = this.buttons;
-        if (btn) {
-            btn.click();
+        if (link) {
+            window.open(link);
         }
     }
 
@@ -180,7 +180,7 @@ export default class SongCard extends Component<SongCardSignature> {
     /**
      * Toggles the needs practice song data.
      */
-    @action needsPractice(): void {
+    @action togglePractice(): void {
         updateDoc(this.args.song.ref, {
             practice: !this.data.practice
         });

@@ -1,5 +1,4 @@
-import Component from '@glimmer/component';
-import { calculateSetListLength } from 'band-songs/utils/songs';
+import templateOnlyComponent from '@ember/component/template-only';
 
 import { type DocumentSnapshot } from 'firebase/firestore';
 import type { Song } from 'band-songs/utils/songs';
@@ -8,18 +7,15 @@ import type { SongCardSignature } from './song';
 
 export interface SetListSignature {
     Args: {
-        title: string;
         songs: DocumentSnapshot<Song>[];
         user: SongCardSignature['Args']['user'];
         gig?: DocumentSnapshot<Gig>;
+        title?: string;
     };
 }
 
-export default class SetList extends Component<SetListSignature> {
-    get setLength(): string {
-        return calculateSetListLength(this.args.songs);
-    }
-}
+const SetList = templateOnlyComponent<SetListSignature>();
+export default SetList;
 
 declare module '@glint/environment-ember-loose/registry' {
     export default interface Registry {

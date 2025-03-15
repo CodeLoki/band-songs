@@ -2,7 +2,7 @@ import BaseSongsController from './base-songs-controller';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { User, PerformanceMode } from 'band-songs/utils/songs';
+import { User, ActionMode } from 'band-songs/utils/songs';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type { ModelFrom } from 'band-songs/utils/general';
@@ -11,9 +11,9 @@ import type { QueryDocumentSnapshot } from 'firebase/firestore';
 import type { Song } from 'band-songs/utils/songs';
 
 enum SongView {
-    all = 'all',
-    practice = 'practice',
-    incomplete = 'incomplete'
+    All = 'all',
+    Practice = 'practice',
+    Incomplete = 'incomplete'
 }
 
 export default class SongsIndexController extends BaseSongsController {
@@ -21,46 +21,51 @@ export default class SongsIndexController extends BaseSongsController {
 
     declare model: ModelFrom<Route>;
 
-    @tracked view = SongView.all;
-    @tracked mode = PerformanceMode.perform;
+    @tracked view = SongView.All;
+    @tracked mode = ActionMode.Perform;
 
     lastScrollPosition = 0;
 
     viewOptions = [
         {
-            value: SongView.all,
+            value: SongView.All,
             text: 'All'
         },
         {
-            value: SongView.practice,
+            value: SongView.Practice,
             text: 'Practice'
         },
         {
-            value: SongView.incomplete,
+            value: SongView.Incomplete,
             text: 'Incomplete'
         }
     ];
 
-    get modeOptions(): { value: PerformanceMode; text: string }[] {
+    get modeOptions(): { value: ActionMode; text: string }[] {
         const options = [
             {
-                value: PerformanceMode.perform,
+                value: ActionMode.Perform,
                 text: 'Perform'
             },
             {
-                value: PerformanceMode.practice,
+                value: ActionMode.Practice,
                 text: 'Practice'
             },
             {
-                value: PerformanceMode.rehearse,
+                value: ActionMode.Rehearse,
                 text: 'Rehearse'
             }
         ];
 
         if (this.firestore.userCanEdit) {
             options.push({
-                value: PerformanceMode.edit,
+                value: ActionMode.Edit,
                 text: 'Edit'
+            });
+
+            options.push({
+                value: ActionMode.Flag,
+                text: 'Flag'
             });
         }
 
@@ -74,18 +79,18 @@ export default class SongsIndexController extends BaseSongsController {
         const { view, model } = this,
             { songs } = model;
 
-        if (model.user !== User.Me || view === SongView.all) {
+        if (model.user !== User.Me || view === SongView.All) {
             return songs;
         }
 
         return model.songs.filter((s) => {
             const d = s.data();
 
-            if (view === SongView.practice) {
+            if (view === SongView.Practice) {
                 return !!d.practice;
             }
 
-            if (view === SongView.incomplete) {
+            if (view === SongView.Incomplete) {
                 return d.groove === '' || !d.ytMusic;
             }
 

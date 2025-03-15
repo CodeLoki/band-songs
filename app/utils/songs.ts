@@ -33,7 +33,8 @@ export enum DrumPad {
     Tambourine,
     BellTree,
     China,
-    Edrum
+    Edrum,
+    VibraSlap
 }
 
 export const drumPadMap = new Map<DrumPad, string>([
@@ -43,7 +44,8 @@ export const drumPadMap = new Map<DrumPad, string>([
     [DrumPad.Tambourine, 'Tambourine (#724)'],
     [DrumPad.BellTree, 'Tree chime (#631)'],
     [DrumPad.China, 'China Crash'],
-    [DrumPad.Edrum, 'EDrum']
+    [DrumPad.Edrum, 'EDrum'],
+    [DrumPad.VibraSlap, 'VibraSlap (#753)']
 ]);
 
 export enum StartsWith {
@@ -78,19 +80,12 @@ export const startsWithMap = new Map<StartsWith, string>([
     [StartsWith.Trumpet, 'Trumpet']
 ]);
 
-export enum PerformanceMode {
-    perform,
-    rehearse,
-    practice,
-    edit
-}
-
-export enum TabSource {
-    Songsterr,
-    UltimateGuitar,
-    LyricsGenius,
-    GrooveScribe,
-    YouTubeMusic
+export enum ActionMode {
+    Perform,
+    Rehearse,
+    Practice,
+    Edit,
+    Flag
 }
 
 export enum User {
@@ -98,61 +93,6 @@ export enum User {
     Me = 'z',
     Vocals = 'vocals',
     Guitars = 'guitars'
-}
-
-/**
- * Calculated tablature source website (based on user and whether performance or practice).
- */
-export function getTabSource(user: User, mode?: PerformanceMode): TabSource {
-    if (user === User.Me) {
-        return mode === PerformanceMode.practice ? TabSource.Songsterr : TabSource.GrooveScribe;
-    }
-
-    if (user === User.Vocals) {
-        return TabSource.LyricsGenius;
-    }
-
-    if (user === User.Guitars) {
-        return TabSource.UltimateGuitar;
-    }
-
-    return TabSource.YouTubeMusic;
-}
-
-/**
- * Returns the URL for the passed tab source.
- */
-export function getTabLink(song: Song, tabSource: TabSource): string | undefined {
-    const q = encodeURI(`${song.artist} ${song.title}`);
-
-    if (tabSource === TabSource.YouTubeMusic) {
-        const { ytMusic } = song;
-        if (ytMusic) {
-            return `https://www.youtube.com/watch?v=${ytMusic}`;
-        }
-
-        return `https://www.youtube.com/results?search_query=${q}`;
-    }
-
-    if (tabSource === TabSource.LyricsGenius) {
-        return `https://genius.com/search?q=${q}`;
-        // return `https://songmeanings.com/query/?query=${q}&type=songtitles`;
-        // return `https://search.azlyrics.com/search.php?q=${q}`;
-    }
-
-    if (tabSource === TabSource.UltimateGuitar) {
-        return `https://www.ultimate-guitar.com/search.php?search_type=title&value=${q}`;
-    }
-
-    if (tabSource === TabSource.Songsterr) {
-        return `https://www.songsterr.com/?pattern=${q}&inst=drum`;
-    }
-
-    if (tabSource === TabSource.GrooveScribe) {
-        return song.groove;
-    }
-
-    return undefined;
 }
 
 export function calculateSetListLength(songs: DocumentSnapshot<Song>[]): string {

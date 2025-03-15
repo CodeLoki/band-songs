@@ -15,6 +15,7 @@ Router.map(function () {
             path: '/songs/rehearse/:song_id'
         });
         this.route('orphans');
+        this.route('others');
     });
     this.route('gigs', {
         path: '/gigs/:gig_id'

@@ -39,13 +39,15 @@
         "stylelint.validate": ["css"],
         "cSpell.words": [
             "drumeo",
+            "Edrum",
             "firestore",
             "Glick",
             "groovescribe",
             "Plawin",
             "Setlist",
             "songsterr",
-            "unsub"
+            "unsub",
+            "Vibra"
         ]
     },
 

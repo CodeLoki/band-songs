@@ -1,6 +1,6 @@
-<EuiTitle @size="s">
-    <h5>{{@title}} ({{this.setLength}})</h5>
-</EuiTitle>
+{{#if @title}}
+    <SetListTitle @title={{@title}} @songs={{@songs}} />
+{{/if}}
 
 <EuiFlexGrid @columns={{1}}>
     {{#each @songs as |song|}}

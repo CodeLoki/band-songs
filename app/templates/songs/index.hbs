@@ -33,6 +33,26 @@
                                 {{on "change" this.updateMode}}
                             />
                         </EuiFlexItem>
+                        <EuiFlexItem @grow={{false}}>
+                            <EuiButtonIcon
+                                @iconType="faceSad"
+                                @iconSize="m"
+                                @size="m"
+                                @color="text"
+                                title="Orphans"
+                                {{on "click" (go-to "songs.orphans")}}
+                            />
+                        </EuiFlexItem>
+                        <EuiFlexItem @grow={{false}}>
+                            <EuiButtonIcon
+                                @iconType="moon"
+                                @iconSize="m"
+                                @size="m"
+                                @color="text"
+                                title="Others"
+                                {{on "click" (go-to "songs.others")}}
+                            />
+                        </EuiFlexItem>
                     </EuiFlexGroup>
                 </EuiFlexItem>
             {{/if}}

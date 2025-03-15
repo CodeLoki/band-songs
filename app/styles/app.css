@@ -38,9 +38,19 @@ input[type="date"] {
     padding-right: 16px;
 }
 
+.song-card {
+    position: relative;
+}
+
 /* stylelint-disable-next-line selector-class-pattern */
-.euiPanel.no-buttons .euiCard__footer {
-    margin-top: 0;
+.song-card .euiCard__top {
+    position: absolute;
+}
+
+.song-card .song-card-content h2,
+.song-card .song-card-content p,
+.song-card .song-card-content .song-notes {
+    text-align: center;
 }
 
 .songs-flex-group {

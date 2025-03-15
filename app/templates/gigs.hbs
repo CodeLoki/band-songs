@@ -128,21 +128,25 @@
         {{/if}}
     {{/in-element}}
 
+    {{#if this.isJustOneSet}}
+        <SetListTitle @title="Set" @songs={{this.allSongs}} />
+    {{/if}}
+
     <EuiFlexGrid @columns={{2}} @responsive={{true}}>
         <EuiFlexItem>
             <SetList
                 @user={{@model.user}}
                 @gig={{@model.gig}}
-                @songs={{@model.one}}
-                @title="Set One"
+                @songs={{this.firstSetOfSongs}}
+                @title={{unless this.isJustOneSet "Set One"}}
             />
         </EuiFlexItem>
         <EuiFlexItem>
             <SetList
                 @user={{@model.user}}
                 @gig={{@model.gig}}
-                @songs={{@model.two}}
-                @title="Set Two"
+                @songs={{this.secondSetOfSongs}}
+                @title={{unless this.isJustOneSet "Set Two"}}
             />
         </EuiFlexItem>
         {{#if @model.pocket}}

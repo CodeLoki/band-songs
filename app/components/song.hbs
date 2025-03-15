@@ -1,13 +1,16 @@
 <EuiCard
+    @layout="horizontal"
     @title={{this.data.title}}
     @description={{this.data.artist}}
-    @onClick={{if this.useCardClick this.clickFirstButton undefined}}
-    class={{unless this.showButtons "no-buttons"}}
+    @icon={{if this.data.practice "flag"}}
+    @contentClassName="song-card-content"
+    @onClick={{this.clickButton}}
+    class="song-card"
     ...attributes
 >
     <:body>
         {{#if this.notes}}
-            <EuiPanel @paddingSize="m" @hasShadow={{false}}>
+            <EuiPanel @paddingSize="m" @hasShadow={{false}} class="song-notes">
                 <EuiBadgeGroup @gutterSize="xs" as |Group|>
                     {{#each this.notes as |note|}}
                         <Group.item>
@@ -20,27 +23,4 @@
             </EuiPanel>
         {{/if}}
     </:body>
-
-    <:footer>
-        {{#if this.showButtons}}
-            <EuiFlexGroup
-                @justifyContent="spaceBetween"
-                @alignItems="center"
-                @responsive={{false}}
-            >
-                {{#each this.buttons as |btn|}}
-                    <EuiFlexItem @grow={{false}}>
-                        <EuiButtonIcon
-                            @iconType={{btn.iconType}}
-                            @size="m"
-                            @color={{btn.color}}
-                            aria-label={{btn.text}}
-                            {{on "click" btn.click}}
-                        />
-                    </EuiFlexItem>
-                {{/each}}
-            </EuiFlexGroup>
-        {{/if}}
-
-    </:footer>
 </EuiCard>
