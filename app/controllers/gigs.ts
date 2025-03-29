@@ -49,7 +49,7 @@ export default class GigsController extends Controller {
     get firstSetOfSongs(): DocumentSnapshot<Song>[] {
         const { one } = this.model;
         if (this.isJustOneSet) {
-            const mid = Math.ceil(one.length / 2);
+            const mid = Math.floor(one.length / 2);
             return one.slice(0, mid);
         }
 

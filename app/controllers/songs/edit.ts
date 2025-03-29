@@ -81,7 +81,7 @@ export default class SongsEditController extends Controller {
             items.push({ text, value });
         });
 
-        return items;
+        return A(items).sortBy('text');
     }
 
     get bandOptions(): { value: string; label: string }[] {
