@@ -32,7 +32,7 @@ export default class ApplicationRoute extends Route {
             band = bands.find((band) => band.id === b);
 
         if (!band) {
-            throw `Band not found "${b}"`;
+            throw new Error(`Band not found "${b}"`);
         }
 
         return {

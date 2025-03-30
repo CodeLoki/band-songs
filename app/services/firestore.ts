@@ -46,8 +46,8 @@ export default class FirestoreService extends Service {
         return this.user?.uid === 'ZC520skCOzUoJkrRUzHtIcggakm2';
     }
 
-    @action logout(): void {
-        this.auth?.signOut();
+    @action async logout(): Promise<void> {
+        await this.auth?.signOut();
         this.user = null;
         this.auth = undefined;
     }

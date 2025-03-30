@@ -14,13 +14,13 @@ export function sortBy<T extends DocumentSnapshot>(models: T[], key: keyof Docum
             bData = b.data();
 
         if (!aData || !bData) {
-            throw logError('[sortBy] Model data not present', models, key, aData, bData);
+            throw new Error(logError('[sortBy] Model data not present', models, key, aData, bData));
         }
 
         // Are we sorting on a Date?
         if (aData[key] instanceof Timestamp) {
             // Get data for comparison and sort newest to oldest.
-            return aData[key].toDate() < bData[key].toDate() ? 1 : -1;
+            return aData[key].toDate() < (bData[key] as Timestamp).toDate() ? 1 : -1;
         }
 
         return aData[key] > bData[key] ? 1 : -1;

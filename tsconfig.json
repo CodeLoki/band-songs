@@ -1,5 +1,8 @@
 {
-    "extends": "@tsconfig/ember/tsconfig.json",
+    "extends": "@tsconfig/ember",
+    "glint": {
+        "environment": ["ember-loose", "ember-template-imports"]
+    },
     "compilerOptions": {
         // The combination of `baseUrl` with `paths` allows Ember's classic package
         // layout, which is not resolvable with the Node resolution algorithm, to
@@ -9,9 +12,10 @@
             "band-songs/tests/*": ["tests/*"],
             "band-songs/*": ["app/*"],
             "*": ["types/*"]
-        }
-    },
-    "glint": {
-        "environment": "ember-loose"
+        },
+        "types": [
+            "ember-source/types",
+            "@warp-drive/core-types/unstable-preview-types"
+        ]
     }
 }

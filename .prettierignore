@@ -9,6 +9,10 @@
 /coverage/
 !.*
 .*/
+/pnpm-lock.yaml
+/yarn.lock
+ember-cli-update.json
+*.html
 
 # ember-try
 /.node_modules.ember-try/

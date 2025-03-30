@@ -7,6 +7,7 @@ import { updateDoc, onSnapshot, type DocumentSnapshot, type Unsubscribe } from '
 
 import type { Song } from 'band-songs/utils/songs';
 import type { EuiCardSignature } from '@ember-eui/core/components/eui-card';
+import type Owner from '@ember/owner';
 
 export interface SongCardSignature {
     Element: EuiCardSignature['Element'];
@@ -93,7 +94,7 @@ export default class SongCard extends Component<SongCardSignature> {
     @tracked data: Song;
     unsub: Unsubscribe;
 
-    constructor(owner: unknown, args: SongCardSignature['Args']) {
+    constructor(owner: Owner, args: SongCardSignature['Args']) {
         super(owner, args);
 
         const { song } = this.args;
@@ -142,12 +143,12 @@ export default class SongCard extends Component<SongCardSignature> {
     /**
      * Executes the first button click when the card is clicked (when there is only one button).
      */
-    @action clickButton(): void {
+    @action async clickButton(): Promise<void> {
         const { args } = this,
             { mode } = args;
 
         if (this.firestore.userCanEdit && mode === ActionMode.Flag) {
-            this.togglePractice();
+            await this.togglePractice();
             return;
         }
 
@@ -180,8 +181,8 @@ export default class SongCard extends Component<SongCardSignature> {
     /**
      * Toggles the needs practice song data.
      */
-    @action togglePractice(): void {
-        updateDoc(this.args.song.ref, {
+    @action async togglePractice(): Promise<void> {
+        await updateDoc(this.args.song.ref, {
             practice: !this.data.practice
         });
     }

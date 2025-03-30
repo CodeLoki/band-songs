@@ -1,21 +1,22 @@
 'use strict';
 
 module.exports = {
+    plugins: ['prettier-plugin-ember-template-tag'],
+    singleQuote: true,
+    tabWidth: 4,
+    trailingComma: 'none',
     overrides: [
         {
-            files: '*.{js,ts}',
+            files: '*.{js,gjs,ts,gts,mjs,mts,cjs,cts}',
             options: {
-                singleQuote: true,
-                tabWidth: 4,
-                trailingComma: 'none',
+                templateSingleQuote: false,
                 printWidth: 120
             }
         },
         {
             files: '*.json',
             options: {
-                singleQuote: false,
-                trailingComma: 'none'
+                singleQuote: false
             }
         },
         {
