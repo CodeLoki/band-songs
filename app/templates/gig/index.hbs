@@ -1,0 +1,64 @@
+{{page-title this.title}}
+
+<EuiFlexGroup @alignItems="center">
+    <EuiFlexItem @grow={{true}}>
+        <EuiTitle @size="m">
+            {{this.title}}
+        </EuiTitle>
+    </EuiFlexItem>
+    <ActionSelector
+        @mode={{this.mode}}
+        @user={{@model.user}}
+        @changeMode={{fn (mut this.mode)}}
+    />
+</EuiFlexGroup>
+
+<EuiSpacer @size="l" />
+
+{{#in-element (get-header-links)}}
+    {{#if (can-user-edit)}}
+        <EuiHeaderLink
+            @iconType="documentEdit"
+            @isDisabled={{this.disableEdit}}
+            {{on "click" (go-to "gig.edit" @model.gig.id)}}
+        >
+            Edit
+        </EuiHeaderLink>
+    {{/if}}
+{{/in-element}}
+
+{{#if this.isJustOneSet}}
+    <SetListTitle @title="Single Set" @songs={{this.allSongs}} />
+{{/if}}
+
+<EuiFlexGrid @columns={{2}} @responsive={{true}}>
+    <EuiFlexItem>
+        <SetList
+            @user={{@model.user}}
+            @gig={{@model.gig}}
+            @songs={{this.firstSetOfSongs}}
+            @title={{unless this.isJustOneSet "Set One"}}
+            @mode={{this.mode}}
+        />
+    </EuiFlexItem>
+    <EuiFlexItem>
+        <SetList
+            @user={{@model.user}}
+            @gig={{@model.gig}}
+            @songs={{this.secondSetOfSongs}}
+            @title={{unless this.isJustOneSet "Set Two"}}
+            @mode={{this.mode}}
+        />
+    </EuiFlexItem>
+    {{#if @model.pocket}}
+        <EuiFlexItem>
+            <SetList
+                @user={{@model.user}}
+                @gig={{@model.gig}}
+                @songs={{@model.pocket}}
+                @title="Pocket"
+                @mode={{this.mode}}
+            />
+        </EuiFlexItem>
+    {{/if}}
+</EuiFlexGrid>

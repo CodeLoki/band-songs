@@ -6,25 +6,23 @@ import { sortBy } from 'band-songs/utils/general';
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type { Gig } from 'band-songs/utils/gigs';
 import type { Song } from 'band-songs/utils/songs';
-import type Controller from 'band-songs/controllers/gigs';
-import type Transition from '@ember/routing/transition';
 import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import type { AppModel } from 'band-songs/routes/application';
 import type { User } from 'band-songs/utils/songs';
 
-type RouteModel = AppModel & {
-    user: User;
-    gig?: DocumentSnapshot<Gig>;
-    one: DocumentSnapshot<Song>[];
-    two: DocumentSnapshot<Song>[];
-    pocket: DocumentSnapshot<Song>[];
-    all: QueryDocumentSnapshot<Song>[];
-};
-
 export default class GigsRoute extends Route {
     @service declare firestore: ServiceRegistry['firestore'];
 
-    async model({ gig_id }: { gig_id: string }): Promise<RouteModel> {
+    async model({ gig_id }: { gig_id: string }): Promise<
+        AppModel & {
+            user: User;
+            gig?: DocumentSnapshot<Gig>;
+            one: DocumentSnapshot<Song>[];
+            two: DocumentSnapshot<Song>[];
+            pocket: DocumentSnapshot<Song>[];
+            all: QueryDocumentSnapshot<Song>[];
+        }
+    > {
         const appModel = this.modelFor('application') as AppModel,
             user = this.paramsFor('application')['u'] as User,
             all = sortBy(
@@ -65,10 +63,5 @@ export default class GigsRoute extends Route {
             pocket,
             all
         };
-    }
-
-    setupController(controller: Controller, model: RouteModel, transition: Transition): void {
-        super.setupController(controller, model, transition);
-        controller.resetFields(model);
     }
 }

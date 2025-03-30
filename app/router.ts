@@ -17,7 +17,13 @@ Router.map(function () {
         this.route('orphans');
         this.route('others');
     });
-    this.route('gigs', {
-        path: '/gigs/:gig_id'
-    });
+    this.route(
+        'gig',
+        {
+            path: '/gig/:gig_id'
+        },
+        function () {
+            this.route('edit');
+        }
+    );
 });

@@ -4,9 +4,8 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { addDoc, collection, updateDoc, Timestamp, deleteDoc, type DocumentSnapshot } from 'firebase/firestore';
 import { GigDateFormatter } from 'band-songs/components/gig-card';
-import { ActionMode } from 'band-songs/utils/songs';
 
-import type Route from 'band-songs/routes/gigs';
+import type Route from 'band-songs/routes/gig';
 import type { ModelFrom } from 'band-songs/utils/general';
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type { DocumentReference } from 'firebase/firestore';
@@ -32,49 +31,13 @@ export default class GigsController extends Controller {
 
     declare model: Awaited<ModelFrom<Route>>;
 
-    @tracked isEditMode = false;
     @tracked showDeleteModal = false;
-    @tracked mode = ActionMode.Perform;
 
     @tracked date = new Date();
     @tracked venue = '';
     @tracked one: DocumentSnapshot<Song>[] = [];
     @tracked two: DocumentSnapshot<Song>[] = [];
     @tracked pocket: DocumentSnapshot<Song>[] = [];
-
-    // #region Gig display.
-
-    get isJustOneSet(): boolean {
-        return this.model.two.length === 0;
-    }
-
-    get firstSetOfSongs(): DocumentSnapshot<Song>[] {
-        const { one } = this.model;
-        if (this.isJustOneSet) {
-            const mid = Math.floor(one.length / 2);
-            return one.slice(0, mid);
-        }
-
-        return one;
-    }
-
-    get secondSetOfSongs(): DocumentSnapshot<Song>[] {
-        const { one, two } = this.model;
-        if (this.isJustOneSet) {
-            const mid = Math.ceil(one.length / 2);
-            return one.slice(mid + 1);
-        }
-
-        return two;
-    }
-
-    get allSongs(): DocumentSnapshot<Song>[] {
-        return [...this.firstSetOfSongs, ...this.secondSetOfSongs];
-    }
-
-    // #endregion Gig display.
-
-    // #region Gig editing.
 
     resetFields(model: Awaited<ModelFrom<Route>>): void {
         const data = model.gig?.data();
@@ -88,12 +51,12 @@ export default class GigsController extends Controller {
         });
     }
 
-    get disableSave(): boolean {
-        return !this.venue || !this.one.length;
+    get disableDelete(): boolean {
+        return this.date.getTime() < Date.now();
     }
 
-    get showEdit(): boolean {
-        return !this.model.gig || this.isEditMode;
+    get disableSave(): boolean {
+        return !this.venue || !this.one.length || this.disableDelete;
     }
 
     get title(): string {
@@ -165,13 +128,13 @@ export default class GigsController extends Controller {
             if (!gig) {
                 const docRef = await addDoc(collection(this.firestore.db, 'gigs'), data);
                 this.showToast('created');
-                this.router.transitionTo(`/gigs/${docRef.id}`);
+                this.router.transitionTo('gig.index', docRef.id);
                 return;
             }
 
             await updateDoc(gig.ref, data);
             this.showToast('update');
-            this.isEditMode = false;
+            this.router.transitionTo('gig.index', gig.id);
         } catch (ex) {
             this.toast.showError('saving', ex);
         }
@@ -190,18 +153,17 @@ export default class GigsController extends Controller {
         }
     }
 
-    @action cancel(): void {
-        if (this.model.gig) {
-            this.isEditMode = false;
-            return;
-        }
-
-        this.router.transitionTo(`/`);
-    }
-
     @action toggleDeleteModal(): void {
         this.showDeleteModal = !this.showDeleteModal;
     }
 
-    // #endregion Gig editing.
+    @action cancel(): void {
+        const { gig } = this.model;
+        if (gig) {
+            this.router.transitionTo('gig.index', gig.id);
+            return;
+        }
+
+        this.router.transitionTo('index');
+    }
 }

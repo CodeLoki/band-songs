@@ -1,0 +1,122 @@
+{{page-title this.title}}
+
+<EuiFlexGroup @alignItems="center">
+    <EuiFlexItem @grow={{true}}>
+        <EuiTitle @size="m">
+            {{this.title}}
+        </EuiTitle>
+    </EuiFlexItem>
+</EuiFlexGroup>
+
+<EuiSpacer @size="l" />
+
+{{#in-element (get-header-links)}}
+    {{#if (can-user-edit)}}
+        <EuiHeaderLink
+            @iconType="save"
+            @isDisabled={{this.disableSave}}
+            {{on "click" this.saveGig}}
+        >
+            Save
+        </EuiHeaderLink>
+        {{#if @model.gig}}
+            <EuiHeaderLink
+                @iconType="eraser"
+                @isDisabled={{this.disableDelete}}
+                {{on "click" this.toggleDeleteModal}}
+            >
+                Delete
+            </EuiHeaderLink>
+        {{/if}}
+
+        <EuiHeaderLink @iconType="cross" {{on "click" this.cancel}}>
+            Cancel
+        </EuiHeaderLink>
+    {{/if}}
+{{/in-element}}
+
+<EuiForm>
+    <EuiFlexGroup @direction="column" @gutterSize="l">
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="txtDate" class={{classes}}>
+                        Date
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <input
+                        type="date"
+                        class="euiFieldText euiFieldText--inGroup"
+                        id="txtDate"
+                        value={{this.formattedDate}}
+                        {{on "change" this.updateDate}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+
+        <EuiFlexItem>
+            <EuiFormControlLayout class="form-control">
+                <:prepend as |classes|>
+                    <EuiFormLabel for="txtVenue" class={{classes}}>
+                        Venue
+                    </EuiFormLabel>
+                </:prepend>
+                <:field>
+                    <input
+                        type="text"
+                        class="euiFieldText euiFieldText--inGroup"
+                        id="txtVenue"
+                        value={{this.venue}}
+                        {{on "change" this.updateVenue}}
+                    />
+                </:field>
+            </EuiFormControlLayout>
+        </EuiFlexItem>
+
+        <EuiFlexItem>
+            <SongBasket
+                @set="one"
+                @selectedSongs={{this.one}}
+                @allSongs={{this.availableSongs}}
+                @addSong={{this.addSong}}
+                @moveSong={{this.moveSong}}
+                @removeSong={{this.removeSong}}
+                @clearAll={{this.clearAll}}
+            />
+        </EuiFlexItem>
+
+        <EuiFlexItem>
+            <SongBasket
+                @set="two"
+                @selectedSongs={{this.two}}
+                @allSongs={{this.availableSongs}}
+                @addSong={{this.addSong}}
+                @moveSong={{this.moveSong}}
+                @removeSong={{this.removeSong}}
+                @clearAll={{this.clearAll}}
+            />
+        </EuiFlexItem>
+
+        <EuiFlexItem>
+            <SongBasket
+                @set="pocket"
+                @selectedSongs={{this.pocket}}
+                @allSongs={{this.availableSongs}}
+                @addSong={{this.addSong}}
+                @moveSong={{this.moveSong}}
+                @removeSong={{this.removeSong}}
+                @clearAll={{this.clearAll}}
+            />
+        </EuiFlexItem>
+    </EuiFlexGroup>
+</EuiForm>
+
+{{#if this.showDeleteModal}}
+    <DeleteModal
+        @title={{this.title}}
+        @toggleDeleteModal={{this.toggleDeleteModal}}
+        @delete={{this.delete}}
+    />
+{{/if}}
