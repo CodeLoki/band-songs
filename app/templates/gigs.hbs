@@ -1,8 +1,19 @@
 {{page-title this.title}}
 
-<EuiTitle @size="l">
-    <h2>{{this.title}}</h2>
-</EuiTitle>
+<EuiFlexGroup @alignItems="center">
+    <EuiFlexItem @grow={{true}}>
+        <EuiTitle @size="m">
+            {{this.title}}
+        </EuiTitle>
+    </EuiFlexItem>
+    {{#unless this.showEdit}}
+        <ActionSelector
+            @mode={{this.mode}}
+            @user={{@model.user}}
+            @changeMode={{fn (mut this.mode)}}
+        />
+    {{/unless}}
+</EuiFlexGroup>
 
 <EuiSpacer @size="l" />
 
@@ -129,7 +140,7 @@
     {{/in-element}}
 
     {{#if this.isJustOneSet}}
-        <SetListTitle @title="Set" @songs={{this.allSongs}} />
+        <SetListTitle @title="Single Set" @songs={{this.allSongs}} />
     {{/if}}
 
     <EuiFlexGrid @columns={{2}} @responsive={{true}}>
@@ -139,6 +150,7 @@
                 @gig={{@model.gig}}
                 @songs={{this.firstSetOfSongs}}
                 @title={{unless this.isJustOneSet "Set One"}}
+                @mode={{this.mode}}
             />
         </EuiFlexItem>
         <EuiFlexItem>
@@ -147,6 +159,7 @@
                 @gig={{@model.gig}}
                 @songs={{this.secondSetOfSongs}}
                 @title={{unless this.isJustOneSet "Set Two"}}
+                @mode={{this.mode}}
             />
         </EuiFlexItem>
         {{#if @model.pocket}}
@@ -156,6 +169,7 @@
                     @gig={{@model.gig}}
                     @songs={{@model.pocket}}
                     @title="Pocket"
+                    @mode={{this.mode}}
                 />
             </EuiFlexItem>
         {{/if}}

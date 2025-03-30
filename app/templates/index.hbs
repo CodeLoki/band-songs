@@ -7,7 +7,7 @@
 <EuiFlexGrid @columns={{3}} @responsive={{true}}>
     {{#each @model as |gig|}}
         <EuiFlexItem>
-            <Gig @gig={{gig}} />
+            <GigCard @gig={{gig}} />
         </EuiFlexItem>
     {{else}}
         <EuiPanel @color="subdued" @borderRadius="none" @hasShadow={{false}}>

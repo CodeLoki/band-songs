@@ -23,6 +23,6 @@ export default class GigCard extends Component<GigSignature> {
 
 declare module '@glint/environment-ember-loose/registry' {
     export default interface Registry {
-        Gig: typeof GigCard;
+        GigCard: typeof GigCard;
     }
 }

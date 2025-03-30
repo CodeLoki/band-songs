@@ -1,9 +1,10 @@
 import templateOnlyComponent from '@ember/component/template-only';
 
-import { type DocumentSnapshot } from 'firebase/firestore';
+import type { DocumentSnapshot } from 'firebase/firestore';
 import type { Song } from 'band-songs/utils/songs';
 import type { Gig } from 'band-songs/utils/gigs';
 import type { SongCardSignature } from './song';
+import type { ActionMode } from 'band-songs/utils/songs';
 
 export interface SetListSignature {
     Args: {
@@ -11,6 +12,7 @@ export interface SetListSignature {
         user: SongCardSignature['Args']['user'];
         gig?: DocumentSnapshot<Gig>;
         title?: string;
+        mode?: ActionMode;
     };
 }
 

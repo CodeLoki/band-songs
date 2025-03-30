@@ -41,37 +41,6 @@ export default class SongsIndexController extends BaseSongsController {
         }
     ];
 
-    get modeOptions(): { value: ActionMode; text: string }[] {
-        const options = [
-            {
-                value: ActionMode.Perform,
-                text: 'Perform'
-            },
-            {
-                value: ActionMode.Practice,
-                text: 'Practice'
-            },
-            {
-                value: ActionMode.Rehearse,
-                text: 'Rehearse'
-            }
-        ];
-
-        if (this.firestore.userCanEdit) {
-            options.push({
-                value: ActionMode.Edit,
-                text: 'Edit'
-            });
-
-            options.push({
-                value: ActionMode.Flag,
-                text: 'Flag'
-            });
-        }
-
-        return options;
-    }
-
     /**
      * The collection of songs to show based on teh current view.
      */
@@ -100,9 +69,5 @@ export default class SongsIndexController extends BaseSongsController {
 
     @action updateView(evt: Event): void {
         this.view = (evt.target as HTMLSelectElement).value as SongView;
-    }
-
-    @action updateMode(evt: Event): void {
-        this.mode = Number((evt.target as HTMLSelectElement).value);
     }
 }

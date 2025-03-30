@@ -11,22 +11,9 @@
             "**/node_modules": true
         },
 
-        "[handlebars]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode",
-            "editor.formatOnSave": true
-        },
-        "[json]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode",
-            "editor.formatOnSave": true
-        },
-        "[typescript]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode",
-            "editor.formatOnSave": true
-        },
-        "[javascript]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode",
-            "editor.formatOnSave": true
-        },
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+
         "[css]": {
             "editor.codeActionsOnSave": {
                 "source.fixAll.stylelint": "explicit"

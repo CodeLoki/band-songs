@@ -25,6 +25,12 @@ main {
     height: auto;
 }
 
+h3.setlist-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+}
+
 input[type='date'] {
     color-scheme: dark;
 }

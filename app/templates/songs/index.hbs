@@ -19,18 +19,16 @@
                         @gutterSize="s"
                         @alignItems="center"
                     >
+                        <ActionSelector
+                            @mode={{this.mode}}
+                            @user={{@model.user}}
+                            @changeMode={{fn (mut this.mode)}}
+                        />
                         <EuiFlexItem @grow={{false}}>
                             <EuiSelect
                                 @value={{this.view}}
                                 @options={{this.viewOptions}}
                                 {{on "change" this.updateView}}
-                            />
-                        </EuiFlexItem>
-                        <EuiFlexItem @grow={{false}}>
-                            <EuiSelect
-                                @value={{this.mode}}
-                                @options={{this.modeOptions}}
-                                {{on "change" this.updateMode}}
                             />
                         </EuiFlexItem>
                         <EuiFlexItem @grow={{false}}>
