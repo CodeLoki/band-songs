@@ -1,10 +1,7 @@
 import BaseSongsController from './base-songs-controller';
-import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 import { User, ActionMode } from 'band-songs/utils/songs';
 
-import type { Registry as ServiceRegistry } from '@ember/service';
 import type { ModelFrom } from 'band-songs/utils/general';
 import type Route from 'band-songs/routes/songs';
 import type { QueryDocumentSnapshot } from 'firebase/firestore';
@@ -17,8 +14,6 @@ enum SongView {
 }
 
 export default class SongsIndexController extends BaseSongsController {
-    @service declare firestore: ServiceRegistry['firestore'];
-
     declare model: ModelFrom<Route>;
 
     @tracked view = SongView.All;
@@ -26,7 +21,7 @@ export default class SongsIndexController extends BaseSongsController {
 
     lastScrollPosition = 0;
 
-    viewOptions = [
+    viewOptions: { value: SongView; text: string }[] = [
         {
             value: SongView.All,
             text: 'All'
@@ -41,6 +36,10 @@ export default class SongsIndexController extends BaseSongsController {
         }
     ];
 
+    get selectedView(): SongsIndexController['viewOptions'][0] {
+        return this.viewOptions.find((o) => o.value === this.view)!;
+    }
+
     /**
      * The collection of songs to show based on teh current view.
      */
@@ -52,7 +51,7 @@ export default class SongsIndexController extends BaseSongsController {
             return songs;
         }
 
-        return model.songs.filter((s) => {
+        return songs.filter((s) => {
             const d = s.data();
 
             if (view === SongView.Practice) {
@@ -65,9 +64,5 @@ export default class SongsIndexController extends BaseSongsController {
 
             return false;
         });
-    }
-
-    @action updateView(evt: Event): void {
-        this.view = (evt.target as HTMLSelectElement).value as SongView;
     }
 }

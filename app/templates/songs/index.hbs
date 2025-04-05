@@ -19,18 +19,6 @@
                         @gutterSize="s"
                         @alignItems="center"
                     >
-                        <ActionSelector
-                            @mode={{this.mode}}
-                            @user={{@model.user}}
-                            @changeMode={{fn (mut this.mode)}}
-                        />
-                        <EuiFlexItem @grow={{false}}>
-                            <EuiSelect
-                                @value={{this.view}}
-                                @options={{this.viewOptions}}
-                                {{on "change" this.updateView}}
-                            />
-                        </EuiFlexItem>
                         <EuiFlexItem @grow={{false}}>
                             <EuiButtonIcon
                                 @iconType="faceSad"
@@ -51,6 +39,18 @@
                                 {{on "click" (go-to "songs.others")}}
                             />
                         </EuiFlexItem>
+                        <EuiFlexItem @grow={{false}}>
+                            <ComboBox
+                                @options={{this.viewOptions}}
+                                @selectedOption={{this.selectedView}}
+                                @changeSelection={{fn (mut this.view)}}
+                            />
+                        </EuiFlexItem>
+                        <ActionSelector
+                            @mode={{this.mode}}
+                            @user={{@model.user}}
+                            @changeMode={{fn (mut this.mode)}}
+                        />
                     </EuiFlexGroup>
                 </EuiFlexItem>
             {{/if}}
