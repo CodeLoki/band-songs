@@ -7,7 +7,11 @@ module.exports = function (defaults) {
         'ember-cli-babel': { enableTypeScriptTransform: true },
 
         svgJar: {
-            sourceDirs: ['public/assets', 'node_modules/@ember-eui/core/vendor/icon']
+            sourceDirs: [
+                'public/assets',
+                'node_modules/@ember-eui/core/public',
+                'node_modules/@ember-eui/core/vendor/icon'
+            ]
         }
 
         // Add options here
