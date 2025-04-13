@@ -1,20 +1,40 @@
 {{page-title "Other"}}
 
-<EuiText>
-    <h2>Other Songs ({{@model.songs.length}})</h2>
-</EuiText>
-<EuiSpacer @size="m" />
-
-<EuiFlexGrid @columns={{3}} @responsive={{true}}>
-    {{#each @model.songs as |song|}}
-        <EuiFlexItem>
-            <Song
-                @user={{@model.user}}
-                @song={{song}}
-                @cacheScroll={{this.cacheScrollPosition}}
-                @mode={{this.editMode}}
-            />
-        </EuiFlexItem>
-    {{/each}}
-    <div {{this.scrollToSong}} />
-</EuiFlexGrid>
+<EuiFlexGroup
+    @responsive={{false}}
+    @direction="column"
+    @gutterSize="m"
+    class="songs-flex-group"
+>
+    <EuiFlexItem @grow={{false}} class="songs-header">
+        <EuiFlexGroup @alignItems="center">
+            <EuiFlexItem @grow={{true}}>
+                <EuiText>
+                    <h2>Other Songs ({{@model.songs.length}})</h2>
+                </EuiText>
+            </EuiFlexItem>
+            {{#if (is-user-me @model.user)}}
+                <ActionSelector
+                    @mode={{this.mode}}
+                    @user={{@model.user}}
+                    @changeMode={{fn (mut this.mode)}}
+                />
+            {{/if}}
+        </EuiFlexGroup>
+    </EuiFlexItem>
+    <EuiFlexItem @grow={{true}} class="main-songs-list">
+        <EuiFlexGrid @columns={{3}} @responsive={{true}}>
+            {{#each @model.songs as |song|}}
+                <EuiFlexItem>
+                    <Song
+                        @user={{@model.user}}
+                        @song={{song}}
+                        @cacheScroll={{this.cacheScrollPosition}}
+                        @mode={{this.mode}}
+                    />
+                </EuiFlexItem>
+            {{/each}}
+            <div {{this.scrollToSong}} />
+        </EuiFlexGrid>
+    </EuiFlexItem>
+</EuiFlexGroup>

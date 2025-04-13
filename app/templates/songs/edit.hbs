@@ -235,6 +235,18 @@
                     </EuiFormControlLayout>
                 </EuiFlexItem>
 
+                <EuiFlexItem>
+                    <EuiFormControlLayout>
+                        <:field>
+                            <EuiCheckbox
+                                @label="Flag for practice"
+                                @checked={{this.practice}}
+                                {{on "change" this.flagForPractice}}
+                            />
+                        </:field>
+                    </EuiFormControlLayout>
+                </EuiFlexItem>
+
             </EuiFlexGroup>
         </EuiFlexItem>
     </EuiFlexGroup>

@@ -171,14 +171,6 @@ export default class SongCard extends Component<SongCardSignature> {
     }
 
     /**
-     * Transitions to the edit route for the current song.
-     */
-    @action edit(): void {
-        this.args.cacheScroll?.();
-        this.router.transitionTo('songs.edit', this.args.song.id);
-    }
-
-    /**
      * Toggles the needs practice song data.
      */
     @action async togglePractice(): Promise<void> {

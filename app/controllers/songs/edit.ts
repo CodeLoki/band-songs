@@ -36,6 +36,7 @@ export default class SongsEditController extends Controller {
     @tracked ytMusic = '';
     @tracked notes = '';
     @tracked pad = DrumPad.None;
+    @tracked practice = false;
 
     @tracked showDeleteModal = false;
 
@@ -60,7 +61,8 @@ export default class SongsEditController extends Controller {
             groove: data?.groove ?? '',
             ytMusic: data?.ytMusic ?? '',
             notes: data?.notes ?? '',
-            pad: data?.pad ?? DrumPad.None
+            pad: data?.pad ?? DrumPad.None,
+            practice: data?.practice ?? false
         });
     }
 
@@ -120,6 +122,10 @@ export default class SongsEditController extends Controller {
         };
     }
 
+    @action flagForPractice(evt: Event): void {
+        this.practice = (evt.target as HTMLInputElement).checked;
+    }
+
     @action goBack(): void {
         window.history.back();
     }
@@ -138,7 +144,8 @@ export default class SongsEditController extends Controller {
                     pad: this.pad,
                     bands: Object.entries(this.selectedBands)
                         .map(([id, isSelected]) => (isSelected ? model.bands.find((b) => b.id === id)?.ref : undefined))
-                        .filter((b) => !!b)
+                        .filter((b) => !!b),
+                    practice: this.practice
                 };
 
             if (!model.song) {

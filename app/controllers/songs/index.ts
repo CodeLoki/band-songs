@@ -1,6 +1,6 @@
 import BaseSongsController from './base-songs-controller';
 import { tracked } from '@glimmer/tracking';
-import { User, ActionMode } from 'band-songs/utils/songs';
+import { User } from 'band-songs/utils/songs';
 
 import type { ModelFrom } from 'band-songs/utils/general';
 import type Route from 'band-songs/routes/songs';
@@ -17,9 +17,6 @@ export default class SongsIndexController extends BaseSongsController {
     declare model: ModelFrom<Route>;
 
     @tracked view = SongView.All;
-    @tracked mode = ActionMode.Perform;
-
-    lastScrollPosition = 0;
 
     viewOptions: { value: SongView; text: string }[] = [
         {
