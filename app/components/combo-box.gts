@@ -41,18 +41,20 @@ export default class ComboBox<T> extends Component<ComboBoxSignature<T>> {
                     @color="text"
                     @size="m"
                     {{on "click" (fn (mut this.isOpen) true)}}
+                    data-test-combo-box-btn
                 >
                     {{@selectedOption.text}}
                 </EuiButtonEmpty>
             </:button>
             <:content>
-                <EuiFlexGroup @direction="column" @gutterSize="xs">
+                <EuiFlexGroup @direction="column" @gutterSize="xs" data-test-combo-box-menu>
                     {{#each @options as |opt|}}
                         <EuiFlexItem @grow={{false}}>
                             <EuiButtonEmpty
                                 @iconType={{opt.icon}}
                                 @iconSide="right"
                                 {{on "click" (fn this.selectOption opt)}}
+                                data-test-combo-box-item
                             >
                                 {{opt.text}}
                             </EuiButtonEmpty>

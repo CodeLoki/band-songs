@@ -61,7 +61,7 @@ export default class ActionSelector extends Component<ActionSelectorSignature> {
 
     <template>
         {{#if this.isMe}}
-            <EuiFlexItem @grow={{false}}>
+            <EuiFlexItem @grow={{false}} data-test-action-selector>
                 <ComboBox
                     @options={{this.modeOptions}}
                     @selectedOption={{this.selectedOption}}
