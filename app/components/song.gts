@@ -2,6 +2,10 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
+import EuiBadge from '@ember-eui/core/components/eui-badge';
+import EuiCard from '@ember-eui/core/components/eui-card';
+import EuiBadgeGroup from '@ember-eui/core/components/eui-badge-group';
+import EuiPanel from '@ember-eui/core/components/eui-panel';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ActionMode, DrumPad, User, drumPadMap, startsWithMap } from 'band-songs/utils/songs';
 
@@ -141,6 +145,35 @@ export default class SongCard extends Component<SongCardSignature> {
 
         return results;
     }
+
+    <template>
+        <EuiCard
+            @layout="horizontal"
+            @title={{this.data.title}}
+            @description={{this.data.artist}}
+            @icon={{if this.data.practice "flag"}}
+            @contentClassName="song-card-content"
+            @onClick={{this.clickButton}}
+            class="song-card"
+            ...attributes
+        >
+            <:body>
+                {{#if this.notes}}
+                    <EuiPanel @paddingSize="m" @hasShadow={{false}} class="song-notes">
+                        <EuiBadgeGroup @gutterSize="xs" as |Group|>
+                            {{#each this.notes as |note|}}
+                                <Group.item>
+                                    <EuiBadge @iconType={{note.icon}} @color="primary">
+                                        {{note.text}}
+                                    </EuiBadge>
+                                </Group.item>
+                            {{/each}}
+                        </EuiBadgeGroup>
+                    </EuiPanel>
+                {{/if}}
+            </:body>
+        </EuiCard>
+    </template>
 
     /**
      * Executes the first button click when the card is clicked (when there is only one button).

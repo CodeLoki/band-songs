@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    plugins: ['prettier-plugin-ember-template-tag', '@ianvs/prettier-plugin-sort-imports'],
+    plugins: ['@ianvs/prettier-plugin-sort-imports', 'prettier-plugin-ember-template-tag'],
     importOrder: [
         '^@glimmer/(.*)$',
         '^@ember/(.*)$',
