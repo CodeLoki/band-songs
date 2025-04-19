@@ -1,11 +1,11 @@
-import BaseSongsController from './base-songs-controller';
 import { tracked } from '@glimmer/tracking';
 import { User } from 'band-songs/utils/songs';
+import BaseSongsController from './base-songs-controller';
 
-import type { ModelFrom } from 'band-songs/utils/general';
 import type Route from 'band-songs/routes/songs';
-import type { QueryDocumentSnapshot } from 'firebase/firestore';
+import type { ModelFrom } from 'band-songs/utils/general';
 import type { Song } from 'band-songs/utils/songs';
+import type { QueryDocumentSnapshot } from 'firebase/firestore';
 
 enum SongView {
     All = 'all',

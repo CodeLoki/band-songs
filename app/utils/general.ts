@@ -1,7 +1,7 @@
 import { Timestamp } from 'firebase/firestore';
 
-import type { DocumentSnapshot, DocumentData } from 'firebase/firestore';
 import type Route from '@ember/routing/route';
+import type { DocumentData, DocumentSnapshot } from 'firebase/firestore';
 
 export function logError<T extends string>(msg: T, ...args: unknown[]): T {
     console.error(msg, ...args);

@@ -1,4 +1,4 @@
-import type { Timestamp, DocumentReference } from 'firebase/firestore';
+import type { DocumentReference, Timestamp } from 'firebase/firestore';
 import type { Song } from './songs';
 
 export type Gig = {

@@ -4,8 +4,8 @@ import { action } from '@ember/object';
 import { classify } from '@ember/string';
 import { calculateSetListLength } from 'band-songs/utils/songs';
 
-import type { DocumentSnapshot } from 'firebase/firestore';
 import type { Song } from 'band-songs/utils/songs';
+import type { DocumentSnapshot } from 'firebase/firestore';
 
 export type Setlist = 'one' | 'two' | 'pocket';
 

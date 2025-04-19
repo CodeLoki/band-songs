@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
-import { on } from '@ember/modifier';
 import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
+import { on } from '@ember/modifier';
 import { action } from '@ember/object';
 import EuiFlexItem from '@ember-eui/core/components/eui-flex-item';
 import EuiPopover from '@ember-eui/core/components/eui-popover';

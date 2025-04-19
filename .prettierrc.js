@@ -1,7 +1,19 @@
 'use strict';
 
 module.exports = {
-    plugins: ['prettier-plugin-ember-template-tag'],
+    plugins: ['prettier-plugin-ember-template-tag', '@ianvs/prettier-plugin-sort-imports'],
+    importOrder: [
+        '^@glimmer/(.*)$',
+        '^@ember/(.*)$',
+        '<THIRD_PARTY_MODULES>',
+        '^band-songs/(.*)$',
+        '^[./]',
+        '',
+        '<TYPES>',
+        '<TYPES>^[.]'
+    ],
+    importOrderCaseSensitive: true,
+    importOrderParserPlugins: ['typescript', 'decorators-legacy'],
     singleQuote: true,
     tabWidth: 4,
     trailingComma: 'none',

@@ -1,5 +1,5 @@
-import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import type { Band } from 'band-songs/routes/application';
+import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 
 export type Song = {
     /** Song artist. */

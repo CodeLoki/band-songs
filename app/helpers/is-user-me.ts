@@ -1,6 +1,8 @@
 import Helper from '@ember/component/helper';
-import { service, type Registry as ServiceRegistry } from '@ember/service';
+import { service } from '@ember/service';
 import { User } from 'band-songs/utils/songs';
+
+import type { Registry as ServiceRegistry } from '@ember/service';
 
 export interface IsUserMeSignature {
     Args: {

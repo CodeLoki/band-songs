@@ -1,9 +1,11 @@
 import Route from '@ember/routing/route';
-import { service, type Registry as ServiceRegistry } from '@ember/service';
-import { getDocs, collection, type QueryDocumentSnapshot } from 'firebase/firestore';
+import { service } from '@ember/service';
+import { collection, getDocs } from 'firebase/firestore';
 import { sortBy } from 'band-songs/utils/general';
 
+import type { Registry as ServiceRegistry } from '@ember/service';
 import type { ModelFrom } from 'band-songs/utils/general';
+import type { QueryDocumentSnapshot } from 'firebase/firestore';
 
 export type Band = {
     description: string;

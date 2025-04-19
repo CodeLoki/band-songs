@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 
-import type Controller from 'band-songs/controllers/gig/edit';
 import type Transition from '@ember/routing/transition';
+import type Controller from 'band-songs/controllers/gig/edit';
 import type { ModelFrom } from 'band-songs/utils/general';
 import type ParentRoute from '../gig';
 

@@ -1,8 +1,8 @@
+import { tracked } from '@glimmer/tracking';
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { scheduleTask } from 'ember-lifeline';
 import { modifier } from 'ember-modifier';
-import { tracked } from '@glimmer/tracking';
 import { ActionMode } from 'band-songs/utils/songs';
 
 function scrollToCard(x: number): void {

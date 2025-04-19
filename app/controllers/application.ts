@@ -1,9 +1,10 @@
-import Controller from '@ember/controller';
-import { service, type Registry as ServiceRegistry } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+import Controller from '@ember/controller';
 import { action } from '@ember/object';
+import { service } from '@ember/service';
 import { User } from 'band-songs/utils/songs';
 
+import type { Registry as ServiceRegistry } from '@ember/service';
 import type ApplicationRoute from 'band-songs/routes/application';
 import type { Band } from 'band-songs/routes/application';
 import type { ModelFrom } from 'band-songs/utils/general';

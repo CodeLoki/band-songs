@@ -1,6 +1,6 @@
 import Helper from '@ember/component/helper';
 
-import type { DocumentSnapshot, DocumentData } from 'firebase/firestore';
+import type { DocumentData, DocumentSnapshot } from 'firebase/firestore';
 
 export interface GetModelDataValueSignature<T extends DocumentSnapshot> {
     Args: {

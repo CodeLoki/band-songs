@@ -3,8 +3,8 @@ import { service } from '@ember/service';
 import { doc, getDoc } from 'firebase/firestore';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
-import type { DocumentSnapshot } from 'firebase/firestore';
 import type { Song } from 'band-songs/utils/songs';
+import type { DocumentSnapshot } from 'firebase/firestore';
 
 export default class SongsPracticeRoute extends Route {
     @service declare firestore: ServiceRegistry['firestore'];

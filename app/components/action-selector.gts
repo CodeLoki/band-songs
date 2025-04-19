@@ -1,8 +1,8 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
-import ComboBox from './combo-box';
 import EuiFlexItem from '@ember-eui/core/components/eui-flex-item';
 import { User, ActionMode } from 'band-songs/utils/songs';
+import ComboBox from './combo-box';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type { EuiButtonSignature } from '@ember-eui/core/components/eui-button';

@@ -1,13 +1,13 @@
-import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
+import Controller from '@ember/controller';
 import { service } from '@ember/service';
 import { type DocumentSnapshot } from 'firebase/firestore';
 import { GigDateFormatter } from 'band-songs/components/gig-card';
 import { ActionMode } from 'band-songs/utils/songs';
 
+import type { Registry as ServiceRegistry } from '@ember/service';
 import type Route from 'band-songs/routes/gig';
 import type { ModelFrom } from 'band-songs/utils/general';
-import type { Registry as ServiceRegistry } from '@ember/service';
 import type { Song } from 'band-songs/utils/songs';
 
 export default class GigsController extends Controller {

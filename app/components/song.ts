@@ -1,13 +1,15 @@
 import Component from '@glimmer/component';
-import { service, type Registry as ServiceRegistry } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { startsWithMap, DrumPad, drumPadMap, User, ActionMode } from 'band-songs/utils/songs';
 import { action } from '@ember/object';
-import { updateDoc, onSnapshot, type DocumentSnapshot, type Unsubscribe } from 'firebase/firestore';
+import { service } from '@ember/service';
+import { onSnapshot, updateDoc } from 'firebase/firestore';
+import { ActionMode, DrumPad, User, drumPadMap, startsWithMap } from 'band-songs/utils/songs';
 
-import type { Song } from 'band-songs/utils/songs';
 import type { EuiCardSignature } from '@ember-eui/core/components/eui-card';
 import type Owner from '@ember/owner';
+import type { Registry as ServiceRegistry } from '@ember/service';
+import type { Song } from 'band-songs/utils/songs';
+import type { DocumentSnapshot, Unsubscribe } from 'firebase/firestore';
 
 export interface SongCardSignature {
     Element: EuiCardSignature['Element'];

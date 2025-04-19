@@ -1,14 +1,13 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { sortBy } from 'band-songs/utils/general';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
-import type { Gig } from 'band-songs/utils/gigs';
-import type { Song } from 'band-songs/utils/songs';
-import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import type { AppModel } from 'band-songs/routes/application';
-import type { User } from 'band-songs/utils/songs';
+import type { Gig } from 'band-songs/utils/gigs';
+import type { Song, User } from 'band-songs/utils/songs';
+import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 
 export default class GigsRoute extends Route {
     @service declare firestore: ServiceRegistry['firestore'];

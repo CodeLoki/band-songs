@@ -13,9 +13,6 @@
             "band-songs/*": ["app/*"],
             "*": ["types/*"]
         },
-        "types": [
-            "ember-source/types",
-            "@warp-drive/core-types/unstable-preview-types"
-        ]
+        "types": ["ember-source/types"]
     }
 }

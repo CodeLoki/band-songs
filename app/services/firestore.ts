@@ -1,19 +1,20 @@
-import Service, { service, type Registry as ServiceRegistry } from '@ember/service';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import Service, { service } from '@ember/service';
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import ENV from 'band-songs/config/environment';
 import {
     GoogleAuthProvider,
-    getAuth,
-    signInWithPopup,
     browserSessionPersistence,
+    getAuth,
     onAuthStateChanged,
-    type User
+    signInWithPopup
 } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import ENV from 'band-songs/config/environment';
 
 import type Owner from '@ember/owner';
+import type { Registry as ServiceRegistry } from '@ember/service';
+import type { User } from 'firebase/auth';
 
 export default class FirestoreService extends Service {
     @service declare toast: ServiceRegistry['toast'];

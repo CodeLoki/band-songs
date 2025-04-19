@@ -1,16 +1,16 @@
-import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
+import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
-import { addDoc, collection, updateDoc, Timestamp, deleteDoc, type DocumentSnapshot } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, deleteDoc, updateDoc } from 'firebase/firestore';
 import { GigDateFormatter } from 'band-songs/components/gig-card';
 
+import type { Registry as ServiceRegistry } from '@ember/service';
+import type { Setlist } from 'band-songs/components/song-basket';
 import type Route from 'band-songs/routes/gig';
 import type { ModelFrom } from 'band-songs/utils/general';
-import type { Registry as ServiceRegistry } from '@ember/service';
-import type { DocumentReference } from 'firebase/firestore';
 import type { Song } from 'band-songs/utils/songs';
-import type { Setlist } from 'band-songs/components/song-basket';
+import type { DocumentReference, DocumentSnapshot } from 'firebase/firestore';
 
 const dayFormatter = new Intl.DateTimeFormat('en-US', {
     day: '2-digit'
