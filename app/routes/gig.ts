@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { sortBy } from 'band-songs/utils/general';
+import { songConverter } from 'band-songs/utils/songs';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type { AppModel } from 'band-songs/routes/application';
@@ -30,9 +31,9 @@ export default class GigsRoute extends Route {
                         query(
                             collection(this.firestore.db, 'songs'),
                             where('bands', 'array-contains', appModel.band.ref)
-                        )
+                        ).withConverter(songConverter)
                     )
-                ).docs as QueryDocumentSnapshot<Song>[],
+                ).docs,
                 'title'
             );
 

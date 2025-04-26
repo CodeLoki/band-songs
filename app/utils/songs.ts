@@ -1,5 +1,16 @@
 import type { Band } from 'band-songs/routes/application';
-import type { DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
+import type { DocumentSnapshot, FirestoreDataConverter, QueryDocumentSnapshot } from 'firebase/firestore';
+
+export const songConverter: FirestoreDataConverter<Song> = {
+    toFirestore: (song: Song) => song,
+    fromFirestore: (snapshot: QueryDocumentSnapshot, options) => {
+        const data = snapshot.data(options) as Song;
+        return {
+            id: snapshot.id,
+            ...data
+        };
+    }
+};
 
 export type Song = {
     /** Song artist. */

@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { doc, getDoc } from 'firebase/firestore';
+import { songConverter } from 'band-songs/utils/songs';
 
 import type Transition from '@ember/routing/transition';
 import type { Registry as ServiceRegistry } from '@ember/service';
@@ -25,7 +26,7 @@ export default class SongsEditRoute extends Route {
             song =
                 song_id === 'new'
                     ? undefined
-                    : ((await getDoc(doc(this.firestore.db, 'songs', song_id))) as DocumentSnapshot<Song>);
+                    : await getDoc(doc(this.firestore.db, 'songs', song_id).withConverter(songConverter));
 
         return {
             ...appModel,

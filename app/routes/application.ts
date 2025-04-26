@@ -5,7 +5,18 @@ import { sortBy } from 'band-songs/utils/general';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type { ModelFrom } from 'band-songs/utils/general';
-import type { QueryDocumentSnapshot } from 'firebase/firestore';
+import type { FirestoreDataConverter, QueryDocumentSnapshot } from 'firebase/firestore';
+
+const bandConverter: FirestoreDataConverter<Band> = {
+    toFirestore: (band: Band) => band,
+    fromFirestore: (snapshot: QueryDocumentSnapshot, options) => {
+        const data = snapshot.data(options) as Band;
+        return {
+            id: snapshot.id,
+            ...data
+        };
+    }
+};
 
 export type Band = {
     description: string;
@@ -30,7 +41,7 @@ export default class ApplicationRoute extends Route {
         band: QueryDocumentSnapshot<Band>;
     }> {
         const { firestore } = this,
-            bands = (await getDocs(collection(firestore.db, 'bands'))).docs as QueryDocumentSnapshot<Band>[],
+            bands = (await getDocs(collection(firestore.db, 'bands').withConverter(bandConverter))).docs,
             band = bands.find((band) => band.id === b);
 
         if (!band) {
