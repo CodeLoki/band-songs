@@ -4,12 +4,12 @@ import SongCard from 'band-songs/components/song-card';
 
 import type { TOC } from '@ember/component/template-only';
 import type { Gig } from 'band-songs/utils/gigs';
-import type { ActionMode, Song as SongType, User } from 'band-songs/utils/songs';
+import type { ActionMode, Song, User } from 'band-songs/utils/songs';
 import type { DocumentSnapshot } from 'firebase/firestore';
 
 export interface SetListSignature {
     Args: {
-        songs: DocumentSnapshot<SongType>[];
+        songs: DocumentSnapshot<Song>[];
         user: User;
         gig?: DocumentSnapshot<Gig>;
         title?: string;

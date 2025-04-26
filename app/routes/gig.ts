@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { sortBy } from 'band-songs/utils/general';
+import { gigConverter } from 'band-songs/utils/gigs';
 import { songConverter } from 'band-songs/utils/songs';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
@@ -48,8 +49,8 @@ export default class GigsRoute extends Route {
             };
         }
 
-        const gig = (await getDoc(doc(this.firestore.db, 'gigs', gig_id))) as DocumentSnapshot<Gig>,
-            data = gig.data() as Gig,
+        const gig = await getDoc(doc(this.firestore.db, 'gigs', gig_id).withConverter(gigConverter)),
+            data = gig.data()!,
             one = await Promise.all(data.one.map((d) => getDoc(d))),
             two = await Promise.all(data.two.map((d) => getDoc(d))),
             pocket = await Promise.all(data.pocket.map((d) => getDoc(d)));

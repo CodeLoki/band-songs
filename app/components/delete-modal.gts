@@ -6,6 +6,7 @@ import EuiTitle from '@ember-eui/core/components/eui-title';
 import EuiText from '@ember-eui/core/components/eui-text';
 import EuiButton from '@ember-eui/core/components/eui-button';
 import { on } from '@ember/modifier';
+
 import type { TOC } from '@ember/component/template-only';
 
 export interface DeleteModalSignature {
