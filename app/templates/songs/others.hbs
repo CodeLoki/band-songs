@@ -25,14 +25,12 @@
     <EuiFlexItem @grow={{true}} class="main-songs-list">
         <EuiFlexGrid @columns={{3}} @responsive={{true}}>
             {{#each @model.songs as |song|}}
-                <EuiFlexItem>
-                    <Song
-                        @user={{@model.user}}
-                        @song={{song}}
-                        @cacheScroll={{this.cacheScrollPosition}}
-                        @mode={{this.mode}}
-                    />
-                </EuiFlexItem>
+                <Song
+                    @user={{@model.user}}
+                    @song={{song}}
+                    @cacheScroll={{this.cacheScrollPosition}}
+                    @mode={{this.mode}}
+                />
             {{/each}}
             <div {{this.scrollToSong}} />
         </EuiFlexGrid>

@@ -6,6 +6,7 @@ import EuiBadge from '@ember-eui/core/components/eui-badge';
 import EuiCard from '@ember-eui/core/components/eui-card';
 import EuiBadgeGroup from '@ember-eui/core/components/eui-badge-group';
 import EuiPanel from '@ember-eui/core/components/eui-panel';
+import EuiFlexItem from '@ember-eui/core/components/eui-flex-item';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { ActionMode, DrumPad, User, drumPadMap, startsWithMap } from 'band-songs/utils/songs';
 
@@ -147,32 +148,34 @@ export default class SongCard extends Component<SongCardSignature> {
     }
 
     <template>
-        <EuiCard
-            @layout="horizontal"
-            @title={{this.data.title}}
-            @description={{this.data.artist}}
-            @icon={{if this.data.practice "flag"}}
-            @contentClassName="song-card-content"
-            @onClick={{this.clickButton}}
-            class="song-card"
-            ...attributes
-        >
-            <:body>
-                {{#if this.notes}}
-                    <EuiPanel @paddingSize="m" @hasShadow={{false}} class="song-notes">
-                        <EuiBadgeGroup @gutterSize="xs" as |Group|>
-                            {{#each this.notes as |note|}}
-                                <Group.item>
-                                    <EuiBadge @iconType={{note.icon}} @color="primary">
-                                        {{note.text}}
-                                    </EuiBadge>
-                                </Group.item>
-                            {{/each}}
-                        </EuiBadgeGroup>
-                    </EuiPanel>
-                {{/if}}
-            </:body>
-        </EuiCard>
+        <EuiFlexItem>
+            <EuiCard
+                @layout="horizontal"
+                @title={{this.data.title}}
+                @description={{this.data.artist}}
+                @icon={{if this.data.practice "flag"}}
+                @contentClassName="song-card-content"
+                @onClick={{this.clickButton}}
+                class="song-card"
+                ...attributes
+            >
+                <:body>
+                    {{#if this.notes}}
+                        <EuiPanel @paddingSize="m" @hasShadow={{false}} class="song-notes">
+                            <EuiBadgeGroup @gutterSize="xs" as |Group|>
+                                {{#each this.notes as |note|}}
+                                    <Group.item>
+                                        <EuiBadge @iconType={{note.icon}} @color="primary">
+                                            {{note.text}}
+                                        </EuiBadge>
+                                    </Group.item>
+                                {{/each}}
+                            </EuiBadgeGroup>
+                        </EuiPanel>
+                    {{/if}}
+                </:body>
+            </EuiCard>
+        </EuiFlexItem>
     </template>
 
     /**

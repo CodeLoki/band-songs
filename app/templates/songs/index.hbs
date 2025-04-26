@@ -60,14 +60,12 @@
         {{#if this.songs.length}}
             <EuiFlexGrid @columns={{3}} @responsive={{true}}>
                 {{#each this.songs as |song|}}
-                    <EuiFlexItem>
-                        <Song
-                            @user={{@model.user}}
-                            @song={{song}}
-                            @mode={{this.mode}}
-                            @cacheScroll={{this.cacheScrollPosition}}
-                        />
-                    </EuiFlexItem>
+                    <Song
+                        @user={{@model.user}}
+                        @song={{song}}
+                        @mode={{this.mode}}
+                        @cacheScroll={{this.cacheScrollPosition}}
+                    />
                 {{/each}}
                 <div {{this.scrollToSong}} />
             </EuiFlexGrid>
