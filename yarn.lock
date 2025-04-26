@@ -6048,14 +6048,6 @@ ember-power-select@^8.7.0:
     ember-modifier "^4.2.0"
     ember-truth-helpers "^4.0.3"
 
-ember-promise-helpers@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ember-promise-helpers/-/ember-promise-helpers-2.0.0.tgz#73eed25c9e0f3e66ca4d19f2fb7f221b61abff1c"
-  integrity sha512-ZQlzSRjCdDgGBlXHtk+LKmxOlXWKalBBZrmYlr2X/kqNf7vaVUnlKQD1T+sRzwnsZZTQwL5PKfLmSWF3hFD69g==
-  dependencies:
-    ember-cli-babel "^7.26.6"
-    ember-cli-htmlbars "^5.7.1"
-
 ember-qunit@^9.0.1:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/ember-qunit/-/ember-qunit-9.0.2.tgz#4aa1857b6633d244de644ecaa7af441d42b7ac37"

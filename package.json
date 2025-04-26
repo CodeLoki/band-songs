@@ -70,7 +70,6 @@
         "ember-modifier": "^4.2.0",
         "ember-page-title": "^9.0.1",
         "ember-power-select": "^8.7.0",
-        "ember-promise-helpers": "^2.0.0",
         "ember-qunit": "^9.0.1",
         "ember-resolver": "^13.1.0",
         "ember-source": "~6.3.0",
