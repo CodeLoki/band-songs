@@ -220,6 +220,6 @@ export default class SongCard extends Component<SongCardSignature> {
 
 declare module '@glint/environment-ember-loose/registry' {
     export default interface Registry {
-        Song: typeof SongCard;
+        SongCard: typeof SongCard;
     }
 }

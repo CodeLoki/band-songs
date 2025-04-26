@@ -60,7 +60,7 @@
         {{#if this.songs.length}}
             <EuiFlexGrid @columns={{3}} @responsive={{true}}>
                 {{#each this.songs as |song|}}
-                    <Song
+                    <SongCard
                         @user={{@model.user}}
                         @song={{song}}
                         @mode={{this.mode}}

@@ -1,6 +1,6 @@
 import SetListTitle from 'band-songs/components/set-list-title';
 import EuiFlexGrid from '@ember-eui/core/components/eui-flex-grid';
-import Song from 'band-songs/components/song';
+import SongCard from 'band-songs/components/song-card';
 
 import type { TOC } from '@ember/component/template-only';
 import type { Gig } from 'band-songs/utils/gigs';
@@ -24,7 +24,7 @@ const SetList: TOC<SetListSignature> = <template>
 
     <EuiFlexGrid @columns={{1}}>
         {{#each @songs as |song|}}
-            <Song @user={{@user}} @song={{song}} @mode={{@mode}} />
+            <SongCard @user={{@user}} @song={{song}} @mode={{@mode}} />
         {{/each}}
     </EuiFlexGrid>
 </template>;
