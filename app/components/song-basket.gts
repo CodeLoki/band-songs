@@ -4,6 +4,8 @@ import { action } from '@ember/object';
 import { classify } from '@ember/string';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
+import not from 'band-songs/helpers/not';
+import eq from 'band-songs/helpers/eq';
 import EuiBadge from '@ember-eui/core/components/eui-badge';
 import EuiBadgeGroup from '@ember-eui/core/components/eui-badge-group';
 import EuiButtonIcon from '@ember-eui/core/components/eui-button-icon';
@@ -12,7 +14,6 @@ import EuiFlexItem from '@ember-eui/core/components/eui-flex-item';
 import EuiPanel from '@ember-eui/core/components/eui-panel';
 import EuiSpacer from '@ember-eui/core/components/eui-spacer';
 import EuiTitle from '@ember-eui/core/components/eui-title';
-import { eq, not } from 'ember-truth-helpers';
 import { calculateSetListLength } from 'band-songs/utils/songs';
 
 import type { Song } from 'band-songs/utils/songs';
