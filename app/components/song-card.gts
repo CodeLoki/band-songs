@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 import { service } from '@ember/service';
 import EuiBadge from '@ember-eui/core/components/eui-badge';
 import EuiCard from '@ember-eui/core/components/eui-card';
@@ -8,9 +7,11 @@ import EuiBadgeGroup from '@ember-eui/core/components/eui-badge-group';
 import EuiPanel from '@ember-eui/core/components/eui-panel';
 import EuiFlexItem from '@ember-eui/core/components/eui-flex-item';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
-import { ActionMode, DrumPad, User, drumPadMap, startsWithMap } from 'band-songs/utils/songs';
+import { ActionMode, DrumPad, User, drumPadMap, startsWithMap, instrumentMap } from 'band-songs/utils/songs';
+import { Instrument } from 'band-songs/utils/songs';
 
 import type { EuiCardSignature } from '@ember-eui/core/components/eui-card';
+import type { EuiBadgeSignature } from '@ember-eui/core/components/eui-badge';
 import type Owner from '@ember/owner';
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type { Song } from 'band-songs/utils/songs';
@@ -92,6 +93,7 @@ function getTabLink(song: Song, tabSource: TabSource): string | undefined {
 type Note = {
     icon: string;
     text: string;
+    color: EuiBadgeSignature['Args']['color'];
 };
 
 export default class SongCard extends Component<SongCardSignature> {
@@ -118,31 +120,58 @@ export default class SongCard extends Component<SongCardSignature> {
         this.unsub();
     }
 
+    get isMe(): boolean {
+        return this.args.user === User.Me;
+    }
+
+    get cardIcon(): string | undefined {
+        if (this.isMe && this.data.practice) {
+            return 'flag';
+        }
+
+        return undefined;
+    }
+
     /**
      * Notes about the song.
      */
     get notes(): Note[] {
         const { data } = this,
             results: Note[] = [],
-            fnAddNote = (text: string, icon = ''): number =>
+            fnAddNote = (text: string, icon = '', color: EuiBadgeSignature['Args']['color'] = 'primary'): number =>
                 results.push({
                     icon,
-                    text
+                    text,
+                    color
                 });
 
-        if (this.args.user === User.Me) {
+        // Always show starts with.
+        fnAddNote(startsWithMap.get(data.startsWith)!, 'clock');
+
+        if (this.isMe) {
             const { pad } = data;
             if (pad > DrumPad.None) {
-                fnAddNote(drumPadMap.get(pad)!, 'starFilled');
+                fnAddNote(drumPadMap.get(pad)!, 'starFilled', 'warning');
             }
 
             const { notes } = data;
             if (notes) {
-                fnAddNote(notes);
+                fnAddNote(notes, 'shard', 'success');
             }
         }
 
-        fnAddNote(startsWithMap.get(data.startsWith)!);
+        if (this.args.user === User.Mixer) {
+            const { features, solos } = data;
+            if (features && features !== Instrument.None) {
+                fnAddNote(instrumentMap.get(features)!, 'starFilled', 'success');
+            }
+
+            if (solos?.length > 0) {
+                solos.forEach((inst) => {
+                    fnAddNote(instrumentMap.get(inst)!, 'bullseye', 'warning');
+                });
+            }
+        }
 
         return results;
     }
@@ -153,7 +182,7 @@ export default class SongCard extends Component<SongCardSignature> {
                 @layout="horizontal"
                 @title={{this.data.title}}
                 @description={{this.data.artist}}
-                @icon={{if this.data.practice "flag"}}
+                @icon={{this.cardIcon}}
                 @contentClassName="song-card-content"
                 @onClick={{this.clickButton}}
                 class="song-card"
@@ -165,7 +194,7 @@ export default class SongCard extends Component<SongCardSignature> {
                             <EuiBadgeGroup @gutterSize="xs" as |Group|>
                                 {{#each this.notes as |note|}}
                                     <Group.item>
-                                        <EuiBadge @iconType={{note.icon}} @color="primary">
+                                        <EuiBadge @iconType={{note.icon}} @color={{note.color}}>
                                             {{note.text}}
                                         </EuiBadge>
                                     </Group.item>
@@ -181,7 +210,7 @@ export default class SongCard extends Component<SongCardSignature> {
     /**
      * Executes the first button click when the card is clicked (when there is only one button).
      */
-    @action async clickButton(): Promise<void> {
+    clickButton = async (): Promise<void> => {
         const { args } = this,
             { mode } = args;
 
@@ -206,16 +235,16 @@ export default class SongCard extends Component<SongCardSignature> {
         if (link) {
             window.open(link);
         }
-    }
+    };
 
     /**
      * Toggles the needs practice song data.
      */
-    @action async togglePractice(): Promise<void> {
+    togglePractice = async (): Promise<void> => {
         await updateDoc(this.args.song.ref, {
             practice: !this.data.practice
         });
-    }
+    };
 }
 
 declare module '@glint/environment-ember-loose/registry' {

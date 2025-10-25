@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
-import { action } from '@ember/object';
 import EuiFlexItem from '@ember-eui/core/components/eui-flex-item';
 import EuiPopover from '@ember-eui/core/components/eui-popover';
 import EuiButtonEmpty from '@ember-eui/core/components/eui-button-empty';
@@ -27,10 +26,10 @@ export interface ComboBoxSignature<T> {
 export default class ComboBox<T> extends Component<ComboBoxSignature<T>> {
     @tracked isOpen = false;
 
-    @action selectOption(option: OptionInfo<T>): void {
+    selectOption = (option: OptionInfo<T>): void => {
         this.args.changeSelection(option.value);
         this.isOpen = false;
-    }
+    };
 
     <template>
         <EuiPopover @isOpen={{this.isOpen}} @closePopover={{fn (mut this.isOpen) false}}>

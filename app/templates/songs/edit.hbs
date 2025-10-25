@@ -25,214 +25,135 @@
         <EuiFlexItem>
             <EuiFlexGroup @direction="column" @gutterSize="s">
                 <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtTitle" class={{classes}}>
-                                Title
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiFieldText
-                                @value={{this.title}}
-                                @id="txtTitle"
-                                @fullWidth={{true}}
-                                {{on
-                                    "change"
-                                    (fn this.updateStringValue "title")
-                                }}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
+                    <FormControl @label="Title" as |id|>
+                        <EuiFieldText
+                            @value={{this.title}}
+                            id={{id}}
+                            @fullWidth={{true}}
+                            {{on "change" (fn this.updateStringValue "title")}}
+                        />
+                    </FormControl>
                 </EuiFlexItem>
 
                 <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtArtist" class={{classes}}>
-                                Artist
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiFieldText
-                                @value={{this.artist}}
-                                @id="txtArtist"
-                                @fullWidth={{true}}
-                                {{on
-                                    "change"
-                                    (fn this.updateStringValue "artist")
-                                }}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
+                    <FormControl @label="Artist" as |id|>
+                        <EuiFieldText
+                            @value={{this.artist}}
+                            id={{id}}
+                            @fullWidth={{true}}
+                            {{on "change" (fn this.updateStringValue "artist")}}
+                        />
+                    </FormControl>
                 </EuiFlexItem>
 
                 <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtLength" class={{classes}}>
-                                Length
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiFieldNumber
-                                @value={{this.length}}
-                                @id="txtLength"
-                                @fullWidth={{true}}
-                                {{on
-                                    "change"
-                                    (fn this.updateNumberValue "length")
-                                }}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
+                    <FormControl @label="Length" as |id|>
+                        <EuiFieldNumber
+                            @value={{this.length}}
+                            id={{id}}
+                            @fullWidth={{true}}
+                            {{on "change" (fn this.updateNumberValue "length")}}
+                        />
+                    </FormControl>
                 </EuiFlexItem>
 
                 <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="selStartsWith" class={{classes}}>
-                                Starts With
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiSelect
-                                @value={{this.startsWith}}
-                                @options={{this.startsWithOptions}}
-                                @fullWidth={{true}}
-                                id="selStartsWith"
-                                {{on "change" this.updateStartsWith}}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
+                    <FormControl @label="Starts With" as |id|>
+                        <EuiSelect
+                            @value={{this.startsWith}}
+                            @options={{this.startsWithOptions}}
+                            @fullWidth={{true}}
+                            id={{id}}
+                            {{on "change" this.updateStartsWith}}
+                        />
+                    </FormControl>
                 </EuiFlexItem>
 
                 <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control auto-height"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtGroove" class={{classes}}>
-                                GrooveScribe
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiTextArea
-                                @value={{this.groove}}
-                                @fullWidth={{true}}
-                                rows={{5}}
-                                id="txtGroove"
-                                {{on
-                                    "change"
-                                    (fn this.updateStringValue "groove")
-                                }}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
+                    <FormControl @label="Features" as |id|>
+                        <EuiSelect
+                            @value={{this.features}}
+                            @options={{this.featuresOptions}}
+                            @fullWidth={{true}}
+                            id={{id}}
+                            {{on "change" this.updateFeatures}}
+                        />
+                    </FormControl>
                 </EuiFlexItem>
 
                 <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtYtMusic" class={{classes}}>
-                                YT Music
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiFieldText
-                                @value={{this.ytMusic}}
-                                @id="txtYtMusic"
-                                @fullWidth={{true}}
-                                {{on
-                                    "change"
-                                    (fn this.updateStringValue "ytMusic")
-                                }}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
+                    <FormControl @label="Solos" class="auto-height" as |id|>
+                        <InstrumentSelector
+                            @selectedInstruments={{this.solos}}
+                            @changeSelection={{this.updateSolos}}
+                            id={{id}}
+                        />
+                    </FormControl>
                 </EuiFlexItem>
 
                 <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control"
+                    <FormControl
+                        @label="GrooveScribe"
+                        class="auto-height"
+                        as |id|
                     >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="txtNotes" class={{classes}}>
-                                Drum Notes
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiFieldText
-                                @value={{this.notes}}
-                                @id="txtNotes"
-                                @fullWidth={{true}}
-                                {{on
-                                    "change"
-                                    (fn this.updateStringValue "notes")
-                                }}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
+                        <EuiTextArea
+                            @value={{this.groove}}
+                            @fullWidth={{true}}
+                            rows={{5}}
+                            id={{id}}
+                            {{on "change" (fn this.updateStringValue "groove")}}
+                        />
+                    </FormControl>
                 </EuiFlexItem>
 
                 <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="selPad" class={{classes}}>
-                                Percussion pad
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiSelect
-                                @value={{this.pad}}
-                                @fullWidth={{true}}
-                                @options={{this.padOptions}}
-                                id="selPad"
-                                {{on "change" this.updatePad}}
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
+                    <FormControl @label="YT Music" as |id|>
+                        <EuiFieldText
+                            @value={{this.ytMusic}}
+                            id={{id}}
+                            @fullWidth={{true}}
+                            {{on
+                                "change"
+                                (fn this.updateStringValue "ytMusic")
+                            }}
+                        />
+                    </FormControl>
                 </EuiFlexItem>
 
                 <EuiFlexItem>
-                    <EuiFormControlLayout
-                        @fullWidth={{true}}
-                        class="form-control auto-height"
-                    >
-                        <:prepend as |classes|>
-                            <EuiFormLabel for="chkBands" class={{classes}}>
-                                Bands
-                            </EuiFormLabel>
-                        </:prepend>
-                        <:field>
-                            <EuiCheckboxGroup
-                                @options={{this.bandOptions}}
-                                @idToSelectedMap={{this.selectedBands}}
-                                @valueKey="value"
-                                @onChange={{this.selectBands}}
-                                id="chkBands"
-                            />
-                        </:field>
-                    </EuiFormControlLayout>
+                    <FormControl @label="Drum Notes" as |id|>
+                        <EuiFieldText
+                            @value={{this.notes}}
+                            id={{id}}
+                            @fullWidth={{true}}
+                            {{on "change" (fn this.updateStringValue "notes")}}
+                        />
+                    </FormControl>
+                </EuiFlexItem>
+
+                <EuiFlexItem>
+                    <FormControl @label="Percussion Pad" as |id|>
+                        <EuiSelect
+                            @value={{this.pad}}
+                            @fullWidth={{true}}
+                            @options={{this.padOptions}}
+                            id={{id}}
+                            {{on "change" this.updatePad}}
+                        />
+                    </FormControl>
+                </EuiFlexItem>
+
+                <EuiFlexItem>
+                    <FormControl @label="Bands" class="auto-height" as |id|>
+                        <EuiCheckboxGroup
+                            @options={{this.bandOptions}}
+                            @idToSelectedMap={{this.selectedBands}}
+                            @valueKey="value"
+                            @onChange={{this.selectBands}}
+                            id={{id}}
+                        />
+                    </FormControl>
                 </EuiFlexItem>
 
                 <EuiFlexItem>

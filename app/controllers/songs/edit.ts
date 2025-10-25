@@ -1,22 +1,16 @@
 import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 import Controller from '@ember/controller';
-import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { addDoc, collection, deleteDoc, updateDoc } from 'firebase/firestore';
-import { DrumPad, StartsWith, drumPadMap, startsWithMap } from 'band-songs/utils/songs';
+import { DrumPad, Instrument, StartsWith, drumPadMap, instrumentMap, startsWithMap } from 'band-songs/utils/songs';
 
 import type { Registry as ServiceRegistry } from '@ember/service';
 import type Route from 'band-songs/routes/songs/edit';
 import type { ModelFrom } from 'band-songs/utils/general';
 
-type StartsWithItem = {
-    value: StartsWith;
-    text: string;
-};
-
-type PadItem = {
-    value: DrumPad;
+type Options<T> = {
+    value: T;
     text: string;
 };
 
@@ -30,6 +24,8 @@ export default class SongsEditController extends Controller {
     @tracked artist = '';
     @tracked length = 0;
     @tracked startsWith = StartsWith.All;
+    @tracked features = Instrument.None;
+    @tracked solos: Instrument[] = [];
     @tracked selectedBands: Record<string, boolean> = {};
 
     @tracked groove = '';
@@ -48,6 +44,8 @@ export default class SongsEditController extends Controller {
             artist: data?.artist ?? '',
             length: data?.length ?? 0,
             startsWith: data?.startsWith ?? StartsWith.All,
+            features: data?.features ?? Instrument.None,
+            solos: data?.solos ?? [],
 
             selectedBands: (data?.bands ?? model.bands).reduce<Record<string, boolean>>(
                 (m, band) => ({
@@ -66,24 +64,31 @@ export default class SongsEditController extends Controller {
         });
     }
 
-    get startsWithOptions(): StartsWithItem[] {
-        const items: StartsWithItem[] = [];
+    private getOptionsFromEnum<T>(map: Map<T, string>): Options<T>[] {
+        const items: Options<T>[] = [];
 
-        startsWithMap.forEach((text, value) => {
+        map.forEach((text, value) => {
             items.push({ value, text });
         });
 
-        return A(items).sortBy('text');
+        // Sort so 'None' is always first, then alphabetically
+        return A(items).sort((a, b) => {
+            if (a.text === 'None') return -1;
+            if (b.text === 'None') return 1;
+            return a.text.localeCompare(b.text);
+        });
     }
 
-    get padOptions(): PadItem[] {
-        const items: PadItem[] = [];
+    get startsWithOptions(): Options<StartsWith>[] {
+        return this.getOptionsFromEnum<StartsWith>(startsWithMap);
+    }
 
-        drumPadMap.forEach((text, value) => {
-            items.push({ text, value });
-        });
+    get featuresOptions(): Options<Instrument>[] {
+        return this.getOptionsFromEnum<Instrument>(instrumentMap);
+    }
 
-        return A(items).sortBy('text');
+    get padOptions(): Options<DrumPad>[] {
+        return this.getOptionsFromEnum<DrumPad>(drumPadMap);
     }
 
     get bandOptions(): { value: string; label: string }[] {
@@ -97,40 +102,48 @@ export default class SongsEditController extends Controller {
         this.toast.showToast(`Song "${this.title}" ${type}`);
     }
 
-    @action updateStringValue(n: 'title' | 'artist' | 'groove' | 'ytMusic' | 'notes', evt: Event): void {
+    updateStringValue = (n: 'title' | 'artist' | 'groove' | 'ytMusic' | 'notes', evt: Event): void => {
         this[n] = (evt.target as HTMLInputElement).value ?? '';
-    }
+    };
 
-    @action updateNumberValue(n: 'length', evt: Event): void {
+    updateNumberValue = (n: 'length', evt: Event): void => {
         this[n] = parseInt((evt.target as HTMLInputElement).value ?? '0', 10);
-    }
+    };
 
-    @action updateStartsWith(evt: Event): void {
+    updateStartsWith = (evt: Event): void => {
         this.startsWith = Number((evt.target as HTMLSelectElement).value) as StartsWith;
-    }
+    };
 
-    @action updatePad(evt: Event): void {
+    updateFeatures = (evt: Event): void => {
+        this.features = Number((evt.target as HTMLSelectElement).value) as Instrument;
+    };
+
+    updateSolos = (instruments: Instrument[]): void => {
+        this.solos = instruments;
+    };
+
+    updatePad = (evt: Event): void => {
         this.pad = Number((evt.target as HTMLSelectElement).value) as DrumPad;
-    }
+    };
 
-    @action selectBands(id: string): void {
+    selectBands = (id: string): void => {
         this.selectedBands = {
             ...this.selectedBands,
             ...{
                 [id]: !this.selectedBands[id]
             }
         };
-    }
+    };
 
-    @action flagForPractice(evt: Event): void {
+    flagForPractice = (evt: Event): void => {
         this.practice = (evt.target as HTMLInputElement).checked;
-    }
+    };
 
-    @action goBack(): void {
+    goBack = (): void => {
         window.history.back();
-    }
+    };
 
-    @action async save(): Promise<void> {
+    save = async (): Promise<void> => {
         try {
             const { model } = this,
                 data = {
@@ -138,6 +151,8 @@ export default class SongsEditController extends Controller {
                     title: this.title,
                     length: this.length,
                     startsWith: this.startsWith,
+                    features: this.features,
+                    solos: this.solos,
                     groove: this.groove,
                     ytMusic: this.ytMusic,
                     notes: this.notes,
@@ -160,13 +175,13 @@ export default class SongsEditController extends Controller {
         } catch (ex) {
             this.toast.showError('saving', ex);
         }
-    }
+    };
 
-    @action toggleDeleteModal(): void {
+    toggleDeleteModal = (): void => {
         this.showDeleteModal = !this.showDeleteModal;
-    }
+    };
 
-    @action async delete(): Promise<void> {
+    delete = async (): Promise<void> => {
         try {
             const { model } = this;
             if (model.song) {
@@ -177,5 +192,5 @@ export default class SongsEditController extends Controller {
         } catch (ex) {
             this.toast.showError('deleting', ex);
         }
-    }
+    };
 }

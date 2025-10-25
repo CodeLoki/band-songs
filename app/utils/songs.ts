@@ -21,6 +21,10 @@ export type Song = {
     length: number;
     /** The musician that starts the song. */
     startsWith: StartsWith;
+    /** The instrument featured in this song. */
+    features: Instrument;
+    /** The instruments that solo in this song (in order) */
+    solos: Instrument[];
     /** The groovescribe drum tab. */
     groove: string;
     /** Any non-groovescribe drum tab. */
@@ -93,6 +97,28 @@ export const startsWithMap = new Map<StartsWith, string>([
     [StartsWith.Trumpet, 'Trumpet']
 ]);
 
+export enum Instrument {
+    None = -1,
+    Drums,
+    Bass,
+    LeadGuitar,
+    RhythmGuitar,
+    Keys,
+    Vocals,
+    Trumpet
+}
+
+export const instrumentMap = new Map<Instrument, string>([
+    [Instrument.None, 'None'],
+    [Instrument.Drums, 'Drums'],
+    [Instrument.Bass, 'Bass'],
+    [Instrument.LeadGuitar, 'Lead Guitar'],
+    [Instrument.RhythmGuitar, 'Rhythm Guitar'],
+    [Instrument.Keys, 'Keys'],
+    [Instrument.Vocals, 'Vocals'],
+    [Instrument.Trumpet, 'Trumpet']
+]);
+
 export enum ActionMode {
     Perform,
     Rehearse,
@@ -105,7 +131,8 @@ export enum User {
     None = '',
     Me = 'z',
     Vocals = 'vocals',
-    Guitars = 'guitars'
+    Guitars = 'guitars',
+    Mixer = 'mix'
 }
 
 export function calculateSetListLength(songs: DocumentSnapshot<Song>[]): string {
